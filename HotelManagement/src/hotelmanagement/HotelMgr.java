@@ -78,8 +78,8 @@ public class HotelMgr {
 	 * 
 	 * @param resId
 	 */
-	public void printReservationReceipt(int resId) {
-		// TODO - implement HotelMgr.printReservationReceipt
+	public void getReservationReceipt(int resId) {
+		// TODO - implement HotelMgr.getReservationReceipt
 		throw new UnsupportedOperationException();
 	}
 
@@ -87,8 +87,8 @@ public class HotelMgr {
 	 * 
 	 * @param guestId
 	 */
-	public void printReservationReceipt2(int guestId) {
-		// TODO - implement HotelMgr.printReservationReceipt2
+	public void getReservationReceipt(String guestId) {
+		// TODO - implement HotelMgr.getReservationReceipt
 		throw new UnsupportedOperationException();
 	}
 
@@ -98,6 +98,11 @@ public class HotelMgr {
 	 */
 	public boolean checkOutByGuest(String guest) {
 		// TODO - implement HotelMgr.checkOutByGuest
+		throw new UnsupportedOperationException();
+	}
+
+	public void createReservation() {
+		// TODO - implement HotelMgr.createReservation
 		throw new UnsupportedOperationException();
 	}
 

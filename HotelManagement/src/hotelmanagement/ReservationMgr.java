@@ -1,17 +1,38 @@
-public class ReservationMgr {
+public class ReservationMgr implements Manager {
 
-	public boolean createReservation() {
+	/**
+	 * 
+	 * @param reservation
+	 */
+	public boolean createReservation(Reservation reservation) {
 		// TODO - implement ReservationMgr.createReservation
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean updateReservation() {
+	/**
+	 * 
+	 * @param reservation
+	 */
+	public boolean updateReservation(Reservation reservation) {
 		// TODO - implement ReservationMgr.updateReservation
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean removeReservation() {
+	/**
+	 * 
+	 * @param reservationId
+	 */
+	public boolean removeReservation(int reservationId) {
 		// TODO - implement ReservationMgr.removeReservation
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param reservationId
+	 */
+	public Guest getReservation(int reservationId) {
+		// TODO - implement ReservationMgr.getReservation
 		throw new UnsupportedOperationException();
 	}
 

@@ -1,4 +1,4 @@
-public class Room {
+public abstract class Room {
 
 	private static final int maxOccupancy;
 	private int roomId;
