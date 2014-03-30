@@ -1,17 +1,35 @@
+package hotelmanagement;
 public class Guest {
 
-	Room room;
-	private string guestId;
-	private string FirstName;
+	//Room room;
+	private String guestId;
+	private String FirstName;
 	private String lastName;
-	private TitleType title;
-	private string address;
-	private string country;
+	private String title;
+	private String address;
+	private String country;
 	private char gender;
 	private int contactNo;
-	private string email;
+	private String email;
 
-	public string getGuestId() {
+        public Guest(String guestId,String FirstName,String lastName,
+         String title,String address,String country,char gender,int contactNo,String email)
+        {
+            this.FirstName = FirstName;
+            this.address = address;
+            this.contactNo = contactNo;
+            this.country = country;
+            this.email = email;
+            this.gender = gender;
+            this.guestId = guestId;
+            this.lastName = lastName;
+            this.title = title;
+            
+        }
+        
+       
+        
+	public String getGuestId() {
 		return this.guestId;
 	}
 
@@ -19,20 +37,20 @@ public class Guest {
 	 * 
 	 * @param guestId
 	 */
-	public void setGuestId(string guestId) {
+	public void setGuestId(String guestId) {
 		this.guestId = guestId;
 	}
 
-	public string getFirstName() {
+	public String getFirstName() {
 		// TODO - implement Guest.getFirstName
-		throw new UnsupportedOperationException();
+		return this.FirstName;
 	}
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public void setFirstName(int name) {
+	public void setFirstName(String name) {
 		// TODO - implement Guest.setFirstName
 		throw new UnsupportedOperationException();
 	}
@@ -49,7 +67,7 @@ public class Guest {
 		this.lastName = lastName;
 	}
 
-	public TitleType getTitle() {
+	public String getTitle() {
 		return this.title;
 	}
 
@@ -57,11 +75,11 @@ public class Guest {
 	 * 
 	 * @param title
 	 */
-	public void setTitle(TitleType title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public string getAddress() {
+	public String getAddress() {
 		return this.address;
 	}
 
@@ -69,11 +87,11 @@ public class Guest {
 	 * 
 	 * @param address
 	 */
-	public void setAddress(string address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public string getCountry() {
+	public String getCountry() {
 		return this.country;
 	}
 
@@ -81,7 +99,7 @@ public class Guest {
 	 * 
 	 * @param country
 	 */
-	public void setCountry(string country) {
+	public void setCountry(String country) {
 		this.country = country;
 	}
 
@@ -109,7 +127,7 @@ public class Guest {
 		this.contactNo = contactNo;
 	}
 
-	public string getEmail() {
+	public String getEmail() {
 		return this.email;
 	}
 
@@ -117,7 +135,7 @@ public class Guest {
 	 * 
 	 * @param email
 	 */
-	public void setEmail(string email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
@@ -125,14 +143,14 @@ public class Guest {
 	 * 
 	 * @param assoGuest
 	 */
-	public void setAssoGuest(ArrayList<Guest> assoGuest) {
+	//public void setAssoGuest(ArrayList<Guest> assoGuest) {
 		// TODO - implement Guest.setAssoGuest
-		throw new UnsupportedOperationException();
-	}
+		//throw new UnsupportedOperationException();
+	//}
 
-	public ArrayList<Guest> getAssoGuest() {
+	//public ArrayList<Guest> getAssoGuest() {
 		// TODO - implement Guest.getAssoGuest
-		throw new UnsupportedOperationException();
-	}
+		//throw new UnsupportedOperationException();
+	//}
 
 }

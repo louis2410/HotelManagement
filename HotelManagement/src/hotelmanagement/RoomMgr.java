@@ -1,5 +1,6 @@
 public class RoomMgr implements Manager {
-
+        
+  
 	/**
 	 * Creation of a new Room in the hotel
 	 * @param room

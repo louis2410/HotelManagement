@@ -10,7 +10,7 @@ public interface Manager {
 	 * 
 	 * @param obj
 	 */
-	boolean updateToFile(Object obj);
+	//boolean updateToFile(Object obj);
 
 	/**
 	 * 
@@ -22,6 +22,6 @@ public interface Manager {
 	 * 
 	 * @param obj
 	 */
-	boolean deleteFromFile(Object obj);
+	//boolean deleteFromFile(Object obj);
 
 }
