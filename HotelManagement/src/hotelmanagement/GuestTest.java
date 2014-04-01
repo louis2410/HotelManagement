@@ -27,9 +27,11 @@ public class GuestTest {
         //sucess = guestMgr.createGuest( "A1","John","Connor","Mr","WeeRoad","West",'m',num,"john@mail.com");
         //sucess = guestMgr.createGuest( "A2","James","Bond","Mr","PeeRoad","West",'m',num,"john@mail.com");
         //sucess = guestMgr.createGuest( "A3","Jack","Ripper","Mr","peeRoad","West",'m',num,"john@mail.com");
+       
+        
+        //guestMgr.retrieveFromFile();
         //guestMgr.DeleteFromFile();
-        //guestMgr.createToFile();
-        guestMgr.retrieveFromFile();
+        guestMgr.createToFile();
         guestMgr.printGuests();
         System.out.println("complete");
     }

@@ -33,7 +33,7 @@ public class HotelMgr {
 	 * 
 	 * @param guestName
 	 */
-	public Room checkRoomDetails(string guestName) {
+	public Room checkRoomDetails(String guestName) {
 		// TODO - implement HotelMgr.checkRoomDetails
 		throw new UnsupportedOperationException();
 	}

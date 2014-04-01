@@ -1,3 +1,12 @@
+
+import com.thoughtworks.xstream.persistence.FilePersistenceStrategy;
+import com.thoughtworks.xstream.persistence.PersistenceStrategy;
+import com.thoughtworks.xstream.persistence.XmlArrayList;
+import hotelmanagement.Guest;
+import java.io.File;
+import java.util.Iterator;
+import java.util.List;
+
 public class RoomMgr implements Manager {
         
   
@@ -42,4 +51,26 @@ public class RoomMgr implements Manager {
 		throw new UnsupportedOperationException();
 	}
 
+        
+        
+         public boolean createToFile(int n)
+        {
+            switch(n)
+                case 1 = arrayStnard.
+            
+            
+            // prepares the file strategy to directory 
+		PersistenceStrategy strategy = new FilePersistenceStrategy(new File("/Users/Louis/HotelManagement/HotelManagement/Guests"));
+		// creates the list:
+		List list = new XmlArrayList(strategy);
+                
+                //for each guest in arrayGuest, create one xml file
+		 for(Iterator it = arrayGuest.iterator();it.hasNext();){
+                Guest guest = (Guest)it.next();
+                list.add(guest);
+                //System.out.println(guest.getFirstName());      
+                }
+
+           return true;
+        }
 }
