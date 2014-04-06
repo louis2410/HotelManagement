@@ -1,4 +1,5 @@
 package hotelmanagement;
+import java.util.ArrayList;
 public class Guest {
 
 	//Room room;
@@ -11,9 +12,10 @@ public class Guest {
 	private char gender;
 	private int contactNo;
 	private String email;
+    private ArrayList<Guest> AssoGuest;
 
         public Guest(String guestId,String FirstName,String lastName,
-         String title,String address,String country,char gender,int contactNo,String email)
+         String title,String address,String country,char gender,int contactNo,String email,ArrayList<Guest> AssoGuest)
         {
             this.FirstName = FirstName;
             this.address = address;
@@ -24,7 +26,7 @@ public class Guest {
             this.guestId = guestId;
             this.lastName = lastName;
             this.title = title;
-            
+            this.AssoGuest = AssoGuest;
         }
         
        
@@ -143,14 +145,13 @@ public class Guest {
 	 * 
 	 * @param assoGuest
 	 */
-	//public void setAssoGuest(ArrayList<Guest> assoGuest) {
-		// TODO - implement Guest.setAssoGuest
-		//throw new UnsupportedOperationException();
-	//}
+	public void setAssoGuest(ArrayList<Guest> AssoGuest){
+        this.AssoGuest = AssoGuest;
+	}
 
-	//public ArrayList<Guest> getAssoGuest() {
-		// TODO - implement Guest.getAssoGuest
-		//throw new UnsupportedOperationException();
-	//}
+	public ArrayList<Guest> getAssoGuest() {
+        return AssoGuest;
+        
+	}
 
 }

@@ -97,22 +97,24 @@ public class GuestMgr  {
         
         
       
-	//public boolean updateGuest(Guest guest) {
+	public boolean updateGuest(Guest guest) {
 		// TODO - implement GuestMgr.updateGuest
 		//throw new UnsupportedOperationException();
-	//}
+	}
 
 	
-	//public boolean removeGuest(String guestId) {
-		// TODO - implement GuestMgr.removeGuest
-		//throw new UnsupportedOperationException();
-	//}
+	public boolean removeGuest(String guestId) {
+        arrayGuest.remove(arrayGuest.getGuest(guestId));
+	}
 
 	
-	//public Guest getGuest(String guestId) {
-		// TODO - implement GuestMgr.getGuest
-		//throw new UnsupportedOperationException();
-	//}
+	public Guest getGuest(String guestId) {
+		while(i= 0;i<arrayGuest.size();i++){
+            if(arrayGuest[i].getGuestId==guestId){
+                return arrayGuest[i];
+            }
+        }
+	}
 
         
  
