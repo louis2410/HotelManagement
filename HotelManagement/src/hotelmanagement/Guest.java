@@ -15,7 +15,7 @@ public class Guest {
     private ArrayList<Guest> AssoGuest;
 
         public Guest(String guestId,String FirstName,String lastName,
-         String title,String address,String country,char gender,int contactNo,String email,ArrayList<Guest> AssoGuest)
+         String title,String address,String country,char gender,int contactNo,String email)
         {
             this.FirstName = FirstName;
             this.address = address;
@@ -26,7 +26,6 @@ public class Guest {
             this.guestId = guestId;
             this.lastName = lastName;
             this.title = title;
-            this.AssoGuest = AssoGuest;
         }
         
        
@@ -145,8 +144,8 @@ public class Guest {
 	 * 
 	 * @param assoGuest
 	 */
-	public void setAssoGuest(ArrayList<Guest> AssoGuest){
-        this.AssoGuest = AssoGuest;
+	public void setAssoGuest(Guest AssoGuest){
+        this.AssoGuest.add(AssoGuest);
 	}
 
 	public ArrayList<Guest> getAssoGuest() {

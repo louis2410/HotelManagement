@@ -1,11 +1,14 @@
 package hotelmanagement;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.persistence.FilePersistenceStrategy;
 import com.thoughtworks.xstream.persistence.PersistenceStrategy;
 import com.thoughtworks.xstream.persistence.XmlArrayList;
+
 import hotelmanagement.XML.Author;
+
 import java.io.File;
 import java.util.List;
 
@@ -98,20 +101,27 @@ public class GuestMgr  {
         
       
 	public boolean updateGuest(Guest guest) {
-		// TODO - implement GuestMgr.updateGuest
-		//throw new UnsupportedOperationException();
+		for(int i= 0;i<arrayGuest.size();i++){
+            if(arrayGuest.get(i).getGuestId()==guest.getGuestId()){
+                arrayGuest.set(i,guest);
+            }
+        }
 	}
 
 	
 	public boolean removeGuest(String guestId) {
-        arrayGuest.remove(arrayGuest.getGuest(guestId));
+		for(int i= 0;i<arrayGuest.size();i++){
+            if(arrayGuest.get(i).getGuestId()==guestId){
+                arrayGuest.remove(i);
+            }
+        }
 	}
 
 	
 	public Guest getGuest(String guestId) {
-		while(i= 0;i<arrayGuest.size();i++){
-            if(arrayGuest[i].getGuestId==guestId){
-                return arrayGuest[i];
+		for(int i= 0;i<arrayGuest.size();i++){
+            if(arrayGuest.get(i).getGuestId()==guestId){
+                return arrayGuest.get(i);
             }
         }
 	}
