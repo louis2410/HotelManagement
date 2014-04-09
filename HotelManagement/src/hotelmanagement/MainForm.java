@@ -1,5 +1,8 @@
+package hotelmanagement;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class MainForm {
 	public static void main(String args[]) {
 		Scanner in = new Scanner(System.in);
@@ -153,6 +156,12 @@ public class MainForm {
 					guestId = in.next();
 					guestmgr.removeGuest(guestId);
 					break;
+                                    
+                                    
+                                    
+                                    
+                               //Quit Program, create xml files
+                                case 9:    guestmgr.createToFile();
 			}
 		}
 		throw new UnsupportedOperationException();

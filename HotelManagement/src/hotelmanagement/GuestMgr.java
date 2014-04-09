@@ -44,7 +44,7 @@ public class GuestMgr  {
         }
          //Creates XML files from an array of Guest Objects
         //Do note the folder directory
-        public boolean createToFile()
+        public void createToFile()
         {
             
             // prepares the file strategy to directory 
@@ -59,7 +59,7 @@ public class GuestMgr  {
                 //System.out.println(guest.getFirstName());      
                 }
 
-           return true;
+           System.out.println("Guests to XML Complete");
         }
         
         //Delete all xml files from specified folder,run this method before createToFile else u will get duplicates
@@ -106,6 +106,7 @@ public class GuestMgr  {
                 arrayGuest.set(i,guest);
             }
         }
+          
 	}
 
 	
