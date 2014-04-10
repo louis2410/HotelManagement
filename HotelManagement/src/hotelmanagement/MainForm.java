@@ -7,6 +7,7 @@ public class MainForm {
 	public static void main(String args[]) {
 		Scanner in = new Scanner(System.in);
 		GuestMgr guestmgr = new GuestMgr();
+                guestmgr.setup();
 		//Main interface
 		System.out.println("Please select one of the following choices: \n"+
 		"1. Create/Update/Remove rooms details \n"+
