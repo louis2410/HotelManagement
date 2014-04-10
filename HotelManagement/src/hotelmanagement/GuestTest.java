@@ -24,15 +24,17 @@ public class GuestTest {
         GuestMgr guestMgr = new GuestMgr();
         int num = 12334;
         boolean sucess;
-        //sucess = guestMgr.createGuest( "A1","John","Connor","Mr","WeeRoad","West",'m',num,"john@mail.com");
-        //sucess = guestMgr.createGuest( "A2","James","Bond","Mr","PeeRoad","West",'m',num,"john@mail.com");
-        //sucess = guestMgr.createGuest( "A3","Jack","Ripper","Mr","peeRoad","West",'m',num,"john@mail.com");
+        sucess = guestMgr.createGuest( "A1","John","Connor","Mr","WeeRoad","West",'m',num,"john@mail.com");
+        sucess = guestMgr.createGuest( "A2","James","Bond","Mr","PeeRoad","West",'m',num,"john@mail.com");
+        sucess = guestMgr.createGuest( "A3","Jack","Ripper","Mr","peeRoad","West",'m',num,"john@mail.com");
        
         
         //guestMgr.retrieveFromFile();
         //guestMgr.DeleteFromFile();
-        guestMgr.createToFile();
-        guestMgr.printGuests();
+        //guestMgr.createToFile();
+        //guestMgr.printGuests();
+        
+        guestMgr.setup();
         System.out.println("complete");
     }
     

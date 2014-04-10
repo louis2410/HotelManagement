@@ -127,7 +127,16 @@ public class GuestMgr  {
         }
 	}
 
-        
+        public void  setup(){
+            
+            
+            this.retrieveFromFile();
+            this.DeleteFromFile();
+            this.printGuests();
+            this.createToFile();
+            
+            
+        }
  
 	
       
