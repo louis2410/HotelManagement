@@ -5,11 +5,16 @@
  */
 
 package hotelmanagement;
+import java.util.ArrayList;
 
 /**
  *
  * @author Louis
  */
+//do testing for reservationmgr here
 public class ReservationTests {
+    
+    
+    
     
 }
