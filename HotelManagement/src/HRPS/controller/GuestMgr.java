@@ -33,12 +33,23 @@ public class GuestMgr {
         return true;
     }
 
-    public void printGuests() {
+    public void printAllGuests() {
 
         for (Iterator it = arrayGuest.iterator(); it.hasNext();) {
             Guest guest = (Guest) it.next();
             System.out.println(guest.getFirstName());
 
+        }
+    }
+    
+     public void printGuest(String guestId) {
+
+        for (Iterator it = arrayGuest.iterator(); it.hasNext();) {
+            Guest guest = (Guest) it.next();
+            if(guest.getGuestId() == guestId){
+                System.out.println(guest.getFirstName());
+                break;
+            }      
         }
     }
     //Creates XML files from an array of Guest Objects
@@ -68,14 +79,13 @@ public class GuestMgr {
         PersistenceStrategy strategy = new FilePersistenceStrategy(new File("/Users/Louis/HotelManagement/HotelManagement/Guests"));
         // creates the list:
         List list = new XmlArrayList(strategy);
-
-        //for each guest in Guest folder, delete each
-        for (Iterator it = list.iterator(); it.hasNext();) {
-            Guest guest = (Guest) it.next();
-            it.remove();
+        if (!list.isEmpty()) {
+            //for each guest in Guest folder, delete each
+            for (Iterator it = list.iterator(); it.hasNext();) {
+                Guest guest = (Guest) it.next();
+                it.remove();
+            }
         }
-
-
         return true;
     }
 
@@ -131,8 +141,8 @@ public class GuestMgr {
 
 
         this.retrieveFromFile();
-        this.DeleteFromFile();
-        this.printGuests();
+        //this.DeleteFromFile();
+        this.printAllGuests();
         this.createToFile();
 
 

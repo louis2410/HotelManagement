@@ -1,9 +1,13 @@
 package HRPS.controller;
 
 import HRPS.entity.Room;
+import java.util.Date;
 
 public class HotelMgr {
 
+        //Managers for each sector
+        GuestMgr guestMgr = new GuestMgr();
+    
 	private int maxNoOfFloor = 10;
 	private int maxNoOfRooms = 200;
 	private int singleBedAmt = 80;
@@ -109,5 +113,22 @@ public class HotelMgr {
 		// TODO - implement HotelMgr.createReservation
 		throw new UnsupportedOperationException();
 	}
+        
+        //Arthur : Bryan
+        public boolean checkExistingGuest(String guestId){
+            if(guestMgr.getGuest(guestId) != null)
+                return true;
+            else 
+                return false;
+        }
+        //Arthur : Bryan
+        public void displayGuestDetails(String guestId){
+            guestMgr.printGuest(guestId);
+        }
+        
+        //Arthur : Bryan
+        public void getAvailableListOfRooms(Date checkIn, Date checkOut){
+            
+        }
 
 }
