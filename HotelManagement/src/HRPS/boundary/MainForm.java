@@ -6,10 +6,18 @@ import java.util.Scanner;
 
 public class MainForm {
 	public static void main(String args[]) {
-		Scanner in = new Scanner(System.in);
+            //Main Menu
+            this.printMainMenu();
+		
+	}
+
+	public void printMainMenu() {
+		// TODO - implement MainForm.printMainMenu
+                    //Main interface
+                Scanner in = new Scanner(System.in);
 		GuestMgr guestmgr = new GuestMgr();
                 guestmgr.setup();
-		//Main interface
+            
 		System.out.println("Please select one of the following choices: \n"+
 		"1. Create/Update/Remove rooms details \n"+
 		"2. Create/Update/Removeguestsdetail\n"+
@@ -29,11 +37,6 @@ public class MainForm {
 					printGuestMenu(guestmgr);
 			}
 		}
-		throw new UnsupportedOperationException();
-	}
-
-	public void printMainMenu() {
-		// TODO - implement MainForm.printMainMenu
 		throw new UnsupportedOperationException();
 	}
 
