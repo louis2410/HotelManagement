@@ -58,7 +58,7 @@ public class GuestMgr {
     public void createToFile() {
 
         // prepares the file strategy to directory 
-        PersistenceStrategy strategy = new FilePersistenceStrategy(new File("/Users/Louis/HotelManagement/HotelManagement/Guests"));
+        PersistenceStrategy strategy =  new FilePersistenceStrategy(new File(System.getProperty("user.dir") + "/src/HRPS/data/Guest"));
         // creates the list:
         List list = new XmlArrayList(strategy);
 
@@ -141,7 +141,7 @@ public class GuestMgr {
 
 
         this.retrieveFromFile();
-        //this.DeleteFromFile();
+        this.DeleteFromFile();
         this.printAllGuests();
         this.createToFile();
 
