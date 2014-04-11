@@ -113,9 +113,9 @@ public class HotelMgr {
     }
 
     //Arthur : Bryan
-    public boolean createReservation(String guestId, Date checkIn, Date checkOut, int noOfRooms, int[] rmId, int noOfAdults, int noOfChildren) {
+    public int createReservation(String guestId, Date checkIn, Date checkOut, int noOfRooms, int[] rmId, int noOfAdults, int noOfChildren) {
         // TODO - implement HotelMgr.createReservation
-        boolean result = false;
+        int resId = -1;
         try {
             Guest guest = guestMgr.getGuest(guestId);
             ArrayList<Room> roomList = new ArrayList<Room>();
@@ -124,15 +124,17 @@ public class HotelMgr {
             }
             DateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmm");
             Date currDate = new Date();
-            int resId = Integer.parseInt(dateFormat.format(currDate)) ;
+            resId = Integer.parseInt(dateFormat.format(currDate)) ;
             resMgr.createReservation(roomList, guest, resId, currDate, checkIn, checkOut, noOfRooms, ReseravationType.Confirmed, noOfAdults, noOfChildren, false);
             
-            //if no exception is caught
-            result = true;
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        return result;
+        return resId;
+    }
+    
+    public boolean removeReservation(int resId){
+        return resMgr.removeReservation(resId);
     }
 
     //Arthur : Bryan
@@ -144,7 +146,6 @@ public class HotelMgr {
         }
     }
     //Arthur : Bryan
-
     public String displayGuestDetails(String guestId) {
         return guestMgr.getGuest(guestId).toString();
     }

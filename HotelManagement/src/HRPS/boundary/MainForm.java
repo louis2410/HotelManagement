@@ -60,6 +60,7 @@ public class MainForm {
                     printReservationMenu();
                     break;
                 case 4:
+                    printReservationReceiptMenu();
                     break;
                 case 5:
                     break;
@@ -237,13 +238,13 @@ public class MainForm {
             choice = sc.nextInt();
             switch (choice) {
                 case 1:
-                    printCreateReservation();
+                    printCreateReservationMenu();
                     break;
                 case 2:
-                    printUpdateReservation();
+                    printUpdateReservationMenu();
                     break;
                 case 3:
-                    printRemoveReservation();
+                    printRemoveReservationMenu();
                     break;
                 case 4:
                     System.out.println("Returning to Main Menu...");
@@ -258,7 +259,7 @@ public class MainForm {
     }
 
     //Arthur : Bryan
-    public static void printCreateReservation() {
+    public static void printCreateReservationMenu() {
         //Parameters
         String guestId;
         Date checkIn, checkOut;
@@ -290,44 +291,45 @@ public class MainForm {
             //Select From available rooms
             System.out.print("Enter the no of rooms : ");
             noOfRooms = sc.nextInt();
-            
+
             //Enter room ID to book rooms.
             int rmId[] = new int[noOfRooms];
             System.out.println("Please from the avaliable list of rooms to reserve: ");
             for (int i = 0; i < noOfRooms; i++) {
-                System.out.print("Room " + (i+1) + " : ");
+                System.out.print("Room " + (i + 1) + " : ");
                 rmId[i] = sc.nextInt();
             }
-            
+
             System.out.println("Selected Rooms : " + rmId.toString());
-            
+
             //Asking for additon details
             System.out.print("Please enter the no of adults : ");
             noOfAdults = sc.nextInt();
             System.out.print("Please enter the no of children : ");
             noOfChildren = sc.nextInt();
-            
+
             System.out.println("Proceeding to create Reservation...");
             //Proceed to create Reservation.
-            if(hotelMgr.createReservation(guestId, checkIn, checkOut, noOfRooms, rmId, noOfAdults, noOfChildren)){
-                System.out.println("Creation of Reservation is succuessful. Returning to Reservation Management Menu....");
-                printReservationMenu();
-            }else{
+            int resId = hotelMgr.createReservation(guestId, checkIn, checkOut, noOfRooms, rmId, noOfAdults, noOfChildren);
+            if (resId != -1) {
+                System.out.println("Creation of Reservation is succuessful.");
+                System.out.println(hotelMgr.displayReservationDetails(resId));
+                System.out.println("Returning to Reservation Management Menu....");
+                return;
+            } else {
                 System.out.println("Creation of Reservation is failure. Please try again.");
-                printReservationMenu();
+                System.out.println("Returning to Reservation Management Menu....");
+                return;
             }
-    
+
             //Hang
         } catch (Exception ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-
-
     }
+    //Arthur : Bryan
 
-    public static void printUpdateReservation() {
+    public static void printUpdateReservationMenu() {
         int resId = 0, choice = 0;
 
         try {
@@ -401,10 +403,90 @@ public class MainForm {
         } catch (Exception ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }
+    //Arthur : Bryan
 
-    public static void printRemoveReservation() {
+    public static void printRemoveReservationMenu() {
+        int resId = 0, choice = 0;
+
+        try {
+            do {
+                System.out.print("Enter the reservation Id :");
+                resId = sc.nextInt();
+
+                if (resId == -1) {
+                    return;
+                } else if (hotelMgr.checkExisitingReservation(resId)) {
+                    break;
+                } else {
+                    System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
+                }
+            } while (resId != -1);
+
+            //Check for reservation status
+            if (!hotelMgr.checkAllowReservationStatus(resId)) {
+                System.out.println("Sorry, the reservation is either has been checked into the hotel or has expired");
+                System.out.println("Redirecting to Reservation Management Menu...");
+                return;
+            }
+
+            //Print the detail of selected Reservations
+            System.out.println(hotelMgr.displayReservationDetails(resId));
+
+            //Print Options to update
+            System.out.println("Do you want to cancel the above reservation?");
+            System.out.println("1 : Yes");
+            System.out.println("2 : No, Return to Reservation Management Menu");
+
+            do {
+                System.out.print("Please select a choice : ");
+                choice = sc.nextInt();
+                switch (choice) {
+                    case 1:
+                        if (hotelMgr.removeReservation(resId)) {
+                            System.out.println("The reservation has been removed.");
+                        } else {
+                            System.out.println("The reservation has failed to remove.");
+                            System.out.println("Redirecting to Reservation Management Menu...");
+                            return;
+                        }
+                        break;
+                    case 2:
+                        System.out.println("Returning to Reservation Management Menu...");
+                        return;
+                    default:
+                        System.out.println("Please enter a value from 1 to 3.");
+                        break;
+                }
+            } while (choice != 2);
+
+        } catch (Exception ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    //Arthur : Bryan
+
+    public static void printReservationReceiptMenu() {
+        int resId = 0;
+        try {
+            do {
+                System.out.print("Enter the reservation Id :");
+                resId = sc.nextInt();
+
+                if (resId == -1) {
+                    return;
+                } else if (hotelMgr.checkExisitingReservation(resId)) {
+                    System.out.println("Printing Reservation Details");
+                    System.out.println(hotelMgr.displayReservationDetails(resId));
+                    break;
+                } else {
+                    System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
+                }
+            } while (resId != -1);
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
