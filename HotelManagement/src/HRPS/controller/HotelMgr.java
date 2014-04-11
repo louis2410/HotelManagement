@@ -1,12 +1,16 @@
 package HRPS.controller;
 
 import HRPS.entity.Room;
+import HRPS.entity.RoomType;
 import java.util.Date;
+import java.util.List;
 
 public class HotelMgr {
 
         //Managers for each sector
         GuestMgr guestMgr = new GuestMgr();
+        ReservationMgr resMgr = new ReservationMgr();
+        RoomMgr roomMgr = new RoomMgr();
     
 	private int maxNoOfFloor = 10;
 	private int maxNoOfRooms = 200;
@@ -122,12 +126,81 @@ public class HotelMgr {
                 return false;
         }
         //Arthur : Bryan
-        public void displayGuestDetails(String guestId){
-            guestMgr.printGuest(guestId);
+        public String displayGuestDetails(String guestId){
+            return guestMgr.getGuest(guestId).toString();
         }
         
         //Arthur : Bryan
-        public void getAvailableListOfRooms(Date checkIn, Date checkOut){
+        public String getAllAvailableRooms(Date checkIn, Date checkOut){
+            String singleDisplay = "--- \t Single Rooms \t\t ---\n",
+                   standardDisplay  = "\n--- \t Standand Rooms \t ---\n",
+                   suitDisplay  = "\n--- \t Suit Rooms \t\t ---\n",
+                   vipDisplay  = "\n--- \t VIP Rooms \t\t ---\n";
+            
+            //A RoomMgr methods to get all the rooms in hotel
+            List<Room> avaRoomList = null;
+            //A List of all Reserved Rooms
+            List<Room> resRoomList = resMgr.getReservedRooms(checkIn, checkOut);
+            
+            //get the rest of ava rooms for display
+            for(int i=0;i<avaRoomList.size();i++){
+                if(resRoomList.contains(avaRoomList.get(i))){
+                    avaRoomList.remove(i);
+                }else{
+                    if(avaRoomList.get(i).getRoomType() == RoomType.Single)
+                        singleDisplay += " " + avaRoomList.get(i).getRoomId() + ",";
+                    else if(avaRoomList.get(i).getRoomType() == RoomType.Standard)
+                        standardDisplay += " " + avaRoomList.get(i).getRoomId() + ",";
+                    else if(avaRoomList.get(i).getRoomType() == RoomType.Suit)
+                        suitDisplay += " " + avaRoomList.get(i).getRoomId() + ",";
+                    else if(avaRoomList.get(i).getRoomType() == RoomType.VIP)
+                        vipDisplay += " " + avaRoomList.get(i).getRoomId() + ",";
+                }
+                
+            }
+              
+            return singleDisplay + standardDisplay + suitDisplay + vipDisplay;
+        }
+        
+        //Arthur : Bryan
+        public String getAvailableNoOfRooms(Date checkIn, Date checkOut){
+            String singleDisplay = "--- \t Single Rooms \t\t : ",
+                   standardDisplay  = "\n--- \t Standand Rooms \t : ",
+                   suitDisplay  = "\n--- \t Suit Rooms \t\t : ",
+                   vipDisplay  = "\n--- \t VIP Rooms \t\t : ";
+            
+            int singleCount=0, standardCount=0, suitCount=0, vipCount=0;
+            
+            //A RoomMgr methods to get all the rooms in hotel
+            List<Room> avaRoomList = null;
+            //A List of all Reserved Rooms
+            List<Room> resRoomList = resMgr.getReservedRooms(checkIn, checkOut);
+            
+            //get the rest of ava rooms for display
+            for(int i=0;i<avaRoomList.size();i++){
+                if(resRoomList.contains(avaRoomList.get(i))){
+                    avaRoomList.remove(i);
+                }else{
+                    if(avaRoomList.get(i).getRoomType() == RoomType.Single)
+                        singleCount++;
+                    else if(avaRoomList.get(i).getRoomType() == RoomType.Standard)
+                        standardCount++;
+                    else if(avaRoomList.get(i).getRoomType() == RoomType.Suit)
+                        suitCount++;
+                    else if(avaRoomList.get(i).getRoomType() == RoomType.VIP)
+                        vipCount++;
+                }
+                
+            }
+              
+            return singleDisplay + singleCount + standardDisplay + standardCount+ suitDisplay + vipDisplay;
+        }
+        
+        public boolean checkExisitingReservation(int resId){
+            if(resMgr.getReservation(resId) != null)
+                return true;
+            else
+                return false;
             
         }
 

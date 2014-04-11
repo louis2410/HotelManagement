@@ -223,5 +223,22 @@ public class Reservation {
         this.associatedGuest = associatedGuest;
     }
     
+    public String toString(){
+        String display = "";
+        display +="Reservation Details of " + resId + "\n";
+        display +="-------------------------------------------------\n";
+        display +="Guest \t : " + this.associatedGuest.getFirstName();
+        display +="Book date \t : " + this.resBookDate + "\n";
+        display +="Check In \t : " + this.resCheckInDate + "\n" ;
+        display +="Check out \t : " + this.resCheckOutDate + "\n" ;
+        display +="No of days \t : " + this.noOfDays + "\n";
+        display +="No of adults \t : " + this.noOfAdults + "\n";
+        display +="No of children \t : " + this.noOfChildren + "\n";
+        display +="No of Rooms \t : " + getNoOfRooms() + "\n";
+        display +="Status \t : " + this.resStatus + "\n";
+        display +="Payment Status : " + (this.paymentStatus?"Paid":"UnPaid") + "\n";
+        
+        return display;
+    }
     
 }

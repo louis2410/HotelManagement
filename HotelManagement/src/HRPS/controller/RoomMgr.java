@@ -5,7 +5,6 @@ import com.thoughtworks.xstream.persistence.FilePersistenceStrategy;
 import com.thoughtworks.xstream.persistence.PersistenceStrategy;
 import com.thoughtworks.xstream.persistence.XmlArrayList;
 import HRPS.entity.Guest;
-import HRPS.entity.Guest;
 import HRPS.entity.Room;
 import java.io.File;
 import java.util.Iterator;
@@ -95,5 +94,4 @@ public class RoomMgr implements Manager {
     public void setup() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-            return false;
 }

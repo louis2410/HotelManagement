@@ -2,6 +2,7 @@ package HRPS.boundary;
 
 import HRPS.controller.GuestMgr;
 import HRPS.controller.HotelMgr;
+import HRPS.entity.RoomType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -259,29 +260,42 @@ public class MainForm {
         //Parameters
         String guestId;
         Date checkIn, checkOut;
+        int noOfRooms, rmType;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         //Check for exist guest record
-        System.out.print("Enter the guest Id :");
-        guestId = sc.next();
-
-//            if (!hotelMgr.checkExistingGuest(guestId)) {
-//                System.out.println("There is a new guest, please register the guest");
-//                System.out.println("Redirecting to New Guest Menu...");
-//                //Display Menu for creating a new guest;
-//                //printCreateGuest();
-//                return;
-//            } else {
-//                hotelMgr.displayGuestDetails(guestId);
-//            }
         try {
+            System.out.print("Enter the guest Id :");
+            guestId = sc.next();
+
+            if (!hotelMgr.checkExistingGuest(guestId)) {
+                System.out.println("This is a new guest, please register the guest");
+                System.out.println("Redirecting to New Guest Menu...");
+                //Display Menu for creating a new guest;
+                //printCreateGuest();
+                System.out.println("Redirecting back to New Reservation Menu...");
+            } else {
+                System.out.println(hotelMgr.displayGuestDetails(guestId));
+            }
+
+
             System.out.print("Enter the Check in date as dd/mm/yyyy : ");
             checkIn = df.parse(sc.next());
             System.out.print("Enter the Check out date as dd/mm/yyyy : ");
             checkOut = df.parse(sc.next());
-            
-            hotelMgr.getAvailableListOfRooms(checkIn, checkOut);
-            
-        } catch (ParseException ex) {
+            //Print Available Rooms
+            System.out.println("The available rooms are : ");
+            System.out.println(hotelMgr.getAllAvailableRooms(checkIn, checkOut));
+
+            //Select From available rooms
+            System.out.print("Enter the no of rooms : ");
+            noOfRooms = sc.nextInt();
+            for (int i = 0; i < RoomType.values().length; i++) {
+                System.out.println(i + 1 + " : " + RoomType.values()[i]);
+            }
+            System.out.print("Enter the type of room based on the above... ");
+            rmType = sc.nextInt();
+            //Hang
+        } catch (Exception ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -291,6 +305,28 @@ public class MainForm {
     }
 
     public static void printUpdateReservation() {
+        int resId = 0;
+
+        try {
+
+            do {
+                System.out.print("Enter the reservation Id :");
+                resId = sc.nextInt();
+                
+                if(resId == -1)
+                    return;
+                else if (hotelMgr.checkExisitingReservation(resId)) {
+                    break;
+                }else
+                    System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
+            } while (resId != -1);
+
+            
+        } catch (Exception ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }
 
     public static void printRemoveReservation() {

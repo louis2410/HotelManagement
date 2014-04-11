@@ -136,5 +136,10 @@ public abstract class Room {
 	public void setCurrentOccupancy(int currentOccupancy) {
 		this.currentOccupancy = currentOccupancy;
 	}
+        
+        //Author : Bryan
+        public boolean equals(Room room){
+            return this.roomId == room.roomId;
+        }
 
 }

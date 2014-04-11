@@ -126,7 +126,7 @@ public class ReservationMgr implements Manager {
                 }
                     
             }
-        } catch (Exception ex) {
+        } catch (Exception e) {
             System.out.println("Failed to get Reservation " + reservationId + " all from data directory");
             return null;
         }
@@ -134,12 +134,13 @@ public class ReservationMgr implements Manager {
     }
 
     //Print all reservations
-    public void printReservations() {
+    public String printReservations() {
+        String display = "";
         for (Iterator it = arrayReservation.iterator(); it.hasNext();) {
             Reservation reservation = (Reservation) it.next();
-            System.out.println(reservation.getResId());
+            display += reservation.toString();
         }
-
+        return display;
     }
 
     @Override
@@ -199,4 +200,28 @@ public class ReservationMgr implements Manager {
         //this.deleteFromFile();
         //this.createToFile();
     }
+    
+    public List<Room> getReservedRooms(Date start, Date end){
+        ArrayList<Room> resRoomsList = new ArrayList<Room>();
+        Reservation res = null;
+        try {
+            for (Iterator it = datalist.iterator(); it.hasNext();) {
+                res = (Reservation) it.next();
+                if((res.getResCheckInDate().before(end)) && (res.getResCheckOutDate().after(start))){
+                    for(Iterator it2 =res.getAllRooms().iterator(); it2.hasNext();){
+                        Room tempRoom = (Room) it2.next();
+                        if(!resRoomsList.contains(tempRoom)){
+                            resRoomsList.add(tempRoom);
+                        }
+                    }
+                }
+                    
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to get all reservered Rooms from data directory");
+            return null;
+        }
+        return resRoomsList;
+    }
+    
 }
