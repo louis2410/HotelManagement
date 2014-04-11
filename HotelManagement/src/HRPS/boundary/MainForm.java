@@ -218,6 +218,7 @@ public class MainForm {
         throw new UnsupportedOperationException();
     }
 
+    //Arthur : Bryan
     public static void printReservationMenu() {
         // TODO - implement MainForm.printReservationMenu
 
@@ -256,11 +257,12 @@ public class MainForm {
         throw new UnsupportedOperationException();
     }
 
+    //Arthur : Bryan
     public static void printCreateReservation() {
         //Parameters
         String guestId;
         Date checkIn, checkOut;
-        int noOfRooms, rmType;
+        int noOfRooms, noOfAdults, noOfChildren;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         //Check for exist guest record
         try {
@@ -277,7 +279,6 @@ public class MainForm {
                 System.out.println(hotelMgr.displayGuestDetails(guestId));
             }
 
-
             System.out.print("Enter the Check in date as dd/mm/yyyy : ");
             checkIn = df.parse(sc.next());
             System.out.print("Enter the Check out date as dd/mm/yyyy : ");
@@ -289,11 +290,33 @@ public class MainForm {
             //Select From available rooms
             System.out.print("Enter the no of rooms : ");
             noOfRooms = sc.nextInt();
-            for (int i = 0; i < RoomType.values().length; i++) {
-                System.out.println(i + 1 + " : " + RoomType.values()[i]);
+            
+            //Enter room ID to book rooms.
+            int rmId[] = new int[noOfRooms];
+            System.out.println("Please from the avaliable list of rooms to reserve: ");
+            for (int i = 0; i < noOfRooms; i++) {
+                System.out.print("Room " + (i+1) + " : ");
+                rmId[i] = sc.nextInt();
             }
-            System.out.print("Enter the type of room based on the above... ");
-            rmType = sc.nextInt();
+            
+            System.out.println("Selected Rooms : " + rmId.toString());
+            
+            //Asking for additon details
+            System.out.print("Please enter the no of adults : ");
+            noOfAdults = sc.nextInt();
+            System.out.print("Please enter the no of children : ");
+            noOfChildren = sc.nextInt();
+            
+            System.out.println("Proceeding to create Reservation...");
+            //Proceed to create Reservation.
+            if(hotelMgr.createReservation(guestId, checkIn, checkOut, noOfRooms, rmId, noOfAdults, noOfChildren)){
+                System.out.println("Creation of Reservation is succuessful. Returning to Reservation Management Menu....");
+                printReservationMenu();
+            }else{
+                System.out.println("Creation of Reservation is failure. Please try again.");
+                printReservationMenu();
+            }
+    
             //Hang
         } catch (Exception ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -305,23 +328,76 @@ public class MainForm {
     }
 
     public static void printUpdateReservation() {
-        int resId = 0;
+        int resId = 0, choice = 0;
 
         try {
-
             do {
                 System.out.print("Enter the reservation Id :");
                 resId = sc.nextInt();
-                
-                if(resId == -1)
+
+                if (resId == -1) {
                     return;
-                else if (hotelMgr.checkExisitingReservation(resId)) {
+                } else if (hotelMgr.checkExisitingReservation(resId)) {
                     break;
-                }else
+                } else {
                     System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
+                }
             } while (resId != -1);
 
-            
+            //Check for reservation status
+            if (!hotelMgr.checkAllowReservationStatus(resId)) {
+                System.out.println("Sorry, the reservation is either has been checked into the hotel or has expired");
+                System.out.println("Redirecting to Reservation Management Menu...");
+                return;
+            }
+
+            //Print the detail of selected Reservations
+            System.out.println(hotelMgr.displayReservationDetails(resId));
+
+            //Print Options to update
+            System.out.println("What would u like to change ?");
+            System.out.println("1 : Check In date");
+            System.out.println("2 : No of Days");
+            System.out.println("3 : No of Rooms");
+            System.out.println("4 : Guest in charge");
+            System.out.println("5 : No of Adults");
+            System.out.println("6 : No of Children");
+            System.out.println("7 : Return to Reservation Management Menu");
+
+            do {
+                System.out.print("Please select a choice : ");
+                choice = sc.nextInt();
+                switch (choice) {
+                    case 1:
+                        System.out.print("Please enter a new Check In date : ");
+                        break;
+                    case 2:
+                        System.out.print("Please enter the no of days : ");
+                        break;
+                    case 3:
+                        System.out.print("Please enter the no of rooms  : ");
+                        break;
+                    case 4:
+                        System.out.println("Please enter the guest Id : ");
+                        printMainMenu();
+                        break;
+                    case 5:
+                        System.out.println("Please enter the no of adults : ");
+                        printMainMenu();
+                        break;
+                    case 6:
+                        System.out.println("Please enter the no of children : ");
+                        printMainMenu();
+                        break;
+                    case 7:
+                        System.out.println("Returning to Reservation Management Menu...");
+                        return;
+                    default:
+                        System.out.println("Please enter a value from 1 to 7.");
+                        break;
+                }
+            } while (choice != 7);
+
         } catch (Exception ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }

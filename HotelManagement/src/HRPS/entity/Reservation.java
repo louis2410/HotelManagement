@@ -227,7 +227,7 @@ public class Reservation {
         String display = "";
         display +="Reservation Details of " + resId + "\n";
         display +="-------------------------------------------------\n";
-        display +="Guest \t : " + this.associatedGuest.getFirstName();
+        display +="Guest \t : " + this.associatedGuest.getTitle() + " " + this.associatedGuest.getFirstName();
         display +="Book date \t : " + this.resBookDate + "\n";
         display +="Check In \t : " + this.resCheckInDate + "\n" ;
         display +="Check out \t : " + this.resCheckOutDate + "\n" ;
