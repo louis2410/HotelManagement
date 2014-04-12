@@ -47,7 +47,8 @@ public class RoomMgr implements Manager {
 		// TODO - implement RoomMgr.createRoom
             Room room = new Room(maxOcc,rmId,floor,roomstatus,roomtype,curOcc,bedtype);
             arrayRoom.add(room);
-            return true;
+          
+                    return true;
             
 	}
 
@@ -98,7 +99,7 @@ public class RoomMgr implements Manager {
             return false;
         }
 
-        System.out.println("Rooma to XML Complete");
+        System.out.println("Rooms to XML Complete");
         return true;
     }
 
@@ -122,7 +123,7 @@ public class RoomMgr implements Manager {
         return true;
     }
 
-    //Reads from the Room older and then creates adds Room Objects into arrayRoom
+    //Reads from the Room folder and then creates adds Room Objects into arrayRoom
     @Override
     public boolean retrieveFromFile() {
         try {

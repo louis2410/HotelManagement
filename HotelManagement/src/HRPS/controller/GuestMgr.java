@@ -18,9 +18,17 @@ public class GuestMgr {
 
     //Attributes
     private ArrayList<Guest> arrayGuest;
-
+    private PersistenceStrategy strategy;
+    private List datalist;
+    
     public GuestMgr() {
         arrayGuest = new ArrayList<Guest>();
+           // prepares the file strategy to Respecitve data directory 
+        strategy = new FilePersistenceStrategy(new File(System.getProperty("user.dir") + "/src/HRPS/data/Guest"));
+        // creates the list and linkage to data directory
+        datalist = new XmlArrayList(strategy);
+        //Setup
+        setup();
     }
 
     public boolean createGuest(String guestId, String FirstName, String lastName,
@@ -55,59 +63,56 @@ public class GuestMgr {
     //Creates XML files from an array of Guest Objects
     //Do note the folder directory
 
-    public void createToFile() {
+    public boolean createToFile() {
 
-        // prepares the file strategy to directory 
-        PersistenceStrategy strategy =  new FilePersistenceStrategy(new File(System.getProperty("user.dir") + "/src/HRPS/data/Guest"));
-        // creates the list:
-        List list = new XmlArrayList(strategy);
-
-        //for each guest in arrayGuest, create one xml file
-        for (Iterator it = arrayGuest.iterator(); it.hasNext();) {
-            Guest guest = (Guest) it.next();
-            list.add(guest);
-            //System.out.println(guest.getFirstName());      
+   
+    try {
+            //for each reservation  in arrayRoom create one xml file
+            for (Iterator it = arrayGuest.iterator(); it.hasNext();) {
+             Guest guest = (Guest) it.next();
+                datalist.add(guest);
+            }
+        } catch (Exception ex) {
+            System.out.println("Failed to write to data directory");
+            return false;
         }
 
-        System.out.println("Guests to XML Complete");
+        System.out.println("Rooms to XML Complete");
+        return true;
     }
 
     //Delete all xml files from specified folder,run this method before createToFile else u will get duplicates
     public boolean DeleteFromFile() {
-
-        // prepares the file strategy to directory 
-        PersistenceStrategy strategy = new FilePersistenceStrategy(new File("/Users/Louis/HotelManagement/HotelManagement/Guests"));
-        // creates the list:
-        List list = new XmlArrayList(strategy);
-        if (!list.isEmpty()) {
-            //for each guest in Guest folder, delete each
-            for (Iterator it = list.iterator(); it.hasNext();) {
-                Guest guest = (Guest) it.next();
+       try {
+            //for each guest in guest folder, delete each
+            for (Iterator it = datalist.iterator(); it.hasNext();) {
                 it.remove();
             }
+        } catch (Exception ex) {
+            System.out.println("Failed to delete all from data directory");
+            return false;
         }
+
+        System.out.println("Guest XML Delete Complete ");
         return true;
     }
 
     //Reads from the Guest Folder and then creates adds Guest Objects into arrayGuest
     public boolean retrieveFromFile() {
-
-        // prepares the file strategy to directory 
-        String fileName = System.getProperty("user.dir");
-        File xmlData = new File(fileName + "/src/HRPS/data/Guest");
-        PersistenceStrategy strategy = new FilePersistenceStrategy(xmlData);
-        // creates the list:
-        List list = new XmlArrayList(strategy);
-
-
         //for each guest in guestfolder, creates an guest object in arrayGuest
-        for (Iterator it = list.iterator(); it.hasNext();) {
+               try {
+        for (Iterator it = datalist.iterator(); it.hasNext();) {
             Guest guest = (Guest) it.next();
             arrayGuest.add(guest);
         }
-
+        } catch (Exception ex) {
+            System.out.println("Failed to retrive all from data directory");
+            return false;
+        }
+        System.out.println("Guest XML to arrayGuest Complete");
         return true;
     }
+
 
     public boolean updateGuest(Guest guest) {
         for (int i = 0; i < arrayGuest.size(); i++) {
@@ -140,10 +145,10 @@ public class GuestMgr {
     public void setup() {
 
 
-        this.retrieveFromFile();
-        this.DeleteFromFile();
+        //this.retrieveFromFile();
+        //this.DeleteFromFile();
         //this.printAllGuests();
-        this.createToFile();
+        //this.createToFile();
 
 
     }

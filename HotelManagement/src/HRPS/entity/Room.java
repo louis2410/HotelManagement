@@ -2,31 +2,34 @@ package HRPS.entity;
 
 public  class Room {
 
-	private static final int maxOccupancy;
+	private int maxOccupancy;
 	private int roomId;
 	private int floor;
-	//private int roomSize;
 	private RoomStatus roomStatus;
 	private RoomType roomType;
-	private double roomWeekDayRate;
-	private double roomWeekEndRate;
-	private int currentOccupancy;
+        private int currentOccupancy;
 	private BedType bedType;
 
-	public Room() {
-		// TODO - implement Room.Room
-		throw new UnsupportedOperationException();
+        //Removed, see getweekday&getweekend rates method
+	//private double roomWeekDayRate;
+	//private double roomWeekEndRate;
+        //Roomsize redundant
+	//private int roomSize;
+
+	public Room(int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype) {
+          
+            this.maxOccupancy=maxOcc;
+            this.roomId = rmId;
+            this.currentOccupancy =curOcc;
+            this.floor = floor;
+            this.roomStatus = roomstatus;
+            this.roomType = roomtype;
+            this.bedType = bedtype;
+           
+		
 	}
 
-	/**
-	 * 
-	 * @param roomId
-	 * @param floorId
-	 */
-	public Room(int roomId, int floorId) {
-		// TODO - implement Room.Room
-		throw new UnsupportedOperationException();
-	}
+
 
 	public int getRoomId() {
 		return this.roomId;
@@ -41,7 +44,7 @@ public  class Room {
 	}
 
 	public int getFloorId() {
-		return this.floorId;
+		return this.floor;
 	}
 
 	/**
@@ -49,21 +52,10 @@ public  class Room {
 	 * @param floorId
 	 */
 	public void setFloorId(int floorId) {
-		this.floorId = floorId;
+		this.floor = floorId;
 	}
 
-	public RoomType getRoomSize() {
-		// TODO - implement Room.getRoomSize
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param roomSize
-	 */
-	public void setRoomSize(int roomSize) {
-		this.roomSize = roomSize;
-	}
+	
 
 	public RoomStatus getRoomStatus() {
 		return this.roomStatus;
@@ -81,37 +73,11 @@ public  class Room {
 		return this.roomType;
 	}
 
-	/**
-	 * 
-	 * @param roomType
-	 */
+	
 	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
 	}
 
-	public double getRoomWeekDayRate() {
-		return this.roomWeekDayRate;
-	}
-
-	/**
-	 * 
-	 * @param roomWeekDayRate
-	 */
-	public void setRoomWeekDayRate(double roomWeekDayRate) {
-		this.roomWeekDayRate = roomWeekDayRate;
-	}
-
-	public double getRoomWeekEndRate() {
-		return this.roomWeekEndRate;
-	}
-
-	/**
-	 * 
-	 * @param roomWeekEndRate
-	 */
-	public void setRoomWeekEndRate(double roomWeekEndRate) {
-		this.roomWeekEndRate = roomWeekEndRate;
-	}
 
 	public BedType getBedType() {
 		return this.bedType;
