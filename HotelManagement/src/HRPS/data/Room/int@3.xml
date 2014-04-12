@@ -1,9 +1,9 @@
-<HRPS.entity.Room>
-  <maxOccupancy>2</maxOccupancy>
-  <roomId>single38</roomId>
+<HRPS.entity.SingleRoom>
+  <maxOccupancy>1</maxOccupancy>
+  <roomId>Single39</roomId>
   <floor>1</floor>
   <roomStatus>Vacant</roomStatus>
   <roomType>Single</roomType>
   <currentOccupancy>0</currentOccupancy>
   <bedType>Single</bedType>
-</HRPS.entity.Room>
+</HRPS.entity.SingleRoom>

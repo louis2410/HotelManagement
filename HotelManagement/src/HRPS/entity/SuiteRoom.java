@@ -1,19 +1,21 @@
 package HRPS.entity;
 
-public class StandardRoom extends Room {
+public class SuiteRoom extends Room {
     
-    public StandardRoom(int maxOcc, String rmId, int floor, RoomStatus roomstatus, RoomType roomtype, int curOcc, BedType bedtype) {
+    
+    
+    public SuiteRoom(int maxOcc, String rmId, int floor, RoomStatus roomstatus, RoomType roomtype, int curOcc, BedType bedtype) {
         super(maxOcc, rmId, floor, roomstatus, roomtype, curOcc, bedtype);
     }
    
     @Override
     public double getweekendRoomRate(){
-        return 70.0;
+        return 80.0;
     };
 
     @Override
     public double getweekdayRoomRate() {
-        return 35.0;
+        return 45.0;
     }
         
 

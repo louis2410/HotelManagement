@@ -5,10 +5,7 @@ import HRPS.entity.BedType;
 import com.thoughtworks.xstream.persistence.FilePersistenceStrategy;
 import com.thoughtworks.xstream.persistence.PersistenceStrategy;
 import com.thoughtworks.xstream.persistence.XmlArrayList;
-import HRPS.entity.Guest;
-import HRPS.entity.Room;
-import HRPS.entity.RoomStatus;
-import HRPS.entity.RoomType;
+import HRPS.entity.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,49 +54,86 @@ public class RoomMgr implements Manager {
     }
     
     
-	/**
-	 * Creation of a new Room in the hotel
-     * @param maxOcc
-     * @param rmId
-     * @param floor
-     * @param room
- 
-	 */
-	public boolean createRoom(int maxOcc,String rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype) {
+	
+	public boolean createSingleRoom() {
 		// TODO - implement RoomMgr.createRoom
-            Room room = new Room(maxOcc,rmId,floor,roomstatus,roomtype,curOcc,bedtype);
-            arrayRoom.add(room);
+            SingleRoom single = new SingleRoom(1,this.generateRoomId(RoomType.Single),1,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
+            arrayRoom.add(single);
           
+                    return true;         
+	}
+        
+        public boolean createStandardRoom() {
+		// TODO - implement RoomMgr.createRoom
+            StandardRoom standard = new StandardRoom(1,this.generateRoomId(RoomType.Standard),1,RoomStatus.Vacant,RoomType.Standard,0,BedType.Double);
+            arrayRoom.add(standard);
+                    return true;         
+	}
+        
+        public boolean createSuiteRoom() {
+		// TODO - implement RoomMgr.createRoom
+           SuiteRoom suite = new SuiteRoom(1,this.generateRoomId(RoomType.Suite),1,RoomStatus.Vacant,RoomType.Suite,0,BedType.Double);
+            arrayRoom.add(suite);
+          
+                    return true;         
+	}
+        
+        public boolean createVIPRoom() {
+		// TODO - implement RoomMgr.createRoom
+            VipRoom vip = new VipRoom(1,this.generateRoomId(RoomType.VIP),1,RoomStatus.Vacant,RoomType.VIP,0,BedType.Master);
+            arrayRoom.add(vip);
+          
+                    return true;         
+	}
+
+	
+	/**
+	 * 
+	 * @param roomId
+	 */
+	public boolean removeRoom(String RoomId) {
+
+            //go through arrayRoom in memory, find and delete room
+            for(int i = 0; i<arrayRoom.size();i++){
+                //if match then delete
+                if(arrayRoom.get(i).getRoomId().equals(RoomId)){
+                    arrayRoom.remove(i); 
+                    //Split up roomId
+                    String id = RoomId.substring(RoomId.length() - 2, RoomId.length());
+                    String rmType = RoomId.substring(0, RoomId.length()-2);
+                    RoomType roomType = RoomType.valueOf(rmType);
+                     //go to boolean arrays to change to false;
+                    switch(roomType){
+                                        case Single: singleArray[Integer.valueOf(id)] = false;
+                                            break;
+                                        case Standard: standardArray[Integer.valueOf(id)] = false;
+                                            break;
+                                        case Suite: suiteArray[Integer.valueOf(id)] = false;
+                                            break;
+                                        case VIP: VIPArray[Integer.valueOf(id)] = false;
+                                            break;
+                                    }
                     return true;
-            
-	}
-
-	/**
-	 * Update Room Features and Specs
-	 * @param room
-	 */
-	public boolean updateRoom(Room room) {
-		// TODO - implement RoomMgr.updateRoom
-		throw new UnsupportedOperationException();
+                }
+            }
+        
+            return false ;
 	}
 
 	/**
 	 * 
 	 * @param roomId
 	 */
-	public boolean removeRoom(int roomId) {
-		// TODO - implement RoomMgr.removeRoom
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param roomId
-	 */
-	public Room getRoom(String roomId) {
-		// TODO - implement RoomMgr.getRoom
-		throw new UnsupportedOperationException();
-	}
+	public Room getRoom(String RoomId) {
+		        //go through arrayRoom in memory, find and delete room
+            for(int i = 0; i<arrayRoom.size();i++){
+                //if match then delete
+                if(arrayRoom.get(i).getRoomId().equals(RoomId))
+                   return arrayRoom.get(i);
+                    }
+            System.out.println("Room not found");
+            return null;
+        }
 
 	public void printRoomOccupancyReport() {
 		// TODO - implement RoomMgr.printRoomOccupancyReport
@@ -145,7 +179,7 @@ public class RoomMgr implements Manager {
                 case Single: for(int i = 0;i<singleArray.length;i++){
                                 //first element which is empty
                                 if(singleArray[i] == false){
-                                    id = "single" + Integer.toString(i);
+                                    id = "Single" + Integer.toString(i);
                                     singleArray[i]=true;
                                 }
                               }
@@ -154,7 +188,7 @@ public class RoomMgr implements Manager {
                  case Standard: for(int i = 0;i<standardArray.length;i++){
                                 //first element which is empty
                                 if(standardArray[i] == false){
-                                    id = "single" + Integer.toString(i);
+                                    id = "Standard" + Integer.toString(i);
                                     standardArray[i] = true;
                                 }
                               }
@@ -163,7 +197,7 @@ public class RoomMgr implements Manager {
                case VIP: for(int i = 0;i<VIPArray.length;i++){
                                 //first element which is empty
                                 if(VIPArray[i] == false){
-                                    id = "single" + Integer.toString(i);
+                                    id = "VIP" + Integer.toString(i);
                                     VIPArray[i] = true;
                                 }
                               }
@@ -172,7 +206,7 @@ public class RoomMgr implements Manager {
                  case Suite: for(int i = 0;i<suiteArray.length;i++){
                                 //first element which is empty
                                 if(suiteArray[i] == false){
-                                    id = "single" + Integer.toString(i);
+                                    id = "Suite" + Integer.toString(i);
                                     suiteArray[i] = true;
                                 }
                               }
@@ -203,9 +237,6 @@ public class RoomMgr implements Manager {
         System.out.println("Rooms to XML Complete");
         return true;
     }
-
-
-
 
    //Delete all xml files from specified folder,run this method before createToFile else u will get duplicates
     @Override

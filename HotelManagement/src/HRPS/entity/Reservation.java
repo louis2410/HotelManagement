@@ -168,7 +168,7 @@ public class Reservation {
             }else if(roomType == RoomType.Standard){
                 this.associatedRooms.add(new StandardRoom());
             }else if(roomType == RoomType.Suit){
-                this.associatedRooms.add(new SuitRoom());
+                this.associatedRooms.add(new SuiteRoom());
             } else if(roomType == RoomType.VIP){
                 this.associatedRooms.add(new VipRoom());
             }

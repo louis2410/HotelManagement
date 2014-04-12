@@ -1,6 +1,6 @@
 package HRPS.entity;
 
-public  class Room {
+public abstract class Room {
 
 	private int maxOccupancy;
 	private String roomId;
@@ -29,7 +29,10 @@ public  class Room {
 		
 	}
 
-
+        public abstract double getweekdayRoomRate();
+        
+        public abstract double getweekendRoomRate();
+        
 
 	public String getRoomId() {
 		return this.roomId;
@@ -39,7 +42,7 @@ public  class Room {
 	 * 
 	 * @param roomId
 	 */
-	public void setRoomId(int roomId) {
+	public void setRoomId(String roomId) {
 		this.roomId = roomId;
 	}
 
@@ -108,43 +111,6 @@ public  class Room {
             return this.roomId == room.roomId;
         }
 
-        //Louis 
-        
-        public double getweekdayRoomRate(Room room){
-            
-            switch(room.getRoomType()){
-                
-                case Single: return 25.0;
-                    
-                case Standard: return 50.0;    
-                
-                case VIP: return 75.0;
-                    
-                case Suite: return 100.0;    
-                
-            }
-            //If room type dont match
-            return 0;
-            
-        }
-        
-         public double getweekendRoomRate(Room room){
-            
-            switch(room.getRoomType()){
-                
-                case Single: return 35.0;
-
-                case Standard: return 70.0;    
-                
-                case VIP: return 105.0;
-                    
-                case Suite: return 140.0;    
-                
-            }
-            //If room type dont match
-            return 0;
-            
-        }
         
         
         
