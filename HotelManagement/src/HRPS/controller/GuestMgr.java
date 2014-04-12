@@ -142,7 +142,7 @@ public class GuestMgr {
 
         this.retrieveFromFile();
         this.DeleteFromFile();
-        this.printAllGuests();
+        //this.printAllGuests();
         this.createToFile();
 
 

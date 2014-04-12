@@ -7,6 +7,13 @@ public class TransactionMgr implements Manager {
 	private int promoRate;
 	private int gstRate;
 
+        
+        //Constructor
+        public TransactionMgr(int promo, int gst){
+            
+            this.promoRate = promo;
+            this.gstRate = gst;
+        }
 	/**
 	 * 
 	 * @param transaction
