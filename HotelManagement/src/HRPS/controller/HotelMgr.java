@@ -7,10 +7,12 @@ import java.util.*;
 
 public class HotelMgr {
 
-    //Managers for each sector
     GuestMgr guestMgr = new GuestMgr();
-    ReservationMgr resMgr = new ReservationMgr();
-    RoomMgr roomMgr = new RoomMgr();
+    //ReservationMgr resMgr = new ReservationMgr();
+    RoomMgr roomMgr = new RoomMgr(); 
+    
+    //Managers for each sector
+   
     private int maxNoOfFloor = 10;
     private int maxNoOfRooms = 200;
     private int singleBedAmt = 80;
@@ -22,19 +24,31 @@ public class HotelMgr {
      */
     private int checkInTime = 1300;
 
-    /**
-     *
-     * @param roomId
-     */
+    //Room Manager Access Methods
+    
+    //Print NumOfAvailableRoomsForCreation
+    public void printNumOfAvailableRoomsForCreation()
+    {  
+        int single = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single);
+       int standard= roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Standard);
+       int vip = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.VIP);
+       int suite = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Suite);
+       System.out.println("Available Rooms for Creation\n");
+       System.out.println("Single Rooms: "+single);
+       System.out.println("Standard Rooms: "+standard);
+       System.out.println("VIP Rooms: "+vip);
+       System.out.println("Suite Rooms: "+suite);
+    
+    }
+    
+    
+    
     public Room checkRoomAvailability(int roomId) {
         // TODO - implement HotelMgr.checkRoomAvailability
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param guestId
-     */
+
     public Room checkRoomDetails(int guestId) {
         // TODO - implement HotelMgr.checkRoomDetails
         throw new UnsupportedOperationException();
@@ -207,7 +221,7 @@ public class HotelMgr {
                     singleCount++;
                 } else if (allRoomList.get(i).getRoomType() == RoomType.Standard) {
                     standardCount++;
-                } else if (allRoomList.get(i).getRoomType() == RoomType.Suit) {
+                } else if (allRoomList.get(i).getRoomType() == RoomType.Suite) {
                     suitCount++;
                 } else if (allRoomList.get(i).getRoomType() == RoomType.VIP) {
                     vipCount++;

@@ -31,8 +31,8 @@ public class GuestMgrTest {
        
         
         //guestMgr.retrieveFromFile();
-       guestMgr.DeleteFromFile();
-        //guestMgr.createToFile();
+       //guestMgr.DeleteFromFile();
+        guestMgr.createToFile();
         //guestMgr.printGuests();
         
         //guestMgr.setup();

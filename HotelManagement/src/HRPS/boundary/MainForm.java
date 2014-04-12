@@ -2,6 +2,7 @@ package HRPS.boundary;
 
 import HRPS.controller.GuestMgr;
 import HRPS.controller.HotelMgr;
+import HRPS.controller.RoomMgr;
 import HRPS.entity.RoomType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,72 +24,104 @@ public class MainForm {
         System.out.println("\t\t\tHPRS Version 1.0");
         System.out.println("---------------------------------------------------------------------");
 
-        //print out Main Menu
-        printMainMenu();
+        
+        UIControl();
+        
+       
     }
 
-    public static void printMainMenu() {
-        // TODO - implement MainForm.printMainMenu
-        //Parameters
+    public static void UIControl(){
+        
         int choice;
-        GuestMgr guestmgr = new GuestMgr();
-        guestmgr.setup();
-
-        //Choice selections
+        
+        do{
+            choice = printMainMenu();
+            switch(choice){
+        
+            case 1:printRoomMenu();
+                    break;
+             
+            case 2:printGuestMenu();
+                    break;
+                
+            case 3:printReservationMenu();
+                    break;
+            
+            case 4:printReservationReceiptMenu();
+                    break;
+                
+            case 5://CheckAvailableityofroom
+                    break;
+                
+            case 6://Check-In 
+                    break;
+               
+            case 7://Checkout and print invoice
+                    break;
+                
+            case 8://Print RoomOccupancy Report
+                    break;
+               
+            case 9://Exit XML functions    
+                    break;
+        
+        default:    System.out.println("Please enter a value from 1 to 9.");
+                      
+         }
+            
+            
+            
+        }while(choice != 9);
+        
+        
+    }
+    
+    
+    public static int printMainMenu() {
+        int choice;     
+        //Choice 
         System.out.println("Please select one of the following choices: \n"
                 + "1. Create/Update/Remove rooms details \n"
-                + "2. Create/Update/Removeguestsdetail\n"
-                + "3. Create/Update/Removereservation\n"
+                + "2. Create/Update/Remove guestsdetail\n"
+                + "3. Create/Update/Remove reservation\n"
                 + "4. Print reservation receipt\n"
                 + "5. Check availability of a room\n"
                 + "6. Check-in\n"
                 + "7. Check-out and print billinvoice\n"
                 + "8. Print Room Occupancyreport\n"
                 + "9. Quit the system\n");
-
-        do {
-            System.out.print("Please select a choice : ");
+        System.out.print("Please select a choice : ");
+        
             choice = sc.nextInt();
-            switch (choice) {
-                case 1:
-                    printRoomMenu();
-                    break;
-                case 2:
-                    printGuestMenu(guestmgr);
-                    break;
-                case 3:
-                    printReservationMenu();
-                    break;
-                case 4:
-                    printReservationReceiptMenu();
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
-                case 9:
-                    System.out.println("Thank you for using HRPS!");
-                    System.out.println("Hope to see you soon!");
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Please enter a value from 1 to 9.");
-                    break;
-            }
-        } while (choice != 9);
-        throw new UnsupportedOperationException();
+            return choice;
     }
 
     public static void printRoomMenu() {
-        // TODO - implement MainForm.printRoomMenu
-        throw new UnsupportedOperationException();
+        Scanner in = new Scanner(System.in);
+        String roomId;
+        System.out.println("Please select one of the following choices: \n"
+                + "1. Create Room\n"
+                + "2. Update Room\n"
+                + "3. Remove Room\n"
+                + "4. Back to menu\n");
+        int CURRoomChoice = in.nextInt();
+      
+            switch (CURRoomChoice) {
+                //Create Room
+                case 1: hotelMgr.printNumOfAvailableRoomsForCreation();
+                    
+                //Update Room
+                case 2:break;
+                    
+                //Remove Room
+                case 3:break;
+                    
+                //Back to Menu
+                case 4:    break;
+                        }        
     }
 
-    public static void printGuestMenu(GuestMgr guestmgr) {
+    public static void printGuestMenu() {
         Scanner in = new Scanner(System.in);
         String guestId;
         System.out.println("Please select one of the following choices: \n"
@@ -208,9 +241,8 @@ public class MainForm {
                     System.out.println("Returning to Main Menu...");
                     printMainMenu();
                     break;
-                //Quit Program, create xml files
-                case 9:
-                    guestmgr.createToFile();
+
+             
                 default:
                     System.out.println("Please enter a value from 1 to 9.");
                     break;

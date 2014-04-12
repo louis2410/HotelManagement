@@ -133,7 +133,7 @@ public  class Room {
             switch(room.getRoomType()){
                 
                 case Single: return 35.0;
-                    
+
                 case Standard: return 70.0;    
                 
                 case VIP: return 105.0;

@@ -17,10 +17,10 @@ import java.util.List;
 
 public class RoomMgr implements Manager {
         
-  public static final int MaxNumSingleRoom = 20;
-  public static final int MaxNumStandardRoom = 20;
+  public static final int MaxNumSingleRoom = 40;
+  public static final int MaxNumStandardRoom = 30;
   public static final int MaxNumVIPRoom = 20;
-  public static final int MAxSuiteRoom =20;
+  public static final int MaxNumSuiteRoom =10;
      //Attributes
     private ArrayList<Room> arrayRoom;
     private PersistenceStrategy strategy;
@@ -29,7 +29,6 @@ public class RoomMgr implements Manager {
     
     public RoomMgr() {
         arrayRoom = new ArrayList<Room>();
-     
         // prepares the file strategy to Respecitve data directory 
         strategy = new FilePersistenceStrategy(new File(System.getProperty("user.dir") + "/src/HRPS/data/Room"));
         // creates the list and linkage to data directory
@@ -84,6 +83,41 @@ public class RoomMgr implements Manager {
 		throw new UnsupportedOperationException();
 	}
 
+        
+        
+        //Get CurrentNumberOfRoomsBasedOnType
+        
+        public int AvailableNumOfRoomsBasedOnType(RoomType roomtype){
+            
+            int count = 0;
+            //Loop through array to get number of rooms
+          for (Iterator it = arrayRoom.iterator(); it.hasNext();) {
+                Room room = (Room) it.next();
+                if(room.getRoomType() == roomtype){
+                    count++;
+                }
+            }
+            
+          
+            switch(roomtype){
+                
+                   case Single: return MaxNumSingleRoom - count;
+                    
+                   case Standard: return MaxNumStandardRoom - count;
+                       
+                   case VIP: return MaxNumVIPRoom - count;    
+                       
+                   case Suite: return MaxNumSuiteRoom - count;    
+            }
+             
+            return 0;        
+            
+            
+        }
+        
+        
+        
+        
         
         
         @Override

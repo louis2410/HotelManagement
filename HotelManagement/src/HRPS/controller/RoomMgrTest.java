@@ -28,7 +28,7 @@ public class RoomMgrTest {
        
         
         sucess = roomMgr.createToFile();
-          sucess = roomMgr.deleteFromFile();
+          
         System.out.println("complete");
     }
     
