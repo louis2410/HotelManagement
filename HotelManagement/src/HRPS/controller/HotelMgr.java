@@ -49,7 +49,8 @@ public class HotelMgr {
             case Single: //Check if max room of that type is reached
                     if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
-                       roomMgr.createRoom(2,1,1,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
+                       roomMgr.createRoom(2,roomMgr.generateRoomId(RoomType.Single),1,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
+                 
                     }
             
         }
