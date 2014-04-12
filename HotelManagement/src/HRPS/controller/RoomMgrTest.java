@@ -28,7 +28,7 @@ public class RoomMgrTest {
         //sucess = roomMgr.createStandardRoom();
         //sucess = roomMgr.createVIPRoom();
         //sucess = roomMgr.createSuiteRoom();
-        sucess = roomMgr.removeRoom("Single39");
+        //sucess = roomMgr.removeRoom("Single39");
         sucess = roomMgr.createSingleRoom();
         sucess = roomMgr.deleteFromFile();
         sucess = roomMgr.createToFile();

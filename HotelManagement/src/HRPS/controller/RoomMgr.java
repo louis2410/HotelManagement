@@ -58,6 +58,7 @@ public class RoomMgr implements Manager {
 	public boolean createSingleRoom() {
 		// TODO - implement RoomMgr.createRoom
             SingleRoom single = new SingleRoom(1,this.generateRoomId(RoomType.Single),1,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
+            System.out.println("Room ID of created room :" + single.getRoomId());
             arrayRoom.add(single);
           
                     return true;         
@@ -66,6 +67,7 @@ public class RoomMgr implements Manager {
         public boolean createStandardRoom() {
 		// TODO - implement RoomMgr.createRoom
             StandardRoom standard = new StandardRoom(1,this.generateRoomId(RoomType.Standard),1,RoomStatus.Vacant,RoomType.Standard,0,BedType.Double);
+            System.out.println("Room ID of created room :" + standard.getRoomId());
             arrayRoom.add(standard);
                     return true;         
 	}
@@ -73,7 +75,8 @@ public class RoomMgr implements Manager {
         public boolean createSuiteRoom() {
 		// TODO - implement RoomMgr.createRoom
            SuiteRoom suite = new SuiteRoom(1,this.generateRoomId(RoomType.Suite),1,RoomStatus.Vacant,RoomType.Suite,0,BedType.Double);
-            arrayRoom.add(suite);
+           System.out.println("Room ID of created room :" + suite.getRoomId()); 
+           arrayRoom.add(suite);
           
                     return true;         
 	}
@@ -81,16 +84,13 @@ public class RoomMgr implements Manager {
         public boolean createVIPRoom() {
 		// TODO - implement RoomMgr.createRoom
             VipRoom vip = new VipRoom(1,this.generateRoomId(RoomType.VIP),1,RoomStatus.Vacant,RoomType.VIP,0,BedType.Master);
+            System.out.println("Room ID of created room :" + vip.getRoomId());
             arrayRoom.add(vip);
           
                     return true;         
 	}
 
 	
-	/**
-	 * 
-	 * @param roomId
-	 */
 	public boolean removeRoom(String RoomId) {
 
             //go through arrayRoom in memory, find and delete room
@@ -276,7 +276,7 @@ public class RoomMgr implements Manager {
             }
         }
         } catch (Exception ex) {
-            System.out.println("Failed to retrive all from data directory");
+            System.out.println("Failed to retrive XML from data directory");
             return false;
         }
         System.out.println("Room XML to roomArray Complete");

@@ -115,17 +115,23 @@ public class MainForm {
                         System.out.println("3. VIP Room");
                         System.out.println("4. Suite Room");
                         CURRoomChoice = in.nextInt();
-                        
-                    
+                        in.nextLine();
+                        hotelMgr.createRoomBasedonType(CURRoomChoice);
+                        break;
+                      
                 //Update Room
                 case 2:break;
                     
                 //Remove Room
-                case 3:break;
+                case 3: System.out.println("Enter Room ID");
+                        String choice = in.next();
+                        hotelMgr.removeRoom(choice);
+                        break;
                     
                 //Back to Menu
                 case 4:    break;
-                        }        
+             }
+            
     }
 
     public static void printGuestMenu() {

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class HotelMgr {
 
-    GuestMgr guestMgr = new GuestMgr();
+    //GuestMgr guestMgr = new GuestMgr();
     //ReservationMgr resMgr = new ReservationMgr();
     RoomMgr roomMgr = new RoomMgr(); 
     
@@ -41,19 +41,63 @@ public class HotelMgr {
     
     }
     
-    public void createRoomBasedonType(RoomType roomtype){
+    public boolean createRoomBasedonType(int choice){
         
-        switch(roomtype){
+        switch(choice){
             
             //Single room
-            case Single: //Check if max room of that type is reached
+            case 1: //Check if max room of that type is reached
                     if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
-                       roomMgr.createRoom(2,roomMgr.generateRoomId(RoomType.Single),1,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
-                 
+                       roomMgr.createSingleRoom();
+                       return true;
                     }
+                 
+                
+             //Standard room
+            case 2: //Check if max room of that type is reached
+                    if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Standard)>0){
+                        //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
+                       roomMgr.createStandardRoom();
+                       return true;
+                    }
+                  
+                
+             //Suite room
+            case 3: //Check if max room of that type is reached
+                    if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Suite)>0){
+                        //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
+                       roomMgr.createSuiteRoom();
+                       return true;
+                    }
+                  
+                
+              //Single room
+            case 4: //Check if max room of that type is reached
+                    if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.VIP)>0){
+                        //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
+                       roomMgr.createVIPRoom();
+                       return true;
+                    }
+                     
+                
+            default: System.out.println("Please choose a valid room type");
+                     return false;   
             
         }
+        
+    }
+    
+    public boolean removeRoom(String rmId){
+        
+        return roomMgr.removeRoom(rmId);
+    }
+    
+    public void OutputToXML(){
+        
+        //guestMgr.createToFile();
+        roomMgr.deleteFromFile();
+        roomMgr.createToFile();
         
     }
     

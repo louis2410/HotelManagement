@@ -17,9 +17,9 @@ public class HotelMgrTest {
     public static void main(String[] args) {
     
         HotelMgr hotelMgr = new HotelMgr();
-        hotelMgr.createRoomBasedonType(RoomType.Single);
+        boolean success = hotelMgr.createRoomBasedonType(1);
+        hotelMgr.OutputToXML();
         
-    
     }
     
     
