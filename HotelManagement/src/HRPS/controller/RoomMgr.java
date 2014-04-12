@@ -25,7 +25,10 @@ public class RoomMgr implements Manager {
     private ArrayList<Room> arrayRoom;
     private PersistenceStrategy strategy;
     private List datalist;
-    
+    private final boolean singleArray[] = new boolean[MaxNumSingleRoom];
+    private final boolean standardArray[] = new boolean[MaxNumStandardRoom];
+    private final boolean VIPArray[] = new boolean[MaxNumVIPRoom];
+    private final boolean suiteArray[] = new boolean[MaxNumSuiteRoom];
     
     public RoomMgr() {
         arrayRoom = new ArrayList<Room>();
@@ -33,6 +36,22 @@ public class RoomMgr implements Manager {
         strategy = new FilePersistenceStrategy(new File(System.getProperty("user.dir") + "/src/HRPS/data/Room"));
         // creates the list and linkage to data directory
         datalist = new XmlArrayList(strategy);
+        
+        //Set boolean Array Values to false
+        for(int i = 0; i< singleArray.length;i++){
+            singleArray[i] = false;
+        }
+          for(int i = 0; i< standardArray.length;i++){
+            standardArray[i] = false;
+        }
+            for(int i = 0; i< VIPArray.length;i++){
+            VIPArray[i] = false;
+        }
+              for(int i = 0; i< suiteArray.length;i++){
+            suiteArray[i] = false;
+        }
+        
+        
         //Setup
         setup();
     }
@@ -40,9 +59,13 @@ public class RoomMgr implements Manager {
     
 	/**
 	 * Creation of a new Room in the hotel
-	 * @param room
+     * @param maxOcc
+     * @param rmId
+     * @param floor
+     * @param room
+ 
 	 */
-	public boolean createRoom(int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype) {
+	public boolean createRoom(int maxOcc,String rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype) {
 		// TODO - implement RoomMgr.createRoom
             Room room = new Room(maxOcc,rmId,floor,roomstatus,roomtype,curOcc,bedtype);
             arrayRoom.add(room);
@@ -73,7 +96,7 @@ public class RoomMgr implements Manager {
 	 * 
 	 * @param roomId
 	 */
-	public Room getRoom(int roomId) {
+	public Room getRoom(String roomId) {
 		// TODO - implement RoomMgr.getRoom
 		throw new UnsupportedOperationException();
 	}
@@ -85,8 +108,7 @@ public class RoomMgr implements Manager {
 
         
         
-        //Get CurrentNumberOfRoomsBasedOnType
-        
+        //Get CurrentNumberOfRoomsBasedOnType      
         public int AvailableNumOfRoomsBasedOnType(RoomType roomtype){
             
             int count = 0;
@@ -115,12 +137,57 @@ public class RoomMgr implements Manager {
             
         }
         
+        //RoomID Generation
+        public String generateRoomId(RoomType roomtype){
+            String id = "Rooms have reached limit";   
+            switch(roomtype){
+                
+                case Single: for(int i = 0;i<singleArray.length;i++){
+                                //first element which is empty
+                                if(singleArray[i] == false){
+                                    id = "single" + Integer.toString(i);
+                                    singleArray[i]=true;
+                                }
+                              }
+                              return id;
+                              
+                 case Standard: for(int i = 0;i<standardArray.length;i++){
+                                //first element which is empty
+                                if(standardArray[i] == false){
+                                    id = "single" + Integer.toString(i);
+                                    standardArray[i] = true;
+                                }
+                              }
+                              return id;        
+                              
+               case VIP: for(int i = 0;i<VIPArray.length;i++){
+                                //first element which is empty
+                                if(VIPArray[i] == false){
+                                    id = "single" + Integer.toString(i);
+                                    VIPArray[i] = true;
+                                }
+                              }
+                              return id;    
+                              
+                 case Suite: for(int i = 0;i<suiteArray.length;i++){
+                                //first element which is empty
+                                if(suiteArray[i] == false){
+                                    id = "single" + Integer.toString(i);
+                                    suiteArray[i] = true;
+                                }
+                              }
+                              return id;                   
+            
+        
+                }
+            return id;
+        }
+        
+
         
         
-        
-        
-        
-        @Override
+    //Create XML from room objects    
+     @Override
     public boolean createToFile() {
         try {
             //for each reservation  in arrayRoom create one xml file
@@ -162,10 +229,20 @@ public class RoomMgr implements Manager {
     @Override
     public boolean retrieveFromFile() {
         try {
-            //for each reservation in reservation folder, creates an reservation object in reservationarray
+            
         for (Iterator it = datalist.iterator(); it.hasNext();) {
             Room room = (Room) it.next();
             arrayRoom.add(room);
+            String id = room.getRoomId().substring(room.getRoomId().length() - 2, room.getRoomId().length());
+           
+            switch(room.getRoomType()){
+                
+                case Single: singleArray[Integer.valueOf(id)] = true;break;
+                case Standard: standardArray[Integer.valueOf(id)] = true;break;
+                case VIP: VIPArray[Integer.valueOf(id)] = true;break;          
+                case Suite: suiteArray[Integer.valueOf(id)] = true;break;
+                      
+            }
         }
         } catch (Exception ex) {
             System.out.println("Failed to retrive all from data directory");
@@ -174,10 +251,9 @@ public class RoomMgr implements Manager {
         System.out.println("Room XML to roomArray Complete");
         return true;
     }
-
+      @Override
      public void setup() {
         this.retrieveFromFile();
-        //this.deleteFromFile();
-        //this.createToFile();
+
     }
 }

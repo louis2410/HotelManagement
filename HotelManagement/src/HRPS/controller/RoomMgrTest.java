@@ -24,9 +24,10 @@ public class RoomMgrTest {
         int num = 12334;
         boolean sucess;
         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
-        sucess = roomMgr.createRoom(2,1,1,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
+        sucess = roomMgr.createRoom(2,roomMgr.generateRoomId(RoomType.Single),1,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
        
         
+        sucess = roomMgr.deleteFromFile();
         sucess = roomMgr.createToFile();
           
         System.out.println("complete");

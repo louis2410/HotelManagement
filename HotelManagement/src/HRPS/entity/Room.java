@@ -3,7 +3,7 @@ package HRPS.entity;
 public  class Room {
 
 	private int maxOccupancy;
-	private int roomId;
+	private String roomId;
 	private int floor;
 	private RoomStatus roomStatus;
 	private RoomType roomType;
@@ -16,7 +16,7 @@ public  class Room {
         //Roomsize redundant
 	//private int roomSize;
 
-	public Room(int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype) {
+	public Room(int maxOcc,String rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype) {
           
             this.maxOccupancy=maxOcc;
             this.roomId = rmId;
@@ -31,7 +31,7 @@ public  class Room {
 
 
 
-	public int getRoomId() {
+	public String getRoomId() {
 		return this.roomId;
 	}
 

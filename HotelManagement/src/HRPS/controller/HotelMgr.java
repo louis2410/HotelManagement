@@ -33,7 +33,7 @@ public class HotelMgr {
        int standard= roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Standard);
        int vip = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.VIP);
        int suite = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Suite);
-       System.out.println("Available Rooms for Creation\n");
+       System.out.println("Available Rooms for Creation");
        System.out.println("Single Rooms: "+single);
        System.out.println("Standard Rooms: "+standard);
        System.out.println("VIP Rooms: "+vip);
@@ -41,7 +41,20 @@ public class HotelMgr {
     
     }
     
-    
+    public void createRoomBasedonType(RoomType roomtype){
+        
+        switch(roomtype){
+            
+            //Single room
+            case Single: //Check if max room of that type is reached
+                    if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single)>0){
+                        //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
+                       roomMgr.createRoom(2,1,1,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
+                    }
+            
+        }
+        
+    }
     
     public Room checkRoomAvailability(int roomId) {
         // TODO - implement HotelMgr.checkRoomAvailability

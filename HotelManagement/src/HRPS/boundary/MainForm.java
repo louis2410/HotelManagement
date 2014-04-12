@@ -109,6 +109,13 @@ public class MainForm {
             switch (CURRoomChoice) {
                 //Create Room
                 case 1: hotelMgr.printNumOfAvailableRoomsForCreation();
+                        System.out.println("Select Type of Room to be Created:");
+                        System.out.println("1. Single Room");
+                        System.out.println("2. Standard Room");
+                        System.out.println("3. VIP Room");
+                        System.out.println("4. Suite Room");
+                        CURRoomChoice = in.nextInt();
+                        
                     
                 //Update Room
                 case 2:break;
