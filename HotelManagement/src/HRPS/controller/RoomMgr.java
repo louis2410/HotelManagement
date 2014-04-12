@@ -112,6 +112,7 @@ public class RoomMgr implements Manager {
         try {
             //for each guest in Room folder, delete each
             for (Iterator it = datalist.iterator(); it.hasNext();) {
+                Room room = (Room) it.next();
                 it.remove();
             }
         } catch (Exception ex) {

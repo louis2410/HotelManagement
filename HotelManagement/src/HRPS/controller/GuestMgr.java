@@ -27,6 +27,7 @@ public class GuestMgr {
         strategy = new FilePersistenceStrategy(new File(System.getProperty("user.dir") + "/src/HRPS/data/Guest"));
         // creates the list and linkage to data directory
         datalist = new XmlArrayList(strategy);
+       
         //Setup
         setup();
     }
@@ -77,23 +78,23 @@ public class GuestMgr {
             return false;
         }
 
-        System.out.println("Rooms to XML Complete");
+        System.out.println("Guests to XML Complete");
         return true;
     }
 
     //Delete all xml files from specified folder,run this method before createToFile else u will get duplicates
     public boolean DeleteFromFile() {
-       try {
-            //for each guest in guest folder, delete each
-            for (Iterator it = datalist.iterator(); it.hasNext();) {
-                it.remove();
-            }
+       //for each guest in guestfolder, delete xml
+               try {
+        for (Iterator it = datalist.iterator(); it.hasNext();) {
+            Guest guest = (Guest) it.next();
+            it.remove();
+        }
         } catch (Exception ex) {
             System.out.println("Failed to delete all from data directory");
             return false;
         }
-
-        System.out.println("Guest XML Delete Complete ");
+        System.out.println("Guest XML Delete Complete");
         return true;
     }
 

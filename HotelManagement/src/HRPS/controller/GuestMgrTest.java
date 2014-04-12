@@ -31,7 +31,7 @@ public class GuestMgrTest {
        
         
         //guestMgr.retrieveFromFile();
-       //guestMgr.DeleteFromFile();
+       guestMgr.DeleteFromFile();
         //guestMgr.createToFile();
         //guestMgr.printGuests();
         

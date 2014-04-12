@@ -166,6 +166,7 @@ public class ReservationMgr implements Manager {
         try {
             //for each guest in Guest folder, delete each
             for (Iterator it = datalist.iterator(); it.hasNext();) {
+                Reservation reservation = (Reservation)it.next();
                 it.remove();
             }
         } catch (Exception ex) {
