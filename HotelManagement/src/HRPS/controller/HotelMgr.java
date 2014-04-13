@@ -6,13 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class HotelMgr {
-
+    //Managers for each sector
     GuestMgr guestMgr = new GuestMgr();
-    //ReservationMgr resMgr = new ReservationMgr();
+    ReservationMgr resMgr = new ReservationMgr();
     RoomMgr roomMgr = new RoomMgr(); 
     
-    //Managers for each sector
-   
+    //I dunoe whats this is for
     private int maxNoOfFloor = 10;
     private int maxNoOfRooms = 200;
     private int singleBedAmt = 80;
@@ -106,7 +105,9 @@ public class HotelMgr {
         
         return roomMgr.removeRoom(rmId);
     }
-
+    public void printRoomOccupancyReport(){
+        roomMgr.printRoomOccupancyReport();
+    }
     //Guest Manager Access Methods Added by Louis
     
     public boolean createGuest(String guestId, String FirstName, String lastName,
@@ -125,7 +126,7 @@ public class HotelMgr {
     }
     
     
-    
+    //Impportant , execute before closing program
     public void OutputToXML(){
         
         guestMgr.DeleteFromFile();
@@ -135,9 +136,10 @@ public class HotelMgr {
         
     }
     
-    public Room checkRoomAvailability(int roomId) {
+    public String checkRoomAvailability(String roomId) {
         // TODO - implement HotelMgr.checkRoomAvailability
-        throw new UnsupportedOperationException();
+
+        return roomMgr.getRoom(roomId).getRoomStatus().toString();
     }
 
 
@@ -277,7 +279,7 @@ public class HotelMgr {
                     singleDisplay += " " + allRoomList.get(i).getRoomId() + ",";
                 } else if (allRoomList.get(i).getRoomType() == RoomType.Standard) {
                     standardDisplay += " " + allRoomList.get(i).getRoomId() + ",";
-                } else if (allRoomList.get(i).getRoomType() == RoomType.Suit) {
+                } else if (allRoomList.get(i).getRoomType() == RoomType.Suite) {
                     suitDisplay += " " + allRoomList.get(i).getRoomId() + ",";
                 } else if (allRoomList.get(i).getRoomType() == RoomType.VIP) {
                     vipDisplay += " " + allRoomList.get(i).getRoomId() + ",";

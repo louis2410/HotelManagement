@@ -51,6 +51,7 @@ public class MainForm {
                     break;
                 
             case 5://CheckAvailableityofroom
+                    printCheckRoomAvailablity();
                     break;
                 
             case 6://Check-In 
@@ -60,6 +61,8 @@ public class MainForm {
                     break;
                 
             case 8://Print RoomOccupancy Report
+                    
+                    printRoomOccupancyReport();
                     break;
                
             case 9://Exit XML functions   
@@ -83,12 +86,12 @@ public class MainForm {
         //Choice 
         System.out.println("Please select one of the following choices: \n"
                 + "1. Create/Update/Remove rooms details \n"
-                + "2. Create/Update/Remove guestsdetail\n"
+                + "2. Create/Update/Remove guests detail\n"
                 + "3. Create/Update/Remove reservation\n"
                 + "4. Print reservation receipt\n"
                 + "5. Check availability of a room\n"
                 + "6. Check-in\n"
-                + "7. Check-out and print billinvoice\n"
+                + "7. Check-out and print bill invoice\n"
                 + "8. Print Room Occupancyreport\n"
                 + "9. Quit the system\n");
         System.out.print("Please select a choice : ");
@@ -96,6 +99,8 @@ public class MainForm {
             choice = sc.nextInt();
             return choice;
     }
+    
+    
 
     public static void printRoomMenu() {
         Scanner in = new Scanner(System.in);
@@ -286,6 +291,10 @@ public class MainForm {
         }
         throw new UnsupportedOperationException();
     }
+    
+    public static void printRoomOccupancyReport(){
+        hotelMgr.printRoomOccupancyReport();
+    }
 
     //Arthur : Bryan
     public static void printReservationMenu() {
@@ -397,6 +406,7 @@ public class MainForm {
     }
     //Arthur : Bryan
 
+    
     public static void printUpdateReservationMenu() {
         int resId = 0, choice = 0;
 
@@ -557,4 +567,18 @@ public class MainForm {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-}
+    
+    public static void printCheckRoomAvailablity(){
+           
+           System.out.println("Enter Room Id");
+           String rmId = sc.next();
+           System.out.println("RoomId "+rmId +"is "+hotelMgr.checkRoomAvailability(rmId));
+      
+       }
+    
+    
+    
+    
+    }
+
+ 

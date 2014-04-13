@@ -115,9 +115,7 @@ public class RoomMgr implements Manager {
             
             return false;
         }
-   
-        
-        
+           
 	public boolean removeRoom(String RoomId) {
 
             //go through arrayRoom in memory, find and delete room
@@ -147,10 +145,6 @@ public class RoomMgr implements Manager {
             return false ;
 	}
 
-	/**
-	 * 
-	 * @param roomId
-	 */
 	public Room getRoom(String RoomId) {
 		        //go through arrayRoom in memory, find and delete room
             for(int i = 0; i<arrayRoom.size();i++){
@@ -163,8 +157,40 @@ public class RoomMgr implements Manager {
         }
 
 	public void printRoomOccupancyReport() {
-		// TODO - implement RoomMgr.printRoomOccupancyReport
-		throw new UnsupportedOperationException();
+		
+            //Single Rooms
+            System.out.println("=== Single Rooms ===");
+            System.out.println("Total Number of Single Rooms: "+MaxNumSingleRoom);
+            System.out.println("Current Number of Single Rooms in use: " 
+                    + this.AvailableNumOfRoomsBasedOnType(RoomType.Single));
+            System.out.println("Number of Single Rooms available: "+
+                    (MaxNumSingleRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.Single)));
+            
+             //Standard Rooms
+            System.out.println("=== Standard Rooms ===");
+            System.out.println("Total Number of Standard Rooms: "+MaxNumStandardRoom);
+            System.out.println("Current Number of Standard Rooms in use: " 
+                    + this.AvailableNumOfRoomsBasedOnType(RoomType.Standard));
+               System.out.println("Number of Standard Rooms available: "+
+                    (MaxNumStandardRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.Standard)));
+             //SUITE Rooms
+            System.out.println("=== Suite Rooms ===");
+            System.out.println("Total Number of Suite Rooms: "+MaxNumSuiteRoom);
+            System.out.println("Current Number of Suite Rooms in use: " 
+                    + this.AvailableNumOfRoomsBasedOnType(RoomType.Suite));
+               System.out.println("Number of Suite Rooms available: "+
+                    (MaxNumSuiteRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.Suite)));
+             //VIP Rooms
+            System.out.println("=== VIP Rooms ===");
+            System.out.println("Total Number of VIP Rooms: "+MaxNumVIPRoom);
+            System.out.println("Current Number of VIP Rooms in use: " 
+                    + this.AvailableNumOfRoomsBasedOnType(RoomType.VIP));
+               System.out.println("Number of VIP Rooms available: "+
+                    (MaxNumVIPRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.VIP)));
+            
+            
+            
+            
 	}
 
         
