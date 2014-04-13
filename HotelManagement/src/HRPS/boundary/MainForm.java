@@ -194,7 +194,7 @@ public class MainForm {
                     String email = in.next();
                     hotelMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
                     System.out.print("Is there any associate guest? Yes = y No = n ");
-                    
+                    //Bug here i cant figure out
                     boolean assoguestchoice = false;
                             if(in.next().equals("y")){
                                 assoguestchoice = true;
