@@ -7,7 +7,7 @@ import java.util.*;
 
 public class HotelMgr {
 
-    //GuestMgr guestMgr = new GuestMgr();
+    GuestMgr guestMgr = new GuestMgr();
     //ReservationMgr resMgr = new ReservationMgr();
     RoomMgr roomMgr = new RoomMgr(); 
     
@@ -24,8 +24,7 @@ public class HotelMgr {
      */
     private int checkInTime = 1300;
 
-    //Room Manager Access Methods
-    
+    //Room Manager Access Methods added by Louis
     //Print NumOfAvailableRoomsForCreation
     public void printNumOfAvailableRoomsForCreation()
     {  
@@ -39,8 +38,7 @@ public class HotelMgr {
        System.out.println("VIP Rooms: "+vip);
        System.out.println("Suite Rooms: "+suite);
     
-    }
-    
+    }  
     public boolean createRoomBasedonType(int choice){
         
         switch(choice){
@@ -87,9 +85,6 @@ public class HotelMgr {
         }
         
     }
-    
-    
-    
     public boolean updateRoomStatus(String rmId, int status){
         switch(status){
             //update to occupied
@@ -104,20 +99,37 @@ public class HotelMgr {
         System.out.println("Room not updated");
         return false;
     }
-    
     public boolean addRoomService(String rmId, double amt){
         return roomMgr.updateRoom(rmId, amt);
     }
-    
-    
     public boolean removeRoom(String rmId){
         
         return roomMgr.removeRoom(rmId);
     }
+
+    //Guest Manager Access Methods Added by Louis
+    
+    public boolean createGuest(String guestId, String FirstName, String lastName,
+            String title, String address, String country, char gender, int contactNo, String email){
+ 
+        return guestMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
+    }
+    
+    public Guest getGuest(String guestId){
+        return guestMgr.getGuest(guestId);
+    }
+    
+    public boolean removeGuest(String guestId){
+                
+        return guestMgr.removeGuest(guestId);
+    }
+    
+    
     
     public void OutputToXML(){
         
-        //guestMgr.createToFile();
+        guestMgr.DeleteFromFile();
+        guestMgr.createToFile();
         roomMgr.deleteFromFile();
         roomMgr.createToFile();
         

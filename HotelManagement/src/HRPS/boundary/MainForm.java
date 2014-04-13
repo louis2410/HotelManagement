@@ -188,14 +188,14 @@ public class MainForm {
                     int contactNo = in.nextInt();
                     System.out.print("Please input the email: ");
                     String email = in.next();
-                    guestmgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
+                    hotelMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
                     System.out.print("Is there any associate guest? Yes = y No = n ");
                     boolean assoguestchoice = in.next().charAt(0) == 'y';
                     while (assoguestchoice) {
                         System.out.println("Please input the associate guest Id");
                         String AssoguestId = in.next();
-                        guestmgr.getGuest(guestId).setAssoGuest(guestmgr.getGuest(AssoguestId));
-                        System.out.print("Is there any associate guest? Yes = y No = n ");
+                       hotelMgr.getGuest(guestId).setAssoGuest(hotelMgr.getGuest(AssoguestId));
+                        System.out.print("Is there any more associate guest? Yes = y No = n ");
                         assoguestchoice = in.next().charAt(0) == 'y';
                     }
                     break;
@@ -220,47 +220,47 @@ public class MainForm {
                             case 1:
                                 System.out.print("Please input the guest ID: ");
                                 guestId = in.next();
-                                guestmgr.getGuest(guestId).setGuestId(guestId);
+                                hotelMgr.getGuest(guestId).setGuestId(guestId);
                                 break;
                             case 2:
                                 System.out.print("Please input the First Name: ");
                                 FirstName = in.next();
-                                guestmgr.getGuest(guestId).setFirstName(FirstName);
+                                hotelMgr.getGuest(guestId).setFirstName(FirstName);
                                 break;
                             case 3:
                                 System.out.print("Please input the Last Name: ");
                                 lastName = in.next();
-                                guestmgr.getGuest(guestId).setLastName(lastName);
+                                hotelMgr.getGuest(guestId).setLastName(lastName);
                                 break;
                             case 4:
                                 System.out.print("Please input the title: ");
                                 title = in.next();
-                                guestmgr.getGuest(guestId).setTitle(title);
+                                hotelMgr.getGuest(guestId).setTitle(title);
                                 break;
                             case 5:
                                 System.out.print("Please input the address: ");
                                 address = in.next();
-                                guestmgr.getGuest(guestId).setAddress(address);
+                                hotelMgr.getGuest(guestId).setAddress(address);
                                 break;
                             case 6:
                                 System.out.print("Please input the country: ");
                                 country = in.next();
-                                guestmgr.getGuest(guestId).setCountry(country);
+                                hotelMgr.getGuest(guestId).setCountry(country);
                                 break;
                             case 7:
                                 System.out.print("Please input the gender: ");
                                 gender = in.next().charAt(0);
-                                guestmgr.getGuest(guestId).setGender(gender);
+                                hotelMgr.getGuest(guestId).setGender(gender);
                                 break;
                             case 8:
                                 System.out.print("Please input the contact number: ");
                                 contactNo = in.nextInt();
-                                guestmgr.getGuest(guestId).setContactNo(contactNo);
+                                hotelMgr.getGuest(guestId).setContactNo(contactNo);
                                 break;
                             case 9:
                                 System.out.print("Please input the email: ");
                                 email = in.next();
-                                guestmgr.getGuest(guestId).setEmail(email);
+                                hotelMgr.getGuest(guestId).setEmail(email);
                                 break;
                             default:
                                 break;
@@ -269,9 +269,9 @@ public class MainForm {
                     break;
                 //Remove Guest
                 case 3:
-                    System.out.println("Please input the guest ID you want to Update");
+                    System.out.println("Please input the guest ID you want to Remove");
                     guestId = in.next();
-                    guestmgr.removeGuest(guestId);
+                    hotelMgr.removeGuest(guestId);
                     break;
                 case 4:
                     System.out.println("Returning to Main Menu...");
