@@ -1,7 +1,7 @@
 package HRPS.controller;
 
 import HRPS.entity.Guest;
-import HRPS.entity.ReseravationType;
+import HRPS.entity.ReservationStatus;
 import HRPS.entity.Reservation;
 import HRPS.entity.Room;
 import com.thoughtworks.xstream.persistence.FilePersistenceStrategy;
@@ -34,7 +34,7 @@ public class ReservationMgr implements Manager {
      *
      * @param reservation
      */
-    public boolean createReservation(List<Room> associatedRooms, Guest associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReseravationType resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
+    public boolean createReservation(List<Room> associatedRooms, Guest associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
         // TODO - implement ReservationMgr.createReservation
         //add 1 new reservation record into data directory
          try {
@@ -54,7 +54,7 @@ public class ReservationMgr implements Manager {
      *
      * @param reservation
      */
-    public boolean updateReservation(List<Room> associatedRooms, Guest associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReseravationType resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
+    public boolean updateReservation(List<Room> associatedRooms, Guest associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
         // TODO - implement ReservationMgr.updateReservation
          try {
             Reservation newRes = new Reservation(associatedRooms, associatedGuest, resId, resBookDate, resCheckInDate , resCheckOutDate, noOfDays, resStatus, noOfAdults, noOfChildren, paymentStatus);

@@ -194,14 +194,21 @@ public class MainForm {
                     String email = in.next();
                     hotelMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
                     System.out.print("Is there any associate guest? Yes = y No = n ");
-                    //Here got problem
-                    boolean assoguestchoice = in.next().charAt(0) == 'y';
-                    while (assoguestchoice) {
+                    
+                    boolean assoguestchoice = false;
+                            if(in.next().equals("y")){
+                                assoguestchoice = true;
+                            };
+                    while (assoguestchoice = true) {
                         System.out.println("Please input the associate guest Id");
                         String AssoguestId = in.next();
                        hotelMgr.getGuest(guestId).setAssoGuest(hotelMgr.getGuest(AssoguestId));
                         System.out.print("Is there any more associate guest? Yes = y No = n ");
-                        assoguestchoice = in.next().charAt(0) == 'y';
+                        assoguestchoice = false; 
+                        if(in.next().equals("y")){
+                                assoguestchoice = true;
+                            };
+                        
                     }
                     break;
                 //Update Guest

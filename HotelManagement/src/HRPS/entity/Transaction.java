@@ -8,7 +8,9 @@ public class Transaction {
 	private Date transactionDate;
 	private int promoRate;
 	private int getRate;
-
+        private CreditCardType creditcard;
+        private Guest guest;
+        
 	public int getTransactionId() {
 		return this.transactionId;
 	}

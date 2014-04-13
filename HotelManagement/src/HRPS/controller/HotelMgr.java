@@ -233,7 +233,7 @@ public class HotelMgr {
             DateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmm");
             Date currDate = new Date();
             resId = Integer.parseInt(dateFormat.format(currDate)) ;
-            resMgr.createReservation(roomList, guest, resId, currDate, checkIn, checkOut, noOfRooms, ReseravationType.Confirmed, noOfAdults, noOfChildren, false);
+            resMgr.createReservation(roomList, guest, resId, currDate, checkIn, checkOut, noOfRooms, ReservationStatus.Confirmed, noOfAdults, noOfChildren, false);
             
         } catch (Exception ex) {
             System.out.println(ex);
@@ -344,8 +344,8 @@ public class HotelMgr {
 
     //Arthur : Bryan
     public boolean checkAllowReservationStatus(int resId) {
-        if (resMgr.getReservation(resId).getResStatus() == ReseravationType.Check_In
-                || resMgr.getReservation(resId).getResStatus() == ReseravationType.Expired) {
+        if (resMgr.getReservation(resId).getResStatus() == RReservationTypeCheck_In
+                || resMgr.getReservation(resId).getResStatus() == ReReservationTypexpired) {
             return false;
         } else {
             return true;

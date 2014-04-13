@@ -11,7 +11,7 @@ public class Reservation {
     private java.util.Date resCheckInDate;
     private java.util.Date resCheckOutDate;
     private int noOfDays;
-    private ReseravationType resStatus;
+    private ReservationStatus resStatus;
     private int noOfAdults;
     private int noOfChildren;
     private boolean paymentStatus;
@@ -23,7 +23,7 @@ public class Reservation {
     }
     
     //all mighty constructor
-    public Reservation(List<Room> associatedRooms, Guest associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReseravationType resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
+    public Reservation(List<Room> associatedRooms, Guest associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
         this.associatedRooms = associatedRooms;
         this.associatedGuest = associatedGuest;
         this.resId = resId;
@@ -97,7 +97,7 @@ public class Reservation {
         this.noOfDays = noOfDays;
     }
 
-    public ReseravationType getResStatus() {
+    public ReservationStatus getResStatus() {
         return this.resStatus;
     }
 
@@ -105,7 +105,7 @@ public class Reservation {
      *
      * @param resStatus
      */
-    public void setResStatus(ReseravationType resStatus) {
+    public void setResStatus(ReservationStatus resStatus) {
         this.resStatus = resStatus;
     }
 
@@ -179,7 +179,7 @@ public class Reservation {
      *
      * @param roomId
      */
-    public Room getSpecifyRoom(int roomId) {
+    public Room getSpecifyRoom(String roomId) {
         // TODO - implement Reservation.getSpecifyRoom
         Room tempRoom = null;
         for(Iterator it = this.associatedRooms.iterator(); it.hasNext();){
