@@ -234,6 +234,7 @@ public class RoomMgr implements Manager {
                                 if(singleArray[i] == false){
                                     id = "Single" + Integer.toString(i);
                                     singleArray[i]=true;
+                                    break;
                                 }
                               }
                               return id;
@@ -243,6 +244,7 @@ public class RoomMgr implements Manager {
                                 if(standardArray[i] == false){
                                     id = "Standard" + Integer.toString(i);
                                     standardArray[i] = true;
+                                    break;
                                 }
                               }
                               return id;        
@@ -252,6 +254,7 @@ public class RoomMgr implements Manager {
                                 if(VIPArray[i] == false){
                                     id = "VIP" + Integer.toString(i);
                                     VIPArray[i] = true;
+                                    break;
                                 }
                               }
                               return id;    
@@ -261,6 +264,7 @@ public class RoomMgr implements Manager {
                                 if(suiteArray[i] == false){
                                     id = "Suite" + Integer.toString(i);
                                     suiteArray[i] = true;
+                                    break;
                                 }
                               }
                               return id;                   

@@ -69,7 +69,7 @@ public class HotelMgr {
                     }
                   
                 
-              //Single room
+              //VIP room
             case 4: //Check if max room of that type is reached
                     if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.VIP)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype

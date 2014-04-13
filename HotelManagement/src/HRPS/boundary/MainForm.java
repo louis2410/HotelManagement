@@ -61,7 +61,6 @@ public class MainForm {
                     break;
                 
             case 8://Print RoomOccupancy Report
-                    
                     printRoomOccupancyReport();
                     break;
                
@@ -118,8 +117,8 @@ public class MainForm {
                         System.out.println("Select Type of Room to be Created:");
                         System.out.println("1. Single Room");
                         System.out.println("2. Standard Room");
-                        System.out.println("3. VIP Room");
-                        System.out.println("4. Suite Room");
+                        System.out.println("3. Suite Room");
+                        System.out.println("4. VIP Room");
                         CURRoomChoice = in.nextInt();
                         in.nextLine();
                         hotelMgr.createRoomBasedonType(CURRoomChoice);
@@ -195,6 +194,7 @@ public class MainForm {
                     String email = in.next();
                     hotelMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
                     System.out.print("Is there any associate guest? Yes = y No = n ");
+                    //Here got problem
                     boolean assoguestchoice = in.next().charAt(0) == 'y';
                     while (assoguestchoice) {
                         System.out.println("Please input the associate guest Id");
