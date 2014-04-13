@@ -62,7 +62,8 @@ public class MainForm {
             case 8://Print RoomOccupancy Report
                     break;
                
-            case 9://Exit XML functions    
+            case 9://Exit XML functions   
+                    hotelMgr.OutputToXML();
                     break;
         
         default:    System.out.println("Please enter a value from 1 to 9.");
@@ -120,12 +121,34 @@ public class MainForm {
                         break;
                       
                 //Update Room
-                case 2:break;
+                case 2: System.out.println("Enter Room ID");
+                             roomId = in.next();
+                             System.out.println("Select Type of Update");
+                             System.out.println("1. Update Room Status");
+                             System.out.println("2. Add RoomService");
+                             int choice = in.nextInt();
+                             switch(choice){                              
+                                 case 1: System.out.println("Select Status");
+                                         System.out.println("1. Occupied");
+                                         System.out.println("2. Reserved");
+                                         System.out.println("3. Under Maintance");
+                                         System.out.println("4. Vacant");
+                                         choice = in.nextInt();
+                                         hotelMgr.updateRoomStatus(roomId, choice);
+                                         break;
+                                         
+                                 case 2: System.out.println("Enter amount of Room Service");
+                                         double amt = in.nextDouble();
+                                         hotelMgr.addRoomService(roomId, amt);
+                                         break;      
+                             }
+
+                        break;
                     
                 //Remove Room
                 case 3: System.out.println("Enter Room ID");
-                        String choice = in.next();
-                        hotelMgr.removeRoom(choice);
+                               roomId = in.next();
+                        hotelMgr.removeRoom(roomId);
                         break;
                     
                 //Back to Menu

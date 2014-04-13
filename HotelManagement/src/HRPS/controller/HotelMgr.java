@@ -88,6 +88,28 @@ public class HotelMgr {
         
     }
     
+    
+    
+    public boolean updateRoomStatus(String rmId, int status){
+        switch(status){
+            //update to occupied
+            case 1: return roomMgr.updateRoom(rmId, RoomStatus.Occupied);
+            //update to Reservered
+            case 2: return roomMgr.updateRoom(rmId, RoomStatus.Reserved);
+            //update to Under Maintaince
+            case 3: return roomMgr.updateRoom(rmId, RoomStatus.UnderMaintenance);
+            //update to Vacant
+            case 4: return  roomMgr.updateRoom(rmId, RoomStatus.Vacant);
+        }
+        System.out.println("Room not updated");
+        return false;
+    }
+    
+    public boolean addRoomService(String rmId, double amt){
+        return roomMgr.updateRoom(rmId, amt);
+    }
+    
+    
     public boolean removeRoom(String rmId){
         
         return roomMgr.removeRoom(rmId);

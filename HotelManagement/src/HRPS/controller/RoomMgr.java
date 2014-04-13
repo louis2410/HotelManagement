@@ -89,8 +89,35 @@ public class RoomMgr implements Manager {
           
                     return true;         
 	}
-
-	
+        //UpdateRoomStatus
+	public boolean updateRoom(String RoomId,RoomStatus rmstats){
+            
+             for(int i = 0; i<arrayRoom.size();i++){
+                //if match then delete
+                if(arrayRoom.get(i).getRoomId().equals(RoomId)){
+                    arrayRoom.get(i).setRoomStatus(rmstats);
+                       return true; 
+                }
+             }
+            
+            return false;
+        }
+        //Update/Add Rm Service
+        public boolean updateRoom(String RoomId,double RmService){
+            
+             for(int i = 0; i<arrayRoom.size();i++){
+                //if match then delete
+                if(arrayRoom.get(i).getRoomId().equals(RoomId)){
+                    arrayRoom.get(i).AddRmService(RmService);
+                       return true; 
+                }
+             }
+            
+            return false;
+        }
+   
+        
+        
 	public boolean removeRoom(String RoomId) {
 
             //go through arrayRoom in memory, find and delete room

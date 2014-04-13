@@ -1,5 +1,6 @@
 package HRPS.entity;
-
+import java.util.ArrayList;
+import java.util.Calendar;
 public abstract class Room {
 
 	private int maxOccupancy;
@@ -9,7 +10,8 @@ public abstract class Room {
 	private RoomType roomType;
         private int currentOccupancy;
 	private BedType bedType;
-
+        private ArrayList<RoomService> ArrayRoomService;
+        Calendar cal = Calendar.getInstance();
         //Removed, see getweekday&getweekend rates method
 	//private double roomWeekDayRate;
 	//private double roomWeekEndRate;
@@ -25,7 +27,7 @@ public abstract class Room {
             this.roomStatus = roomstatus;
             this.roomType = roomtype;
             this.bedType = bedtype;
-           
+            this.ArrayRoomService = new ArrayList();
 		
 	}
 
@@ -105,6 +107,17 @@ public abstract class Room {
 	public void setCurrentOccupancy(int currentOccupancy) {
 		this.currentOccupancy = currentOccupancy;
 	}
+        
+        
+        
+        public boolean AddRmService(double amt){
+            
+            RoomService rmService = new RoomService(cal.getTime(),amt);
+            this.ArrayRoomService.add(rmService);
+            
+            return true;
+        }
+        
         
         //Author : Bryan
         public boolean equals(Room room){

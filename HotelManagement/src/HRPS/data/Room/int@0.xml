@@ -6,4 +6,14 @@
   <roomType>Single</roomType>
   <currentOccupancy>0</currentOccupancy>
   <bedType>Single</bedType>
+  <ArrayRoomService>
+    <HRPS.entity.RoomService>
+      <rmdateTime>2014-04-13 04:09:55.760 UTC</rmdateTime>
+      <rmServicePrice>123.0</rmServicePrice>
+    </HRPS.entity.RoomService>
+  </ArrayRoomService>
+  <cal>
+    <time>1397362195760</time>
+    <timezone>Asia/Singapore</timezone>
+  </cal>
 </HRPS.entity.SingleRoom>
