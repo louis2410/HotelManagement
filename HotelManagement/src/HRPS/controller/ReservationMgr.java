@@ -78,7 +78,7 @@ public class ReservationMgr implements Manager {
          if(hit == true){
              count++;
          }   
-         System.out.println(hit);
+        // System.out.println(hit);
      
         }
         
