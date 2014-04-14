@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Reservation {
 
-    List<Room> associatedRooms;
-    Guest associatedGuest;
+    private ArrayList <String> associatedRooms;
+    private String associatedGuest;
     private int resId;
     private java.util.Date resBookDate;
     private java.util.Date resCheckInDate;
@@ -18,13 +18,12 @@ public class Reservation {
     
     //default constructor
     public Reservation() {
-        associatedRooms = new ArrayList<Room>();
-        associatedGuest = new Guest();
+        associatedRooms = new ArrayList<String>();
     }
     
     //all mighty constructor
-    public Reservation(List<Room> associatedRooms, Guest associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
-        this.associatedRooms = associatedRooms;
+    public Reservation (String associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
+        //this.associatedRooms = associatedRooms;
         this.associatedGuest = associatedGuest;
         this.resId = resId;
         this.resBookDate = resBookDate;
@@ -152,74 +151,26 @@ public class Reservation {
         return associatedRooms.size();
     }
     
-    public List<Room> getAllRooms(){
+
+
+
+
+    public ArrayList<String> getAssociatedRooms() {
         return associatedRooms;
     }
 
-    /**
-     *
-     * @param noOfRooms
-     */
-    public void addNoOfRooms(int noOfRooms, RoomType roomType) {
-        // TODO - implement Reservation.setNoOfRooms
-        for(int i=0; i<noOfRooms;i++){
-            if(roomType == RoomType.Single){
-                this.associatedRooms.add(new SingleRoom());
-            }else if(roomType == RoomType.Standard){
-                this.associatedRooms.add(new StandardRoom());
-            }else if(roomType == RoomType.Suit){
-                this.associatedRooms.add(new SuiteRoom());
-            } else if(roomType == RoomType.VIP){
-                this.associatedRooms.add(new VipRoom());
-            }
-        }
+    public void AddAssociatedRooms(String associatedRooms) {
+        
+        
+        
+        
     }
 
-    /**
-     *
-     * @param roomId
-     */
-    public Room getSpecifyRoom(String roomId) {
-        // TODO - implement Reservation.getSpecifyRoom
-        Room tempRoom = null;
-        for(Iterator it = this.associatedRooms.iterator(); it.hasNext();){
-            tempRoom = (Room) it.next();
-            if(tempRoom.getRoomId() == roomId){
-                break;
-            }
-        }
-        return tempRoom;
-    }
-
-    public boolean setSpecifyRoom(Room room) {
-        // TODO - implement Reservation.setSpecifyRoom
-         try {
-          for(int i=0;i<this.associatedRooms.size();i++){
-            if(associatedRooms.get(i).getRoomId() == room.getRoomId()){
-                associatedRooms.set(i, room);
-                break;
-            }
-        }
-        } catch (Exception ex) {
-            System.out.println("Failed to set" + room.getRoomId() + " all from data directory");
-            return false;
-        }
-        return true;
-    }
-
-    public List<Room> getAssociatedRooms() {
-        return associatedRooms;
-    }
-
-    public void setAssociatedRooms(List<Room> associatedRooms) {
-        this.associatedRooms = associatedRooms;
-    }
-
-    public Guest getAssociatedGuest() {
+    public String getAssociatedGuest() {
         return associatedGuest;
     }
 
-    public void setAssociatedGuest(Guest associatedGuest) {
+    public void setAssociatedGuest(String associatedGuest) {
         this.associatedGuest = associatedGuest;
     }
     
@@ -227,7 +178,7 @@ public class Reservation {
         String display = "";
         display +="Reservation Details of " + resId + "\n";
         display +="-------------------------------------------------\n";
-        display +="Guest \t : " + this.associatedGuest.getTitle() + " " + this.associatedGuest.getFirstName();
+        //display +="Guest \t : " + this.associatedGuest.getTitle() + " " + this.associatedGuest;
         display +="Book date \t : " + this.resBookDate + "\n";
         display +="Check In \t : " + this.resCheckInDate + "\n" ;
         display +="Check out \t : " + this.resCheckOutDate + "\n" ;
