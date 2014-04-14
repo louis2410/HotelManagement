@@ -55,13 +55,13 @@ public class RoomMgr implements Manager {
     
     
 	
-	public boolean createSingleRoom() {
+	public String createSingleRoom() {
 		// TODO - implement RoomMgr.createRoom
             SingleRoom single = new SingleRoom(1,this.generateRoomId(RoomType.Single),1,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
             System.out.println("Room ID of created room :" + single.getRoomId());
             arrayRoom.add(single);
           
-                    return true;         
+                    return single.getRoomId();         
 	}
         
         public boolean createStandardRoom() {

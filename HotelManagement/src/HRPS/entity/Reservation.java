@@ -1,12 +1,12 @@
 package HRPS.entity;
 
 import java.util.*;
-
+import java.text.SimpleDateFormat;
 public class Reservation {
 
     private ArrayList <String> associatedRooms;
     private String associatedGuest;
-    private int resId;
+    private String resId;
     private java.util.Date resBookDate;
     private java.util.Date resCheckInDate;
     private java.util.Date resCheckOutDate;
@@ -22,7 +22,7 @@ public class Reservation {
     }
     
     //all mighty constructor
-    public Reservation (String associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
+    public Reservation (String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
         //this.associatedRooms = associatedRooms;
         this.associatedGuest = associatedGuest;
         this.resId = resId;
@@ -36,7 +36,7 @@ public class Reservation {
         this.paymentStatus = paymentStatus;
     }
 
-    public int getResId() {
+    public String getResId() {
         return this.resId;
     }
 
@@ -44,7 +44,7 @@ public class Reservation {
      *
      * @param resId
      */
-    public void setResId(int resId) {
+    public void setResId(String resId) {
         this.resId = resId;
     }
 

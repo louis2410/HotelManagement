@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
 public class ReservationMgr implements Manager {
 
@@ -19,7 +20,7 @@ public class ReservationMgr implements Manager {
     private ArrayList<Reservation> arrayReservation;
     private PersistenceStrategy strategy;
     private List datalist;
-
+    
     public ReservationMgr() {
         arrayReservation = new ArrayList<Reservation>();
         // prepares the file strategy to Respecitve data directory 
@@ -34,15 +35,13 @@ public class ReservationMgr implements Manager {
      *
      * @param reservation
      */
-    public boolean createReservation(List<Room> associatedRooms, Guest associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
+    public boolean createReservation(String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
         // TODO - implement ReservationMgr.createReservation
         //add 1 new reservation record into data directory
          try {
-            Reservation res = new Reservation(associatedRooms, associatedGuest, resId, resBookDate, resCheckInDate , resCheckOutDate, noOfDays, resStatus, noOfAdults, noOfChildren, paymentStatus);
+            Reservation res = new Reservation( associatedGuest, resId, resBookDate, resCheckInDate , resCheckOutDate, noOfDays, resStatus, noOfAdults, noOfChildren, paymentStatus);
             //Store in memory
             arrayReservation.add(res);
-            //Write to File (Single Entry)
-            datalist.add(res);
         } catch (Exception ex) {
             System.out.println("Failed to create " + resId + " to data directory");
             return false;
@@ -198,7 +197,7 @@ public class ReservationMgr implements Manager {
     @Override
     public void setup() {
         this.retrieveFromFile();
-        //this.deleteFromFile();
+        this.deleteFromFile();
         //this.createToFile();
     }
     
