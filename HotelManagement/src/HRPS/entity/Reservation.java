@@ -34,6 +34,7 @@ public class Reservation {
         this.noOfAdults = noOfAdults;
         this.noOfChildren = noOfChildren;
         this.paymentStatus = paymentStatus;
+        this.associatedRooms = new ArrayList();
     }
 
     public String getResId() {
@@ -159,10 +160,10 @@ public class Reservation {
         return associatedRooms;
     }
 
-    public void AddAssociatedRooms(String associatedRooms) {
+    public void AddAssociatedRoom(String associatedRoom) {
         
         
-        
+        associatedRooms.add(associatedRoom);
         
     }
 

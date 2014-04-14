@@ -4,6 +4,9 @@ import HRPS.entity.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class HotelMgr {
     //Managers for each sector
@@ -27,10 +30,10 @@ public class HotelMgr {
     //Print NumOfAvailableRoomsForCreation
     public void printNumOfAvailableRoomsForCreation()
     {  
-        int single = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single);
-       int standard= roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Standard);
-       int vip = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.VIP);
-       int suite = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Suite);
+        int single = roomMgr.NumOfRoomsAvailableForCreation(RoomType.Single);
+       int standard= roomMgr.NumOfRoomsAvailableForCreation(RoomType.Standard);
+       int vip = roomMgr.NumOfRoomsAvailableForCreation(RoomType.VIP);
+       int suite = roomMgr.NumOfRoomsAvailableForCreation(RoomType.Suite);
        System.out.println("Available Rooms for Creation");
        System.out.println("Single Rooms: "+single);
        System.out.println("Standard Rooms: "+standard);
@@ -44,7 +47,7 @@ public class HotelMgr {
             
             //Single room
             case 1: //Check if max room of that type is reached
-                    if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single)>0){
+                    if(roomMgr.NumOfRoomsAvailableForCreation(RoomType.Single)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
                        roomMgr.createSingleRoom();
                        return true;
@@ -53,7 +56,7 @@ public class HotelMgr {
                 
              //Standard room
             case 2: //Check if max room of that type is reached
-                    if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Standard)>0){
+                    if(roomMgr.NumOfRoomsAvailableForCreation(RoomType.Standard)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
                        roomMgr.createStandardRoom();
                        return true;
@@ -62,7 +65,7 @@ public class HotelMgr {
                 
              //Suite room
             case 3: //Check if max room of that type is reached
-                    if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Suite)>0){
+                    if(roomMgr.NumOfRoomsAvailableForCreation(RoomType.Suite)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
                        roomMgr.createSuiteRoom();
                        return true;
@@ -71,7 +74,7 @@ public class HotelMgr {
                 
               //VIP room
             case 4: //Check if max room of that type is reached
-                    if(roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.VIP)>0){
+                    if(roomMgr.NumOfRoomsAvailableForCreation(RoomType.VIP)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
                        roomMgr.createVIPRoom();
                        return true;
@@ -110,7 +113,7 @@ public class HotelMgr {
     }
     //Guest Manager Access Methods Added by Louis
     
-    public boolean createGuest(String guestId, String FirstName, String lastName,
+    public String createGuest(String guestId, String FirstName, String lastName,
             String title, String address, String country, char gender, int contactNo, String email){
  
         return guestMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
@@ -136,6 +139,24 @@ public class HotelMgr {
         
     }
     
+    
+    
+    //ReservationScheduleCheck
+    public int ReservationScheduleCheck(Date checkin, Date checkout,String rmType){
+        
+        
+        ArrayList reservations = resMgr.getArrayReservation();
+        
+        
+       
+        
+        
+        return 0;
+    }
+    
+    
+    
+   
     public String checkRoomAvailability(String roomId) {
         // TODO - implement HotelMgr.checkRoomAvailability
 
@@ -143,11 +164,38 @@ public class HotelMgr {
     }
 
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public Room checkRoomDetails(int guestId) {
         // TODO - implement HotelMgr.checkRoomDetails
         throw new UnsupportedOperationException();
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      *
      * @param guestName
@@ -258,6 +306,16 @@ public class HotelMgr {
         return guestMgr.getGuest(guestId).toString();
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //Arthur : Bryan
     public String getAllAvailableRooms(Date checkIn, Date checkOut) {
         String singleDisplay = "--- \t Single Rooms \t\t ---\n",
@@ -353,3 +411,6 @@ public class HotelMgr {
 
     }
 }
+
+
+

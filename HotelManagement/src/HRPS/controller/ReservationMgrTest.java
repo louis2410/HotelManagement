@@ -32,8 +32,8 @@ public class ReservationMgrTest {
     String rmid;
     String guestId;
     
-    String checkin = "4/12/2014";
-    String checkout = "4/14/2014";
+    String checkin = "4/3/2014";
+    String checkout = "4/11/2014";
     int days = 2;
     int adult = 1;
     int children = 0;
@@ -43,16 +43,14 @@ public class ReservationMgrTest {
     rmid = roomMgr.createSingleRoom();
     
    
- 
-     DateFormat dF = DateFormat.getDateInstance(DateFormat.SHORT);
+    DateFormat dF = DateFormat.getDateInstance(DateFormat.SHORT);
    
     Date checkinDate = dF.parse(checkin);
     Date checkoutDate = dF.parse(checkout);
-     
+    System.out.println(resMgr.CheckReservationClash(checkinDate, checkoutDate));
     //Reservation res = new Reservation( associatedGuest, resId, resBookDate, resCheckInDate ,
     //resCheckOutDate, noOfDays, resStatus, noOfAdults, noOfChildren, paymentStatus);
     resMgr.createReservation(guestId,"res1",cal.getTime(),checkinDate,checkoutDate,days, ReservationStatus.Confirmed,adult,children, true);
-    
     resMgr.createToFile();
     
     

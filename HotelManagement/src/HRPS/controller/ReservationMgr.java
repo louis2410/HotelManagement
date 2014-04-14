@@ -31,6 +31,66 @@ public class ReservationMgr implements Manager {
         setup();
     }
 
+    
+    public int CheckReservationClash(Date newcheckin,Date newcheckout){
+        int count = 0;
+        
+        //Loop through each reservation
+        for(int i = 0;i<arrayReservation.size();i++){
+            boolean hit = false;
+            //Check dates 
+            //if newcheckin falls on checkindate and before checkoutdate
+            if((newcheckin.equals(arrayReservation.get(i).getResCheckInDate()))
+                    && newcheckin.before(arrayReservation.get(i).getResCheckOutDate())){ 
+            hit = true;
+            }
+            //if newcheckin falls after checkindate and beforecheckoutdate
+              if((newcheckin.after(arrayReservation.get(i).getResCheckInDate()))
+                    && newcheckin.before(arrayReservation.get(i).getResCheckOutDate())){ 
+            hit = true;
+            }
+        
+            //if newcheckin before checkindate and beforecheckoutdate
+              if((newcheckin.before(arrayReservation.get(i).getResCheckInDate()))
+                    && newcheckin.before(arrayReservation.get(i).getResCheckOutDate())){ 
+            hit = true;
+            }
+        
+                //if newcheckin falls on checkOutdate
+            if((newcheckin.equals(arrayReservation.get(i).getResCheckOutDate()))){
+                hit = true;
+            }
+                
+                 //if newcheckout before on checkindate
+            if((newcheckout.before(arrayReservation.get(i).getResCheckInDate()))){
+                hit = false;
+            }
+              
+                //if newcheckout falls on checkindate
+            if((newcheckout.equals(arrayReservation.get(i).getResCheckOutDate()))){
+                hit = true;
+            }
+              
+            
+            
+        
+          
+         if(hit == true){
+             count++;
+         }   
+         System.out.println(hit);
+     
+        }
+        
+        
+        return count;
+    }
+    
+    
+    
+    public ArrayList getArrayReservation(){
+        return arrayReservation;
+    }
     /**
      *
      * @param reservation
@@ -49,89 +109,27 @@ public class ReservationMgr implements Manager {
         return true;
     }
 
-    /**
-     *
-     * @param reservation
-     */
-    public boolean updateReservation(List<Room> associatedRooms, Guest associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
-        // TODO - implement ReservationMgr.updateReservation
-         try {
-            Reservation newRes = new Reservation(associatedRooms, associatedGuest, resId, resBookDate, resCheckInDate , resCheckOutDate, noOfDays, resStatus, noOfAdults, noOfChildren, paymentStatus);
-            for (Iterator it = datalist.iterator(); it.hasNext();) {
-                Reservation res = (Reservation) it.next();
-                if(res.getResId() == newRes.getResId()){
-                    //Update in data directory
-                    it.remove();
-                    datalist.add(newRes);
-                    //handle memory version
-                    for(int i=0; i<arrayReservation.size();i++){
-                        if(arrayReservation.get(i).getResId() == resId){
-                            arrayReservation.set(i, newRes);
-                        }
-                    }
-                    break;
-                }
-                    
-            }
-        } catch (Exception ex) {
-            System.out.println("Failed to update" + resId+ " all from data directory");
-            return false;
-        }
+    public boolean addRoomToReservation(String resId,String roomId){
+        getReservation(resId).AddAssociatedRoom(roomId);   
         return true;
     }
-
-    /**
-     *
-     * @param reservationId
-     */
-    public boolean removeReservation(int reservationId) {
-        // TODO - implement ReservationMgr.removeReservation
-         try {
-            //for each guest in Guest folder, delete each
-            for (Iterator it = datalist.iterator(); it.hasNext();) {
-                Reservation res = (Reservation) it.next();
-                if(res.getResId() == reservationId){
-                    //Remove from file
-                    it.remove();
-                    //Handle memory if found
-                    for(int i=0; i<arrayReservation.size();i++){
-                        if(arrayReservation.get(i).getResId() == reservationId){
-                            arrayReservation.remove(i);
-                        }
-                    }
-                    break;
-                }
-            }
+    
+    
+    public Reservation getReservation(String resId){
+        
+        for(int i =0;i<arrayReservation.size();i++){
             
-        } catch (Exception ex) {
-            System.out.println("Failed to delete" + reservationId + " all from data directory");
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     *
-     * @param reservationId
-     */
-    public Reservation getReservation(int reservationId) {
-        // TODO - implement ReservationMgr.getReservation
-        Reservation res = null;
-        try {
-            for (Iterator it = datalist.iterator(); it.hasNext();) {
-                res = (Reservation) it.next();
-                if(res.getResId() == reservationId){
-                    break;
-                }
-                    
+            if(arrayReservation.get(i).getResId().equals(resId)){
+                
+                return arrayReservation.get(i);
             }
-        } catch (Exception e) {
-            System.out.println("Failed to get Reservation " + reservationId + " all from data directory");
-            return null;
         }
-        return res;
+        System.out.println("Reservation not found");
+        return null;
     }
-
+    
+    
+ 
     //Print all reservations
     public String printReservations() {
         String display = "";
@@ -201,27 +199,5 @@ public class ReservationMgr implements Manager {
         //this.createToFile();
     }
     
-    public List<Room> getReservedRooms(Date start, Date end){
-        ArrayList<Room> resRoomsList = new ArrayList<Room>();
-        Reservation res = null;
-        try {
-            for (Iterator it = datalist.iterator(); it.hasNext();) {
-                res = (Reservation) it.next();
-                if((res.getResCheckInDate().before(end)) && (res.getResCheckOutDate().after(start))){
-                    for(Iterator it2 =res.getAllRooms().iterator(); it2.hasNext();){
-                        Room tempRoom = (Room) it2.next();
-                        if(!resRoomsList.contains(tempRoom)){
-                            resRoomsList.add(tempRoom);
-                        }
-                    }
-                }
-                    
-            }
-        } catch (Exception e) {
-            System.out.println("Failed to get all reservered Rooms from data directory");
-            return null;
-        }
-        return resRoomsList;
-    }
     
 }
