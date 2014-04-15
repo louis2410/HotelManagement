@@ -390,6 +390,7 @@ public class MainForm {
         
         
         //Check NumRooms requested with available rooms for booking
+        boolean assignRooms = false;
         ReservationStatus resStatus = ReservationStatus.Inquiry;
         switch(select){
             case 1:  RmType= RoomType.Single; 
@@ -400,6 +401,7 @@ public class MainForm {
                      }
                      else{
                          resStatus = ReservationStatus.Confirmed;
+                         assignRooms = true;
                      }break;
                      
             case 2:  RmType= RoomType.Standard; 
@@ -410,6 +412,7 @@ public class MainForm {
                      }
                      else{
                          resStatus = ReservationStatus.Confirmed;
+                         assignRooms = true;
                      }break;
              case 3:  RmType= RoomType.Suite; 
                         //Number of rooms required more than rooms available
@@ -419,6 +422,7 @@ public class MainForm {
                      }
                      else{
                          resStatus = ReservationStatus.Confirmed;
+                         assignRooms = true;
                      }break;  
                    
               case 4:  RmType= RoomType.VIP; 
@@ -429,17 +433,19 @@ public class MainForm {
                      }
                      else{
                          resStatus = ReservationStatus.Confirmed;
+                         assignRooms = true;
                      }break;   
          }
         
         //Enter Guest
+        //Need to make sure guest exists first
         System.out.println("Enter GuestId of guest making reservation");
         String guestId = sc.next();
         System.out.println("Enter Number of Adults");
         int adults = sc.nextInt();
         System.out.println("Enter Number of Children");
         int children = sc.nextInt();
-        
+        //Need a auto generation reservation method
         System.out.println("Enter Reservation ID");
         String resId = sc.next();
                 
@@ -448,16 +454,18 @@ public class MainForm {
       //  associatedGuest, resId, resBookDate, resCheckInDate ,
     //resCheckOutDate, resStatus, noOfAdults, noOfChildren, paymentStatus,roomType);
         hotelMgr.createReservation(guestId,resId,cal.getTime(),checkInDate, checkOutDate, resStatus, adults,children,false,RmType);
-        
-        //Add each rooms to reservation
-        for(int i =0;i<NumRooms;i++){
-          //add associated rooms
+       
+        if(assignRooms == true){
+            //Add each rooms to reservation
+             for(int i =0;i<NumRooms;i++){
+             //add associated rooms
             String roomId =hotelMgr.createRoomBasedonType(select);
             hotelMgr.getReservation(resId).AddAssociatedRoom(roomId);  
             //Set room status to reserved, 2 = reserved
-            hotelMgr.updateRoomStatus(roomId,2);
-            
+            hotelMgr.updateRoomStatus(roomId,2);  
+            }
         }
+        
        
         
         
