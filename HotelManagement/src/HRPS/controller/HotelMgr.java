@@ -41,16 +41,16 @@ public class HotelMgr {
        System.out.println("Suite Rooms: "+suite);
     
     }  
-    public boolean createRoomBasedonType(int choice){
-        
+    public String createRoomBasedonType(int choice){
+        String roomId = null;
         switch(choice){
             
             //Single room
             case 1: //Check if max room of that type is reached
                     if(roomMgr.NumOfRoomsAvailableForCreation(RoomType.Single)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
-                       roomMgr.createSingleRoom();
-                       return true;
+                       return roomMgr.createSingleRoom();
+                       
                     }
                  
                 
@@ -58,8 +58,8 @@ public class HotelMgr {
             case 2: //Check if max room of that type is reached
                     if(roomMgr.NumOfRoomsAvailableForCreation(RoomType.Standard)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
-                       roomMgr.createStandardRoom();
-                       return true;
+                      return roomMgr.createStandardRoom();
+                      
                     }
                   
                 
@@ -67,8 +67,8 @@ public class HotelMgr {
             case 3: //Check if max room of that type is reached
                     if(roomMgr.NumOfRoomsAvailableForCreation(RoomType.Suite)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
-                       roomMgr.createSuiteRoom();
-                       return true;
+                      return roomMgr.createSuiteRoom();
+                       
                     }
                   
                 
@@ -76,13 +76,13 @@ public class HotelMgr {
             case 4: //Check if max room of that type is reached
                     if(roomMgr.NumOfRoomsAvailableForCreation(RoomType.VIP)>0){
                         //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
-                       roomMgr.createVIPRoom();
-                       return true;
+                       return roomMgr.createVIPRoom();
+                       
                     }
                      
                 
             default: System.out.println("Please choose a valid room type");
-                     return false;   
+                     return roomId;   
             
         }
         
@@ -136,21 +136,20 @@ public class HotelMgr {
         guestMgr.createToFile();
         roomMgr.deleteFromFile();
         roomMgr.createToFile();
-        
+        resMgr.deleteFromFile();
+        resMgr.createToFile();
     }
     
     
     
     //ReservationScheduleCheck
-    public int ReservationScheduleCheck(Date checkin, Date checkout,String rmType){
-        
-        
-        ArrayList reservations = resMgr.getArrayReservation();
-        
-        
-       
-        
-        
+    public int ReservationScheduleCheck(Date checkin, Date checkout,RoomType rmType){
+
+        int NumOfClashes = resMgr.CheckReservationClash(checkin, checkout,rmType);
+        int NumAvailableRooms = roomMgr.NumOfRoomsAvailableForCreation(rmType);
+        if(NumAvailableRooms - NumOfClashes > 0){
+            return NumAvailableRooms - NumOfClashes;
+        }
         return 0;
     }
     
@@ -268,26 +267,17 @@ public class HotelMgr {
         throw new UnsupportedOperationException();
     }
 
-    //Arthur : Bryan
-    public int createReservation(String guestId, Date checkIn, Date checkOut, int noOfRooms, int[] rmId, int noOfAdults, int noOfChildren) {
-        // TODO - implement HotelMgr.createReservation
-        int resId = -1;
-        try {
-            Guest guest = guestMgr.getGuest(guestId);
-            ArrayList<Room> roomList = new ArrayList<Room>();
-            for (int i = 0; i < noOfRooms; i++) {
-                roomList.add(roomMgr.getRoom(rmId[i]));
-            }
-            DateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmm");
-            Date currDate = new Date();
-            resId = Integer.parseInt(dateFormat.format(currDate)) ;
-            resMgr.createReservation(roomList, guest, resId, currDate, checkIn, checkOut, noOfRooms, ReservationStatus.Confirmed, noOfAdults, noOfChildren, false);
-            
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return resId;
+   
+    public void createReservation(String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus, RoomType rmtype){
+        resMgr.createReservation(associatedGuest, resId, resBookDate, resCheckInDate, resCheckOutDate, resStatus, noOfAdults, noOfChildren, paymentStatus, rmtype);
+        
+       
     }
+    
+    public Reservation getReservation(String resId){
+     return   resMgr.getReservation(resId);
+    }
+    
     
     public boolean removeReservation(int resId){
         return resMgr.removeReservation(resId);

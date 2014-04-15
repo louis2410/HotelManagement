@@ -4,6 +4,7 @@ import HRPS.entity.Guest;
 import HRPS.entity.ReservationStatus;
 import HRPS.entity.Reservation;
 import HRPS.entity.Room;
+import HRPS.entity.RoomType;
 import com.thoughtworks.xstream.persistence.FilePersistenceStrategy;
 import com.thoughtworks.xstream.persistence.PersistenceStrategy;
 import com.thoughtworks.xstream.persistence.XmlArrayList;
@@ -31,30 +32,33 @@ public class ReservationMgr implements Manager {
         setup();
     }
 
-    
-    public int CheckReservationClash(Date newcheckin,Date newcheckout){
+    //Returns numberofclashes
+    public int CheckReservationClash(Date newcheckin,Date newcheckout,RoomType rmType){
         int count = 0;
         
         //Loop through each reservation
         for(int i = 0;i<arrayReservation.size();i++){
             boolean hit = false;
-            //Check dates 
-            //if newcheckin falls on checkindate and before checkoutdate
-            if((newcheckin.equals(arrayReservation.get(i).getResCheckInDate()))
-                    && newcheckin.before(arrayReservation.get(i).getResCheckOutDate())){ 
-            hit = true;
-            }
+           //if roomType matches and reservationStatus is confirmed or checked in then clash
+            if(arrayReservation.get(i).getRoomType().equals(rmType) && (arrayReservation.get(i).getResStatus().equals(ReservationStatus.Check_In)||arrayReservation.get(i).getResStatus().equals(ReservationStatus.Confirmed)))
+            {
+                   //Check dates 
+                //if newcheckin falls on checkindate and before checkoutdate
+             if((newcheckin.equals(arrayReservation.get(i).getResCheckInDate()))
+                   && newcheckin.before(arrayReservation.get(i).getResCheckOutDate())){ 
+                     hit = true;
+               }
             //if newcheckin falls after checkindate and beforecheckoutdate
               if((newcheckin.after(arrayReservation.get(i).getResCheckInDate()))
                     && newcheckin.before(arrayReservation.get(i).getResCheckOutDate())){ 
-            hit = true;
-            }
+                    hit = true;
+                }
         
             //if newcheckin before checkindate and beforecheckoutdate
               if((newcheckin.before(arrayReservation.get(i).getResCheckInDate()))
                     && newcheckin.before(arrayReservation.get(i).getResCheckOutDate())){ 
-            hit = true;
-            }
+                    hit = true;
+                }
         
                 //if newcheckin falls on checkOutdate
             if((newcheckin.equals(arrayReservation.get(i).getResCheckOutDate()))){
@@ -70,16 +74,11 @@ public class ReservationMgr implements Manager {
             if((newcheckout.equals(arrayReservation.get(i).getResCheckOutDate()))){
                 hit = true;
             }
-              
-            
-            
-        
-          
-         if(hit == true){
-             count++;
-         }   
-        // System.out.println(hit);
-     
+          //clashcount increase    
+            if(hit == true){
+              count++;
+            }   
+         }
         }
         
         
@@ -95,11 +94,11 @@ public class ReservationMgr implements Manager {
      *
      * @param reservation
      */
-    public boolean createReservation(String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
+    public boolean createReservation(String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus, RoomType rmtype) {
         // TODO - implement ReservationMgr.createReservation
         //add 1 new reservation record into data directory
          try {
-            Reservation res = new Reservation( associatedGuest, resId, resBookDate, resCheckInDate , resCheckOutDate, noOfDays, resStatus, noOfAdults, noOfChildren, paymentStatus);
+            Reservation res = new Reservation( associatedGuest, resId, resBookDate, resCheckInDate , resCheckOutDate, resStatus, noOfAdults, noOfChildren, paymentStatus, rmtype);
             //Store in memory
             arrayReservation.add(res);
         } catch (Exception ex) {

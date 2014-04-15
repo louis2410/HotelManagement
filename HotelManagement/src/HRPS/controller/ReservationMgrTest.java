@@ -42,15 +42,17 @@ public class ReservationMgrTest {
     //Create Test Room
     rmid = roomMgr.createSingleRoom();
     
+    RoomType rmtype = RoomType.Single;
    
     DateFormat dF = DateFormat.getDateInstance(DateFormat.SHORT);
    
     Date checkinDate = dF.parse(checkin);
     Date checkoutDate = dF.parse(checkout);
-    System.out.println(resMgr.CheckReservationClash(checkinDate, checkoutDate));
+    System.out.println(resMgr.CheckReservationClash(checkinDate, checkoutDate,rmtype));
     //Reservation res = new Reservation( associatedGuest, resId, resBookDate, resCheckInDate ,
     //resCheckOutDate, noOfDays, resStatus, noOfAdults, noOfChildren, paymentStatus);
-    resMgr.createReservation(guestId,"res1",cal.getTime(),checkinDate,checkoutDate,days, ReservationStatus.Confirmed,adult,children, true);
+    resMgr.createReservation(guestId,"res1",cal.getTime(),checkinDate,checkoutDate, ReservationStatus.Confirmed,adult,children,true,RoomType.valueOf("VIP"));
+   
     resMgr.createToFile();
     
     

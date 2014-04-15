@@ -3,9 +3,11 @@ package HRPS.boundary;
 import HRPS.controller.GuestMgr;
 import HRPS.controller.HotelMgr;
 import HRPS.controller.RoomMgr;
-import HRPS.entity.RoomType;
+import HRPS.entity.*;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -310,14 +312,13 @@ public class MainForm {
         //Parameters
         int choice;
 
-        //Print Reservation Menu
-        System.out.println("Please select one of the following Reservation Service");
-        System.out.println("1 : Create a new Reservation");
-        System.out.println("2 : Update a Reservation");
-        System.out.println("3 : Cancel a Reservation");
-        System.out.println("4 : Return to Main Menu");
-
-        do {
+      
+        do {  //Print Reservation Menu
+            System.out.println("Please select one of the following Reservation Service");
+            System.out.println("1 : Create a new Reservation");
+            System.out.println("2 : Update a Reservation");
+            System.out.println("3 : Cancel a Reservation");
+            System.out.println("4 : Return to Main Menu");
             System.out.print("Please select a choice : ");
             choice = sc.nextInt();
             switch (choice) {
@@ -332,88 +333,137 @@ public class MainForm {
                     break;
                 case 4:
                     System.out.println("Returning to Main Menu...");
-                    printMainMenu();
+                    
                     break;
                 default:
                     System.out.println("Please enter a value from 1 to 4.");
                     break;
             }
         } while (choice != 4);
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
     }
 
-    //Arthur : Bryan
-    public static void printCreateReservationMenu() {
-        //Parameters
-        String guestId;
-        Date checkIn, checkOut;
-        int noOfRooms, noOfAdults, noOfChildren;
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        //Check for exist guest record
+
+    public static void printCreateReservationMenu()  {
+      //Date Format
+        DateFormat dF = DateFormat.getDateInstance(DateFormat.SHORT);
+        Calendar cal = Calendar.getInstance(); 
+    //Get Checkin and Checkout dates
+        System.out.println("Enter Check In date in the form of MM/DD/YYYY");
+        Date checkInDate = null;
         try {
-            System.out.print("Enter the guest Id :");
-            guestId = sc.next();
-
-            if (!hotelMgr.checkExistingGuest(guestId)) {
-                System.out.println("This is a new guest, please register the guest");
-                System.out.println("Redirecting to New Guest Menu...");
-                //Display Menu for creating a new guest;
-                //printCreateGuest();
-                System.out.println("Redirecting back to New Reservation Menu...");
-            } else {
-                System.out.println(hotelMgr.displayGuestDetails(guestId));
-            }
-
-            System.out.print("Enter the Check in date as dd/mm/yyyy : ");
-            checkIn = df.parse(sc.next());
-            System.out.print("Enter the Check out date as dd/mm/yyyy : ");
-            checkOut = df.parse(sc.next());
-            //Print Available Rooms
-            System.out.println("The available rooms are : ");
-            System.out.println(hotelMgr.getAllAvailableRooms(checkIn, checkOut));
-
-            //Select From available rooms
-            System.out.print("Enter the no of rooms : ");
-            noOfRooms = sc.nextInt();
-
-            //Enter room ID to book rooms.
-            int rmId[] = new int[noOfRooms];
-            System.out.println("Please from the avaliable list of rooms to reserve: ");
-            for (int i = 0; i < noOfRooms; i++) {
-                System.out.print("Room " + (i + 1) + " : ");
-                rmId[i] = sc.nextInt();
-            }
-
-            System.out.println("Selected Rooms : " + rmId.toString());
-
-            //Asking for additon details
-            System.out.print("Please enter the no of adults : ");
-            noOfAdults = sc.nextInt();
-            System.out.print("Please enter the no of children : ");
-            noOfChildren = sc.nextInt();
-
-            System.out.println("Proceeding to create Reservation...");
-            //Proceed to create Reservation.
-            int resId = hotelMgr.createReservation(guestId, checkIn, checkOut, noOfRooms, rmId, noOfAdults, noOfChildren);
-            if (resId != -1) {
-                System.out.println("Creation of Reservation is succuessful.");
-                System.out.println(hotelMgr.displayReservationDetails(resId));
-                System.out.println("Returning to Reservation Management Menu....");
-                return;
-            } else {
-                System.out.println("Creation of Reservation is failure. Please try again.");
-                System.out.println("Returning to Reservation Management Menu....");
-                return;
-            }
-
-            //Hang
-        } catch (Exception ex) {
+            checkInDate = dF.parse(sc.next());
+        } catch (ParseException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("Enter Check Out date in the form of MM/DD/YYYY");
+        Date checkOutDate = null;
+        try {
+            checkOutDate = dF.parse(sc.next());
+        } catch (ParseException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Display All available room types for time period
+        int NumSingleRoom = hotelMgr.ReservationScheduleCheck(checkInDate, checkOutDate, RoomType.Single);
+        int NumStandardRoom = hotelMgr.ReservationScheduleCheck(checkInDate, checkOutDate, RoomType.Standard);
+        int NumSuiteRoom = hotelMgr.ReservationScheduleCheck(checkInDate, checkOutDate, RoomType.Suite);
+        int NumVIPRoom = hotelMgr.ReservationScheduleCheck(checkInDate, checkOutDate, RoomType.VIP);
+        
+        System.out.println("Rooms Available for Time Period: "+ checkInDate.toString() + " to "+checkOutDate.toString());
+        System.out.println("Single Rooms : " +NumSingleRoom);
+        System.out.println("Standard Rooms: "+NumStandardRoom);
+        System.out.println("Suite Rooms: "+ NumSuiteRoom);
+        System.out.println("VIP Rooms: "+ NumVIPRoom);
+        System.out.println();
+        //Get Room Type
+        System.out.println("Please Select the type of room");
+        System.out.println("1. Single");
+        System.out.println("2. Standard");
+        System.out.println("3. Suite");
+        System.out.println("4. VIP");
+        int select = sc.nextInt();
+        RoomType RmType = RoomType.Single;
+        
+        //Get Number of Rooms
+        System.out.println("Enter Number of Rooms");
+        int NumRooms = sc.nextInt();
+        
+        
+        //Check NumRooms requested with available rooms for booking
+        ReservationStatus resStatus = ReservationStatus.Inquiry;
+        switch(select){
+            case 1:  RmType= RoomType.Single; 
+                        //Number of rooms required more than rooms available
+                     if(NumRooms >= NumSingleRoom){
+                         System.out.println("Putting Reservation Status on Waitlist");
+                         resStatus = ReservationStatus.In_Waitlist;
+                     }
+                     else{
+                         resStatus = ReservationStatus.Confirmed;
+                     }break;
+                     
+            case 2:  RmType= RoomType.Standard; 
+                        //Number of rooms required more than rooms available
+                     if(NumRooms >= NumStandardRoom){
+                         System.out.println("Putting Reservation Status on Waitlist");
+                         resStatus = ReservationStatus.In_Waitlist;
+                     }
+                     else{
+                         resStatus = ReservationStatus.Confirmed;
+                     }break;
+             case 3:  RmType= RoomType.Suite; 
+                        //Number of rooms required more than rooms available
+                     if(NumRooms >= NumSuiteRoom){
+                         System.out.println("Putting Reservation Status on Waitlist");
+                         resStatus = ReservationStatus.In_Waitlist;
+                     }
+                     else{
+                         resStatus = ReservationStatus.Confirmed;
+                     }break;  
+                   
+              case 4:  RmType= RoomType.VIP; 
+                        //Number of rooms required more than rooms available
+                     if(NumRooms >= NumVIPRoom){
+                         System.out.println("Putting Reservation Status on Waitlist");
+                         resStatus = ReservationStatus.In_Waitlist;
+                     }
+                     else{
+                         resStatus = ReservationStatus.Confirmed;
+                     }break;   
+         }
+        
+        //Enter Guest
+        System.out.println("Enter GuestId of guest making reservation");
+        String guestId = sc.next();
+        System.out.println("Enter Number of Adults");
+        int adults = sc.nextInt();
+        System.out.println("Enter Number of Children");
+        int children = sc.nextInt();
+        
+        System.out.println("Enter Reservation ID");
+        String resId = sc.next();
+                
+  
+        //Create Reservation 
+      //  associatedGuest, resId, resBookDate, resCheckInDate ,
+    //resCheckOutDate, resStatus, noOfAdults, noOfChildren, paymentStatus,roomType);
+        hotelMgr.createReservation(guestId,resId,cal.getTime(),checkInDate, checkOutDate, resStatus, adults,children,false,RmType);
+        
+        //Add each rooms to reservation
+        for(int i =0;i<NumRooms;i++){
+          //add associated rooms
+            String roomId =hotelMgr.createRoomBasedonType(select);
+            hotelMgr.getReservation(resId).AddAssociatedRoom(roomId);  
+            //Set room status to reserved, 2 = reserved
+            hotelMgr.updateRoomStatus(roomId,2);
+            
+        }
+       
+        
+        
+        
+        
     }
-    //Arthur : Bryan
-
-    
     public static void printUpdateReservationMenu() {
         int resId = 0, choice = 0;
 

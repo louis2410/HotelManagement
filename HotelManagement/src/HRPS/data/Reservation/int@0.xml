@@ -1,13 +1,16 @@
 <HRPS.entity.Reservation>
-  <associatedRooms/>
-  <associatedGuest>A1</associatedGuest>
-  <resId>res1</resId>
-  <resBookDate>2014-04-14 12:09:43.923 UTC</resBookDate>
-  <resCheckInDate>2014-03-31 16:00:00.0 UTC</resCheckInDate>
-  <resCheckOutDate>2014-04-04 16:00:00.0 UTC</resCheckOutDate>
-  <noOfDays>2</noOfDays>
+  <associatedRooms>
+    <string>Single1</string>
+    <string>Single2</string>
+  </associatedRooms>
+  <associatedGuest>a</associatedGuest>
+  <resId>R1</resId>
+  <roomType>Single</roomType>
+  <resBookDate>2014-04-15 04:01:33.915 UTC</resBookDate>
+  <resCheckInDate>2013-12-31 16:00:00.0 UTC</resCheckInDate>
+  <resCheckOutDate>2014-01-02 16:00:00.0 UTC</resCheckOutDate>
   <resStatus>Confirmed</resStatus>
   <noOfAdults>1</noOfAdults>
-  <noOfChildren>0</noOfChildren>
-  <paymentStatus>true</paymentStatus>
+  <noOfChildren>2</noOfChildren>
+  <paymentStatus>false</paymentStatus>
 </HRPS.entity.Reservation>

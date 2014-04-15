@@ -7,10 +7,11 @@ public class Reservation {
     private ArrayList <String> associatedRooms;
     private String associatedGuest;
     private String resId;
+    private RoomType roomType;
     private java.util.Date resBookDate;
     private java.util.Date resCheckInDate;
     private java.util.Date resCheckOutDate;
-    private int noOfDays;
+    //private int noOfDays;
     private ReservationStatus resStatus;
     private int noOfAdults;
     private int noOfChildren;
@@ -22,21 +23,26 @@ public class Reservation {
     }
     
     //all mighty constructor
-    public Reservation (String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
+    public Reservation (String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus,RoomType rmtype) {
         //this.associatedRooms = associatedRooms;
         this.associatedGuest = associatedGuest;
         this.resId = resId;
         this.resBookDate = resBookDate;
         this.resCheckInDate = resCheckInDate;
         this.resCheckOutDate = resCheckOutDate;
-        this.noOfDays = noOfDays;
         this.resStatus = resStatus;
         this.noOfAdults = noOfAdults;
         this.noOfChildren = noOfChildren;
         this.paymentStatus = paymentStatus;
+        this.roomType = rmtype;
         this.associatedRooms = new ArrayList();
     }
 
+    public RoomType getRoomType(){
+        
+        return this.roomType;
+    }
+    
     public String getResId() {
         return this.resId;
     }
