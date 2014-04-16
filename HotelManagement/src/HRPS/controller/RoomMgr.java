@@ -14,18 +14,21 @@ import java.util.List;
 
 public class RoomMgr implements Manager {
         
-  public static final int MaxNumSingleRoom = 40;
-  public static final int MaxNumStandardRoom = 30;
-  public static final int MaxNumVIPRoom = 20;
-  public static final int MaxNumSuiteRoom =10;
+  public static final int MaxNumSingleRoom = 80;
+  public static final int MaxNumStandardRoom = 60;
+  public static final int MaxNumVIPRoom = 40;
+  public static final int MaxNumSuiteRoom =20;
      //Attributes
     private ArrayList<Room> arrayRoom;
     private PersistenceStrategy strategy;
     private List datalist;
-    private final boolean singleArray[] = new boolean[MaxNumSingleRoom];
-    private final boolean standardArray[] = new boolean[MaxNumStandardRoom];
-    private final boolean VIPArray[] = new boolean[MaxNumVIPRoom];
-    private final boolean suiteArray[] = new boolean[MaxNumSuiteRoom];
+    
+    //Rooms which are reserved,undermaintaence etc, as long as not vacant
+    private int NumOfSingleRoomNotVacant = 0;
+    private int NumOfStandardRoomNotVacant = 0;
+    private int NumOfSuiteRoomNotVacant= 0;
+    private int NumOfVIPRoomNotVacant= 0;
+    
     
     public RoomMgr() {
         arrayRoom = new ArrayList<Room>();
@@ -34,23 +37,17 @@ public class RoomMgr implements Manager {
         // creates the list and linkage to data directory
         datalist = new XmlArrayList(strategy);
         
-        //Set boolean Array Values to false
-        for(int i = 0; i< singleArray.length;i++){
-            singleArray[i] = false;
-        }
-          for(int i = 0; i< standardArray.length;i++){
-            standardArray[i] = false;
-        }
-            for(int i = 0; i< VIPArray.length;i++){
-            VIPArray[i] = false;
-        }
-              for(int i = 0; i< suiteArray.length;i++){
-            suiteArray[i] = false;
-        }
+        
         
         
         //Setup
         setup();
+        
+          System.out.println(NumOfSingleRoomNotVacant);
+            System.out.println(NumOfStandardRoomNotVacant);
+              System.out.println(NumOfSuiteRoomNotVacant);
+                System.out.println(NumOfVIPRoomNotVacant);
+                
     }
     
     
@@ -90,20 +87,37 @@ public class RoomMgr implements Manager {
                     return true;         
 	}
         //UpdateRoomStatus
-	public boolean updateRoom(String RoomId,RoomStatus rmstats){
+	public boolean updateRoomStatus(String RoomId,RoomStatus rmstats){
             
              for(int i = 0; i<arrayRoom.size();i++){
-                //if match then delete
+              
                 if(arrayRoom.get(i).getRoomId().equals(RoomId)){
+                    //if updating to vacant means NotVacant --
+                    if(rmstats == RoomStatus.Vacant){
+                        switch(arrayRoom.get(i).getRoomType()){
+                            case Single:NumOfSingleRoomNotVacant--;break;
+                            case Standard:NumOfStandardRoomNotVacant--;break;
+                            case Suite:NumOfSuiteRoomNotVacant--;break;
+                            case VIP:NumOfVIPRoomNotVacant--;break;
+                        }   
+                    }else{
+                        //Updating to something else other than vacant, notvacant++ 
+                        switch(arrayRoom.get(i).getRoomType()){
+                            case Single:NumOfSingleRoomNotVacant++;break;
+                            case Standard:NumOfStandardRoomNotVacant++;break;
+                            case Suite:NumOfSuiteRoomNotVacant++;break;
+                            case VIP:NumOfVIPRoomNotVacant++;break;       
+                             }
+                    //setroom status
                     arrayRoom.get(i).setRoomStatus(rmstats);
                        return true; 
-                }
+                    }
+                 }
              }
-            
             return false;
         }
         //Update/Add Rm Service
-        public boolean updateRoom(String RoomId,double RmService){
+        public boolean updateRoomService(String RoomId,double RmService){
             
              for(int i = 0; i<arrayRoom.size();i++){
                 //if match then delete
@@ -115,7 +129,7 @@ public class RoomMgr implements Manager {
             
             return false;
         }
-           
+           //NOT IN USE, u CANNOT DELETE A ROOM ANYMORE
 	public boolean removeRoom(String RoomId) {
 
             //go through arrayRoom in memory, find and delete room
@@ -146,7 +160,7 @@ public class RoomMgr implements Manager {
 	}
 
 	public Room getRoom(String RoomId) {
-		        //go through arrayRoom in memory, find and delete room
+		      
             for(int i = 0; i<arrayRoom.size();i++){
                 //if match then delete
                 if(arrayRoom.get(i).getRoomId().equals(RoomId))
@@ -162,31 +176,31 @@ public class RoomMgr implements Manager {
             System.out.println("=== Single Rooms ===");
             System.out.println("Total Number of Single Rooms: "+MaxNumSingleRoom);
             System.out.println("Current Number of Single Rooms in use: " 
-                    + this.AvailableNumOfRoomsBasedOnType(RoomType.Single));
+                    + (MaxNumSingleRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.Single)));
             System.out.println("Number of Single Rooms available: "+
-                    (MaxNumSingleRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.Single)));
+                    (this.AvailableNumOfRoomsBasedOnType(RoomType.Single)));
             
              //Standard Rooms
             System.out.println("=== Standard Rooms ===");
             System.out.println("Total Number of Standard Rooms: "+MaxNumStandardRoom);
             System.out.println("Current Number of Standard Rooms in use: " 
-                    + this.AvailableNumOfRoomsBasedOnType(RoomType.Standard));
+                    + (MaxNumStandardRoom -this.AvailableNumOfRoomsBasedOnType(RoomType.Standard)));
                System.out.println("Number of Standard Rooms available: "+
-                    (MaxNumStandardRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.Standard)));
+                    ( this.AvailableNumOfRoomsBasedOnType(RoomType.Standard)));
              //SUITE Rooms
             System.out.println("=== Suite Rooms ===");
             System.out.println("Total Number of Suite Rooms: "+MaxNumSuiteRoom);
             System.out.println("Current Number of Suite Rooms in use: " 
-                    + this.AvailableNumOfRoomsBasedOnType(RoomType.Suite));
+                    + (MaxNumSuiteRoom -this.AvailableNumOfRoomsBasedOnType(RoomType.Suite)));
                System.out.println("Number of Suite Rooms available: "+
-                    (MaxNumSuiteRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.Suite)));
+                    ( this.AvailableNumOfRoomsBasedOnType(RoomType.Suite)));
              //VIP Rooms
             System.out.println("=== VIP Rooms ===");
             System.out.println("Total Number of VIP Rooms: "+MaxNumVIPRoom);
             System.out.println("Current Number of VIP Rooms in use: " 
-                    + this.AvailableNumOfRoomsBasedOnType(RoomType.VIP));
+                    + (MaxNumVIPRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.VIP)));
                System.out.println("Number of VIP Rooms available: "+
-                    (MaxNumVIPRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.VIP)));
+                    ( this.AvailableNumOfRoomsBasedOnType(RoomType.VIP)));
             
             
             
@@ -197,26 +211,16 @@ public class RoomMgr implements Manager {
         
         //Get CurrentNumberOfRoomsBasedOnType      
         public int AvailableNumOfRoomsBasedOnType(RoomType roomtype){
-            
-            int count = 0;
-            //Loop through array to get number of rooms
-          for (Iterator it = arrayRoom.iterator(); it.hasNext();) {
-                Room room = (Room) it.next();
-                if(room.getRoomType() == roomtype){
-                    count++;
-                }
-            }
-            
-          
+   
             switch(roomtype){
                 
-                   case Single: return MaxNumSingleRoom - count;
+                   case Single: return MaxNumSingleRoom - NumOfSingleRoomNotVacant;
                     
-                   case Standard: return MaxNumStandardRoom - count;
+                   case Standard: return MaxNumStandardRoom - NumOfStandardRoomNotVacant;
                        
-                   case VIP: return MaxNumVIPRoom - count;    
+                   case VIP: return MaxNumVIPRoom - NumOfSuiteRoomNotVacant;    
                        
-                   case Suite: return MaxNumSuiteRoom - count;    
+                   case Suite: return MaxNumSuiteRoom - NumOfVIPRoomNotVacant;    
             }
              
             return 0;        
@@ -224,7 +228,7 @@ public class RoomMgr implements Manager {
             
         }
         
-        //RoomID Generation
+        //RoomID Generation not in use anymore
         public String generateRoomId(RoomType roomtype){
             String id = "Rooms have reached limit";   
             switch(roomtype){
@@ -321,15 +325,14 @@ public class RoomMgr implements Manager {
         for (Iterator it = datalist.iterator(); it.hasNext();) {
             Room room = (Room) it.next();
             arrayRoom.add(room);
-            String id = room.getRoomId().substring(room.getRoomId().length() - 2, room.getRoomId().length());
-           
-            switch(room.getRoomType()){
-                
-                case Single: singleArray[Integer.valueOf(id)] = true;break;
-                case Standard: standardArray[Integer.valueOf(id)] = true;break;
-                case VIP: VIPArray[Integer.valueOf(id)] = true;break;          
-                case Suite: suiteArray[Integer.valueOf(id)] = true;break;
-                      
+            //if roomt not vacant 
+           if((room.getRoomStatus().compareTo(RoomStatus.Vacant)!= 0)){
+            switch(room.getRoomType()){           
+                case Single: NumOfSingleRoomNotVacant++;break;
+                case Standard: NumOfStandardRoomNotVacant++;break;
+                case VIP: NumOfSuiteRoomNotVacant++;break;
+                case Suite: NumOfVIPRoomNotVacant++;break;           
+                }
             }
         }
         } catch (Exception ex) {

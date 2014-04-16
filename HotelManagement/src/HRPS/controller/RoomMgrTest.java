@@ -21,19 +21,16 @@ public class RoomMgrTest {
         
         
        RoomMgr roomMgr = new RoomMgr();
-        int num = 12334;
-        boolean sucess;
-        //int maxOcc,int rmId,int floor,RoomStatus roomstatus, RoomType roomtype,int curOcc,BedType bedtype
+    
+ 
+       int i = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single);
+       System.out.println(i);
+       roomMgr.updateRoomStatus("0101", RoomStatus.Occupied);
+       i = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single);
+       System.out.println(i);
+      
+       roomMgr.printRoomOccupancyReport();
        
-        //sucess = roomMgr.createStandardRoom();
-        //sucess = roomMgr.createVIPRoom();
-        //sucess = roomMgr.createSuiteRoom();
-        //sucess = roomMgr.removeRoom("Single39");
-        sucess = roomMgr.createSingleRoom();
-        sucess = roomMgr.deleteFromFile();
-        sucess = roomMgr.createToFile();
-          
-        System.out.println("complete");
     }
     
     
