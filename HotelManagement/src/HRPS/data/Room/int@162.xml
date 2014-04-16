@@ -1,0 +1,14 @@
+<HRPS.entity.SuiteRoom>
+  <maxOccupancy>3</maxOccupancy>
+  <roomId>0903</roomId>
+  <floor>9</floor>
+  <roomStatus>Vacant</roomStatus>
+  <roomType>Suite</roomType>
+  <currentOccupancy>0</currentOccupancy>
+  <bedType>Double</bedType>
+  <ArrayRoomService/>
+  <cal>
+    <time>1397660791319</time>
+    <timezone>Asia/Singapore</timezone>
+  </cal>
+</HRPS.entity.SuiteRoom>

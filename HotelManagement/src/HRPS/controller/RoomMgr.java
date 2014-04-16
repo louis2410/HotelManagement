@@ -55,36 +55,36 @@ public class RoomMgr implements Manager {
     
     
 	
-	public boolean createSingleRoom() {
+	public boolean createSingleRoom(String rmId,int floor) {
 		// TODO - implement RoomMgr.createRoom
-            SingleRoom single = new SingleRoom(1,this.generateRoomId(RoomType.Single),1,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
-            System.out.println("Room ID of created room :" + single.getRoomId());
+            SingleRoom single = new SingleRoom(1,rmId,floor,RoomStatus.Vacant,RoomType.Single,0,BedType.Single);
+            //System.out.println("Room ID of created room :" + single.getRoomId());
             arrayRoom.add(single);
           
                     return true;         
 	}
         
-        public boolean createStandardRoom() {
+        public boolean createStandardRoom(String rmId,int floor) {
 		// TODO - implement RoomMgr.createRoom
-            StandardRoom standard = new StandardRoom(1,this.generateRoomId(RoomType.Standard),1,RoomStatus.Vacant,RoomType.Standard,0,BedType.Double);
-            System.out.println("Room ID of created room :" + standard.getRoomId());
+            StandardRoom standard = new StandardRoom(2,rmId,floor,RoomStatus.Vacant,RoomType.Standard,0,BedType.Double);
+            //System.out.println("Room ID of created room :" + standard.getRoomId());
             arrayRoom.add(standard);
                     return true;         
 	}
         
-        public boolean createSuiteRoom() {
+        public boolean createSuiteRoom(String rmId,int floor) {
 		// TODO - implement RoomMgr.createRoom
-           SuiteRoom suite = new SuiteRoom(1,this.generateRoomId(RoomType.Suite),1,RoomStatus.Vacant,RoomType.Suite,0,BedType.Double);
-           System.out.println("Room ID of created room :" + suite.getRoomId()); 
+           SuiteRoom suite = new SuiteRoom(3,rmId,floor,RoomStatus.Vacant,RoomType.Suite,0,BedType.Double);
+           //System.out.println("Room ID of created room :" + suite.getRoomId()); 
            arrayRoom.add(suite);
           
                     return true;         
 	}
         
-        public boolean createVIPRoom() {
+        public boolean createVIPRoom(String rmId,int floor) {
 		// TODO - implement RoomMgr.createRoom
-            VipRoom vip = new VipRoom(1,this.generateRoomId(RoomType.VIP),1,RoomStatus.Vacant,RoomType.VIP,0,BedType.Master);
-            System.out.println("Room ID of created room :" + vip.getRoomId());
+            VipRoom vip = new VipRoom(4,rmId,floor,RoomStatus.Vacant,RoomType.VIP,0,BedType.Master);
+            //System.out.println("Room ID of created room :" + vip.getRoomId());
             arrayRoom.add(vip);
           
                     return true;         

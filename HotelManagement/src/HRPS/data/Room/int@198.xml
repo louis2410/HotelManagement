@@ -1,0 +1,14 @@
+<HRPS.entity.VipRoom>
+  <maxOccupancy>4</maxOccupancy>
+  <roomId>1019</roomId>
+  <floor>10</floor>
+  <roomStatus>Vacant</roomStatus>
+  <roomType>VIP</roomType>
+  <currentOccupancy>0</currentOccupancy>
+  <bedType>Master</bedType>
+  <ArrayRoomService/>
+  <cal>
+    <time>1397660791325</time>
+    <timezone>Asia/Singapore</timezone>
+  </cal>
+</HRPS.entity.VipRoom>
