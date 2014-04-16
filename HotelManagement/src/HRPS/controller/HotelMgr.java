@@ -376,7 +376,7 @@ public class HotelMgr {
     }
     //Arthur : Bryan
 
-    public boolean checkExisitingReservation(int resId) {
+    public boolean checkExisitingReservation(String resId) {
         if (resMgr.getReservation(resId) != null) {
             return true;
         } else {
@@ -386,7 +386,7 @@ public class HotelMgr {
     }
 
     //Arthur : Bryan
-    public String displayReservationDetails(int resId) {
+    public String displayReservationDetails(String resId) {
         return resMgr.getReservation(resId).toString();
     }
 

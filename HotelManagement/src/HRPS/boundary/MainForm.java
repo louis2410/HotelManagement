@@ -311,8 +311,6 @@ public class MainForm {
 
         //Parameters
         int choice;
-
-      
         do {  //Print Reservation Menu
             System.out.println("Please select one of the following Reservation Service");
             System.out.println("1 : Create a new Reservation");
