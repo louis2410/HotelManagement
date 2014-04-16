@@ -1,14 +1,14 @@
-<HRPS.entity.SingleRoom>
+<HRPS.entity.StandardRoom>
   <maxOccupancy>1</maxOccupancy>
-  <roomId>Single2</roomId>
+  <roomId>Standard0</roomId>
   <floor>1</floor>
   <roomStatus>Reserved</roomStatus>
-  <roomType>Single</roomType>
+  <roomType>Standard</roomType>
   <currentOccupancy>0</currentOccupancy>
-  <bedType>Single</bedType>
+  <bedType>Double</bedType>
   <ArrayRoomService/>
   <cal>
-    <time>1397534519562</time>
+    <time>1397616757839</time>
     <timezone>Asia/Singapore</timezone>
   </cal>
-</HRPS.entity.SingleRoom>
+</HRPS.entity.StandardRoom>
