@@ -160,20 +160,21 @@ public class Reservation {
      *
      * @param noOfRooms
      */
-    public void addNoOfRooms(int noOfRooms, RoomType roomType) {
-        // TODO - implement Reservation.setNoOfRooms
-        for(int i=0; i<noOfRooms;i++){
-            if(roomType == RoomType.Single){
-                this.associatedRooms.add(new SingleRoom());
-            }else if(roomType == RoomType.Standard){
-                this.associatedRooms.add(new StandardRoom());
-            }else if(roomType == RoomType.Suit){
-                this.associatedRooms.add(new SuiteRoom());
-            } else if(roomType == RoomType.VIP){
-                this.associatedRooms.add(new VipRoom());
-            }
-        }
-    }
+    // Remove method. Change to if there is no room
+//    public void addNoOfRooms(int noOfRooms, RoomType roomType) {
+//        // TODO - implement Reservation.setNoOfRooms
+//        for(int i=0; i<noOfRooms;i++){
+//            if(roomType == RoomType.Single){
+//                this.associatedRooms.add(new SingleRoom());
+//            }else if(roomType == RoomType.Standard){
+//                this.associatedRooms.add(new StandardRoom());
+//            }else if(roomType == RoomType.Suit){
+//                this.associatedRooms.add(new SuiteRoom());
+//            } else if(roomType == RoomType.VIP){
+//                this.associatedRooms.add(new VipRoom());
+//            }
+//        }
+//    }
 
     /**
      *

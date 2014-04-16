@@ -126,12 +126,17 @@ public class GuestMgr {
     }
 
     public boolean removeGuest(String guestId) {
-        for (int i = 0; i < arrayGuest.size(); i++) {
+        boolean success = true;
+        try{
+            for (int i = 0; i < arrayGuest.size(); i++) {
             if (arrayGuest.get(i).getGuestId() == guestId) {
                 arrayGuest.remove(i);
             }
         }
-        return false;
+        }catch (Exception ex){
+            success = false;
+        }
+        return success;
     }
 
     public Guest getGuest(String guestId) {
@@ -144,8 +149,6 @@ public class GuestMgr {
     }
 
     public void setup() {
-
-
         this.retrieveFromFile();
         //this.DeleteFromFile();
         //this.printAllGuests();

@@ -1,10 +1,6 @@
 package HRPS.boundary;
 
-import HRPS.controller.GuestMgr;
 import HRPS.controller.HotelMgr;
-import HRPS.controller.RoomMgr;
-import HRPS.entity.RoomType;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -24,64 +20,60 @@ public class MainForm {
         System.out.println("\t\t\tHPRS Version 1.0");
         System.out.println("---------------------------------------------------------------------");
 
-        
         UIControl();
-        
-       
     }
 
-    public static void UIControl(){
-        
+    public static void UIControl() {
         int choice;
-        
-        do{
+
+        do {
             choice = printMainMenu();
-            switch(choice){
-        
-            case 1:printRoomMenu();
+            switch (choice) {
+
+                case 1:
+                    printRoomMenu();
                     break;
-             
-            case 2:printGuestMenu();
+
+                case 2:
+                    printGuestMenu();
                     break;
-                
-            case 3:printReservationMenu();
+
+                case 3:
+                    printReservationMenu();
                     break;
-            
-            case 4:printReservationReceiptMenu();
+
+                case 4:
+                    printReservationReceiptMenu();
                     break;
-                
-            case 5://CheckAvailableityofroom
+
+                case 5://CheckAvailableityofroom
                     printCheckRoomAvailablity();
                     break;
-                
-            case 6://Check-In 
+
+                case 6://Check-In 
                     break;
-               
-            case 7://Checkout and print invoice
+
+                case 7://Checkout and print invoice
                     break;
-                
-            case 8://Print RoomOccupancy Report
+
+                case 8://Print RoomOccupancy Report
                     printRoomOccupancyReport();
                     break;
-               
-            case 9://Exit XML functions   
+
+                case 9://Exit XML functions   
                     hotelMgr.OutputToXML();
                     break;
-        
-        default:    System.out.println("Please enter a value from 1 to 9.");
-                      
-         }
-            
-            
-            
-        }while(choice != 9);
-        
-        
+
+                default:
+                    System.out.println("Please enter a value from 1 to 9.");
+            }
+        } while (choice != 9);
+
+
     }
-    
-    
+
     public static int printMainMenu() {
-        int choice;     
+        int choice;
         //Choice 
         System.out.println("Please select one of the following choices: \n"
                 + "1. Create/Update/Remove rooms details \n"
@@ -94,12 +86,10 @@ public class MainForm {
                 + "8. Print Room Occupancyreport\n"
                 + "9. Quit the system\n");
         System.out.print("Please select a choice : ");
-        
-            choice = sc.nextInt();
-            return choice;
+
+        choice = sc.nextInt();
+        return choice;
     }
-    
-    
 
     public static void printRoomMenu() {
         Scanner in = new Scanner(System.in);
@@ -110,196 +100,263 @@ public class MainForm {
                 + "3. Remove Room\n"
                 + "4. Back to menu\n");
         int CURRoomChoice = in.nextInt();
-      
-            switch (CURRoomChoice) {
-                //Create Room
-                case 1: hotelMgr.printNumOfAvailableRoomsForCreation();
-                        System.out.println("Select Type of Room to be Created:");
-                        System.out.println("1. Single Room");
-                        System.out.println("2. Standard Room");
-                        System.out.println("3. Suite Room");
-                        System.out.println("4. VIP Room");
-                        CURRoomChoice = in.nextInt();
-                        in.nextLine();
-                        hotelMgr.createRoomBasedonType(CURRoomChoice);
-                        break;
-                      
-                //Update Room
-                case 2: System.out.println("Enter Room ID");
-                             roomId = in.next();
-                             System.out.println("Select Type of Update");
-                             System.out.println("1. Update Room Status");
-                             System.out.println("2. Add RoomService");
-                             int choice = in.nextInt();
-                             switch(choice){                              
-                                 case 1: System.out.println("Select Status");
-                                         System.out.println("1. Occupied");
-                                         System.out.println("2. Reserved");
-                                         System.out.println("3. Under Maintance");
-                                         System.out.println("4. Vacant");
-                                         choice = in.nextInt();
-                                         hotelMgr.updateRoomStatus(roomId, choice);
-                                         break;
-                                         
-                                 case 2: System.out.println("Enter amount of Room Service");
-                                         double amt = in.nextDouble();
-                                         hotelMgr.addRoomService(roomId, amt);
-                                         break;      
-                             }
 
+        switch (CURRoomChoice) {
+            //Create Room
+            case 1:
+                hotelMgr.printNumOfAvailableRoomsForCreation();
+                System.out.println("Select Type of Room to be Created:");
+                System.out.println("1. Single Room");
+                System.out.println("2. Standard Room");
+                System.out.println("3. Suite Room");
+                System.out.println("4. VIP Room");
+                CURRoomChoice = in.nextInt();
+                in.nextLine();
+                hotelMgr.createRoomBasedonType(CURRoomChoice);
+                break;
+
+            //Update Room
+            case 2:
+                System.out.println("Enter Room ID");
+                roomId = in.next();
+                System.out.println("Select Type of Update");
+                System.out.println("1. Update Room Status");
+                System.out.println("2. Add RoomService");
+                int choice = in.nextInt();
+                switch (choice) {
+                    case 1:
+                        System.out.println("Select Status");
+                        System.out.println("1. Occupied");
+                        System.out.println("2. Reserved");
+                        System.out.println("3. Under Maintance");
+                        System.out.println("4. Vacant");
+                        choice = in.nextInt();
+                        hotelMgr.updateRoomStatus(roomId, choice);
                         break;
-                    
-                //Remove Room
-                case 3: System.out.println("Enter Room ID");
-                               roomId = in.next();
-                        hotelMgr.removeRoom(roomId);
+
+                    case 2:
+                        System.out.println("Enter amount of Room Service");
+                        double amt = in.nextDouble();
+                        hotelMgr.addRoomService(roomId, amt);
                         break;
-                    
-                //Back to Menu
-                case 4:    break;
-             }
-            
+                }
+
+                break;
+
+            //Remove Room
+            case 3:
+                System.out.println("Enter Room ID");
+                roomId = in.next();
+                hotelMgr.removeRoom(roomId);
+                break;
+
+            //Back to Menu
+            case 4:
+                break;
+        }
+
     }
 
     public static void printGuestMenu() {
-        Scanner in = new Scanner(System.in);
-        String guestId;
-        System.out.println("Please select one of the following choices: \n"
-                + "1. Create Guest\n"
-                + "2. Update Guest\n"
-                + "3. Remove Guest\n"
-                + "4. Back to menu\n");
-        int CURGuestchoice = in.nextInt();
-        while (CURGuestchoice != 4) {
+        int CURGuestchoice;
+        do {
+            System.out.println("This is the Guest Management Menu");
+            System.out.println("Please select one of the following choices: \n"
+                    + "1. Create Guest\n"
+                    + "2. Update Guest\n"
+                    + "3. Remove Guest\n"
+                    + "4. Back to menu\n");
+            CURGuestchoice = sc.nextInt();
+
             switch (CURGuestchoice) {
                 //Create Guest
                 case 1:
-                    System.out.print("Please input the guest ID: ");
-                    guestId = in.next();
-                    System.out.print("Please input the First Name: ");
-                    String FirstName = in.next();
-                    System.out.print("Please input the Last Name: ");
-                    String lastName = in.next();
-                    System.out.print("Please input the title: ");
-                    String title = in.next();
-                    System.out.print("Please input the address: ");
-                    String address = in.next();
-                    System.out.print("Please input the country: ");
-                    String country = in.next();
-                    System.out.print("Please input the gender: ");
-                    char gender = in.next().charAt(0);
-                    System.out.print("Please input the contact number: ");
-                    int contactNo = in.nextInt();
-                    System.out.print("Please input the email: ");
-                    String email = in.next();
-                    hotelMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
-                    System.out.print("Is there any associate guest? Yes = y No = n ");
-                    //Bug here i cant figure out
-                    boolean assoguestchoice = false;
-                            if(in.next().equals("y")){
-                                assoguestchoice = true;
-                            };
-                    while (assoguestchoice = true) {
-                        System.out.println("Please input the associate guest Id");
-                        String AssoguestId = in.next();
-                       hotelMgr.getGuest(guestId).setAssoGuest(hotelMgr.getGuest(AssoguestId));
-                        System.out.print("Is there any more associate guest? Yes = y No = n ");
-                        assoguestchoice = false; 
-                        if(in.next().equals("y")){
-                                assoguestchoice = true;
-                            };
-                        
-                    }
+                    printCreateGuest();
                     break;
                 //Update Guest
                 case 2:
-                    System.out.println("Please input the guest ID you want to Update");
-                    guestId = in.next();
-                    System.out.println("Please select one of the following choices: \n"
-                            + "1. Update guest ID\n"
-                            + "2. Update First Name\n"
-                            + "3. Update Last Name\n"
-                            + "4. Update title\n"
-                            + "5. Update address\n"
-                            + "6. Update country\n"
-                            + "7. Update gender\n"
-                            + "8. Update contact number\n"
-                            + "9. Update email\n"
-                            + "10. Back to last menu");
-                    int UpdateGuestchoice = in.nextInt();
-                    while (CURGuestchoice != 10) {
-                        switch (UpdateGuestchoice) {
-                            case 1:
-                                System.out.print("Please input the guest ID: ");
-                                guestId = in.next();
-                                hotelMgr.getGuest(guestId).setGuestId(guestId);
-                                break;
-                            case 2:
-                                System.out.print("Please input the First Name: ");
-                                FirstName = in.next();
-                                hotelMgr.getGuest(guestId).setFirstName(FirstName);
-                                break;
-                            case 3:
-                                System.out.print("Please input the Last Name: ");
-                                lastName = in.next();
-                                hotelMgr.getGuest(guestId).setLastName(lastName);
-                                break;
-                            case 4:
-                                System.out.print("Please input the title: ");
-                                title = in.next();
-                                hotelMgr.getGuest(guestId).setTitle(title);
-                                break;
-                            case 5:
-                                System.out.print("Please input the address: ");
-                                address = in.next();
-                                hotelMgr.getGuest(guestId).setAddress(address);
-                                break;
-                            case 6:
-                                System.out.print("Please input the country: ");
-                                country = in.next();
-                                hotelMgr.getGuest(guestId).setCountry(country);
-                                break;
-                            case 7:
-                                System.out.print("Please input the gender: ");
-                                gender = in.next().charAt(0);
-                                hotelMgr.getGuest(guestId).setGender(gender);
-                                break;
-                            case 8:
-                                System.out.print("Please input the contact number: ");
-                                contactNo = in.nextInt();
-                                hotelMgr.getGuest(guestId).setContactNo(contactNo);
-                                break;
-                            case 9:
-                                System.out.print("Please input the email: ");
-                                email = in.next();
-                                hotelMgr.getGuest(guestId).setEmail(email);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                    printUpdateGuest();
                     break;
                 //Remove Guest
                 case 3:
-                    System.out.println("Please input the guest ID you want to Remove");
-                    guestId = in.next();
-                    hotelMgr.removeGuest(guestId);
+                    printRemoveGuest();
                     break;
                 case 4:
                     System.out.println("Returning to Main Menu...");
                     printMainMenu();
                     break;
-
-             
                 default:
-                    System.out.println("Please enter a value from 1 to 9.");
+                    System.out.println("Please enter a value from 1 to 4.");
                     break;
             }
-        }
+        } while (CURGuestchoice != 4);
         throw new UnsupportedOperationException();
     }
-    
-    public static void printRoomOccupancyReport(){
+
+    public static void printCreateGuest() {
+        System.out.println("This is the Guest Creation Form");
+
+        String guestId;
+        System.out.print("Please input the guest ID: ");
+        guestId = sc.next();
+
+        System.out.println("Checking if the guest exist in the system");
+        if (hotelMgr.checkExistingGuest(guestId)) {
+            System.out.println("There is already such guest exist in the system.");
+            System.out.println(hotelMgr.getGuest(guestId).toString());
+            return;
+        } else {
+            System.out.println("There is no such guest exist in the system. Please continue with registration");
+        }
+
+        System.out.print("Please input the First Name: ");
+        String FirstName = sc.next();
+        System.out.print("Please input the Last Name: ");
+        String lastName = sc.next();
+        System.out.print("Please input the title: ");
+        String title = sc.next();
+        System.out.print("Please input the address: ");
+        String address = sc.next();
+        System.out.print("Please input the country: ");
+        String country = sc.next();
+        System.out.print("Please input the gender: ");
+        char gender = sc.next().charAt(0);
+        System.out.print("Please input the contact number: ");
+        int contactNo = sc.nextInt();
+        System.out.print("Please input the email: ");
+        String email = sc.next();
+        hotelMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
+        System.out.print("Is there any associate guest? Yes = y No = n ");
+        //Bug here i cant figure out
+        boolean assoguestchoice = false;
+        String output = sc.next();
+        if (output.equalsIgnoreCase("y")) {
+            assoguestchoice = true;
+        }
+        while (assoguestchoice) {
+            System.out.println("Please input the associate guest Id");
+            String AssoguestId = sc.next();
+            hotelMgr.getGuest(guestId).setAssoGuest(hotelMgr.getGuest(AssoguestId));
+            System.out.print("Is there any more associate guest? Yes = y No = n ");
+            assoguestchoice = false;
+            if (sc.next().equals("y")) {
+                assoguestchoice = true;
+            }
+        }
+
+        System.out.println("This is the end of Guest Creation Form");
+        System.out.println("Returning to Guest Management Menu...");
+    }
+
+    public static void printUpdateGuest() {
+        System.out.println("This is the Guest Update Form");
+
+        String guestId;
+        System.out.print("Please input the guest ID: ");
+        guestId = sc.next();
+
+        System.out.println("Checking if the guest exist in the system");
+        if (hotelMgr.checkExistingGuest(guestId)) {
+            System.out.println("There is already such guest exist in the system.");
+            System.out.println(hotelMgr.getGuest(guestId).toString());
+            return;
+        } else {
+            System.out.println("There is no such guest exist in the system. Please continue with update");
+        }
+
+        int UpdateGuestchoice;
+        do {
+            System.out.println("Please select one of the following choices: \n"
+                    + "1. Update guest ID\n"
+                    + "2. Update First Name\n"
+                    + "3. Update Last Name\n"
+                    + "4. Update title\n"
+                    + "5. Update address\n"
+                    + "6. Update country\n"
+                    + "7. Update gender\n"
+                    + "8. Update contact number\n"
+                    + "9. Update email\n"
+                    + "10. Back to last menu");
+            UpdateGuestchoice = sc.nextInt();
+
+            switch (UpdateGuestchoice) {
+                case 1:
+                    System.out.print("Please input the guest ID: ");
+                    guestId = sc.next();
+                    hotelMgr.getGuest(guestId).setGuestId(guestId);
+                    break;
+                case 2:
+                    System.out.print("Please input the First Name: ");
+                    hotelMgr.getGuest(guestId).setFirstName(sc.next());
+                    break;
+                case 3:
+                    System.out.print("Please input the Last Name: ");
+
+                    hotelMgr.getGuest(guestId).setLastName(sc.next());
+                    break;
+                case 4:
+                    System.out.print("Please input the title: ");
+                    hotelMgr.getGuest(guestId).setTitle(sc.next());
+                    break;
+                case 5:
+                    System.out.print("Please input the address: ");
+                    hotelMgr.getGuest(guestId).setAddress(sc.next());
+                    break;
+                case 6:
+                    System.out.print("Please input the country: ");
+                    hotelMgr.getGuest(guestId).setCountry(sc.next());
+                    break;
+                case 7:
+                    System.out.print("Please input the gender: ");
+                    hotelMgr.getGuest(guestId).setGender(sc.next().charAt(0));
+                    break;
+                case 8:
+                    System.out.print("Please input the contact number: ");
+                    hotelMgr.getGuest(guestId).setContactNo(sc.nextInt());
+                    break;
+                case 9:
+                    System.out.print("Please input the email: ");
+                    hotelMgr.getGuest(guestId).setEmail(sc.next());
+                    break;
+                case 10:
+                    System.out.println("This is the end of Guest Update Form");
+                    System.out.print("Returning to Guest Management Menu...");
+                    return;
+                default:
+                    break;
+            }
+
+        } while (UpdateGuestchoice != 10);
+    }
+
+    public static void printRemoveGuest() {
+        System.out.println("This is the Guest Removal Form");
+
+        String guestId;
+        System.out.print("Please input the guest ID: ");
+        guestId = sc.next();
+
+        System.out.println("Checking if the guest exist in the system");
+        if (hotelMgr.checkExistingGuest(guestId)) {
+            System.out.println("There is already such guest exist in the system.");
+            System.out.println(hotelMgr.getGuest(guestId).toString());
+            return;
+        } else {
+            System.out.println("There is no such guest exist in the system. Please continue with removal.");
+        }
+
+        if (!hotelMgr.removeGuest(guestId)) {
+            System.out.println("Failed to remove Guest " + guestId);
+            System.out.println("Please try again.");
+            System.out.print("Returning to Guest Management Menu...");
+        } else {
+             System.out.println("Success in removing Guest " + guestId);
+            System.out.println("This is the end of Guest Removeal Form");
+            System.out.print("Returning to Guest Management Menu...");
+        }
+    }
+
+    public static void printRoomOccupancyReport() {
         hotelMgr.printRoomOccupancyReport();
     }
 
@@ -377,11 +434,11 @@ public class MainForm {
             noOfRooms = sc.nextInt();
 
             //Enter room ID to book rooms.
-            int rmId[] = new int[noOfRooms];
+            String rmId[] = new String[noOfRooms];
             System.out.println("Please from the avaliable list of rooms to reserve: ");
             for (int i = 0; i < noOfRooms; i++) {
                 System.out.print("Room " + (i + 1) + " : ");
-                rmId[i] = sc.nextInt();
+                rmId[i] = sc.next();
             }
 
             System.out.println("Selected Rooms : " + rmId.toString());
@@ -413,7 +470,6 @@ public class MainForm {
     }
     //Arthur : Bryan
 
-    
     public static void printUpdateReservationMenu() {
         int resId = 0, choice = 0;
 
@@ -568,24 +624,18 @@ public class MainForm {
                     System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
                 }
             } while (resId != -1);
-            
-            
+
+
         } catch (Exception ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void printCheckRoomAvailablity(){
-           
-           System.out.println("Enter Room Id");
-           String rmId = sc.next();
-           System.out.println("RoomId "+rmId +"is "+hotelMgr.checkRoomAvailability(rmId));
-      
-       }
-    
-    
-    
-    
-    }
 
- 
+    public static void printCheckRoomAvailablity() {
+
+        System.out.println("Enter Room Id");
+        String rmId = sc.next();
+        System.out.println("RoomId " + rmId + "is " + hotelMgr.checkRoomAvailability(rmId));
+
+    }
+}

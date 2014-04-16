@@ -30,6 +30,7 @@ public class Guest {
         this.guestId = guestId;
         this.lastName = lastName;
         this.title = title;
+        this.AssoGuest = new ArrayList();
     }
 
     public String getGuestId() {
@@ -153,5 +154,19 @@ public class Guest {
     public ArrayList<Guest> getAssoGuest() {
         return AssoGuest;
 
+    }
+    
+    public String toString(){
+        String display ="";
+        display +="Guest Details of " + this.guestId + "\n";
+        display +="-------------------------------------------------\n";
+        display +="Name \t : " + this.title + " " + this.lastName + " " + this.FirstName + " \n";
+        display +="Gender \t : " + this.gender + "\n";
+        display +="Address \t : " + this.address + "\n";
+        display +="Country \t : " + this.country + "\n" ;
+        display +="Email \t : " + this.email + "\n" ;
+        display +="Contact No \t : " + this.contactNo + "\n";
+        
+        return display;
     }
 }

@@ -221,7 +221,7 @@ public class HotelMgr {
     }
 
     //Arthur : Bryan
-    public int createReservation(String guestId, Date checkIn, Date checkOut, int noOfRooms, int[] rmId, int noOfAdults, int noOfChildren) {
+    public int createReservation(String guestId, Date checkIn, Date checkOut, int noOfRooms, String[] rmId, int noOfAdults, int noOfChildren) {
         // TODO - implement HotelMgr.createReservation
         int resId = -1;
         try {
@@ -272,7 +272,7 @@ public class HotelMgr {
 
         //get the rest of ava rooms for display
         for (int i = 0; i < allRoomList.size(); i++) {
-            if (resRoomList.contains(allRoomList.get(i)) || allRoomList.get(i).getRoomStatus() == RoomStatus.UnderMaintance) {
+            if (resRoomList.contains(allRoomList.get(i)) || allRoomList.get(i).getRoomStatus() == RoomStatus.UnderMaintenance) {
                 allRoomList.remove(i);
             } else {
                 if (allRoomList.get(i).getRoomType() == RoomType.Single) {
@@ -308,7 +308,7 @@ public class HotelMgr {
 
         //get the rest of ava rooms for display
         for (int i = 0; i < allRoomList.size(); i++) {
-            if (resRoomList.contains(allRoomList.get(i)) || allRoomList.get(i).getRoomStatus() == RoomStatus.UnderMaintance) {
+            if (resRoomList.contains(allRoomList.get(i)) || allRoomList.get(i).getRoomStatus() == RoomStatus.UnderMaintenance) {
                 allRoomList.remove(i);
             } else {
                 if (allRoomList.get(i).getRoomType() == RoomType.Single) {
@@ -344,8 +344,8 @@ public class HotelMgr {
 
     //Arthur : Bryan
     public boolean checkAllowReservationStatus(int resId) {
-        if (resMgr.getReservation(resId).getResStatus() == RReservationTypeCheck_In
-                || resMgr.getReservation(resId).getResStatus() == ReReservationTypexpired) {
+        if (resMgr.getReservation(resId).getResStatus() == ReservationStatus.Check_In
+                || resMgr.getReservation(resId).getResStatus() == ReservationStatus.Expired) {
             return false;
         } else {
             return true;
