@@ -1,0 +1,18 @@
+<HRPS.entity.Reservation>
+  <associatedRooms>
+    <string>0501</string>
+    <string>0502</string>
+    <string>0503</string>
+    <string>0504</string>
+  </associatedRooms>
+  <associatedGuest>e</associatedGuest>
+  <resId>R2</resId>
+  <roomType>Standard</roomType>
+  <resBookDate>2014-04-17 04:03:28.459 UTC</resBookDate>
+  <resCheckInDate>2014-01-02 16:00:00.0 UTC</resCheckInDate>
+  <resCheckOutDate>2014-01-08 16:00:00.0 UTC</resCheckOutDate>
+  <resStatus>Confirmed</resStatus>
+  <noOfAdults>2</noOfAdults>
+  <noOfChildren>3</noOfChildren>
+  <paymentStatus>false</paymentStatus>
+</HRPS.entity.Reservation>

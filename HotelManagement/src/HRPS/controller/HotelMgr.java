@@ -63,6 +63,13 @@ public class HotelMgr {
         
         return roomMgr.removeRoom(rmId);
     }
+    
+    public String firstAvailRoom(RoomType RoomType){
+        
+        return roomMgr.getFirstAvailableRoom(RoomType);
+        
+    }
+    
     public void printRoomOccupancyReport(){
         roomMgr.printRoomOccupancyReport();
     }
@@ -84,6 +91,8 @@ public class HotelMgr {
     }
     
     
+    
+    
     //Impportant , execute before closing program
     public void OutputToXML(){
         
@@ -102,13 +111,19 @@ public class HotelMgr {
 
         int NumOfClashes = resMgr.CheckReservationClash(checkin, checkout,rmType);
         int NumAvailableRooms = roomMgr.AvailableNumOfRoomsBasedOnType(rmType);
+        System.out.println(NumOfClashes);
+        System.out.println(NumAvailableRooms);
         if(NumAvailableRooms - NumOfClashes > 0){
             return NumAvailableRooms - NumOfClashes;
         }
         return 0;
     }
     
-    
+    //Reservation ID generate
+    public String generateResId(){
+        
+        return "R"+(resMgr.NumOfReservations()+1);
+    }
     
    
     public String checkRoomAvailability(String roomId) {

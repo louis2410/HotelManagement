@@ -31,6 +31,10 @@ public class ReservationMgr implements Manager {
         //Setup
         setup();
     }
+    
+    public int NumOfReservations(){
+        return arrayReservation.size();
+    }
 
     //Returns numberofclashes
     public int CheckReservationClash(Date newcheckin,Date newcheckout,RoomType rmType){
@@ -152,7 +156,7 @@ public class ReservationMgr implements Manager {
             return false;
         }
 
-        System.out.println("Reservations to XML Complete");
+        
         return true;
     }
 
@@ -170,7 +174,7 @@ public class ReservationMgr implements Manager {
             return false;
         }
 
-        System.out.println("Reservations to XML Complete");
+        
         return true;
     }
 
@@ -187,14 +191,14 @@ public class ReservationMgr implements Manager {
             System.out.println("Failed to retrive all from data directory");
             return false;
         }
-        System.out.println("Reservations to XML Complete");
+        System.out.println("XML To Reservation Complete");
         return true;
     }
 
     @Override
     public void setup() {
         this.retrieveFromFile();
-        this.deleteFromFile();
+        //this.deleteFromFile();
         //this.createToFile();
     }
     

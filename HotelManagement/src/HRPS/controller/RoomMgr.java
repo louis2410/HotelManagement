@@ -228,6 +228,22 @@ public class RoomMgr implements Manager {
             
         }
         
+        
+        public String getFirstAvailableRoom(RoomType roomType){
+            
+            for(int i =0;i<arrayRoom.size();i++){
+                if(arrayRoom.get(i).getRoomType().equals(roomType) && (arrayRoom.get(i).getRoomStatus().equals(RoomStatus.Vacant))){
+                    return arrayRoom.get(i).getRoomId();
+                }
+                
+            }
+            System.out.println("No available room");
+            return null;
+            
+        }
+        
+        
+        
         //RoomID Generation not in use anymore
         public String generateRoomId(RoomType roomtype){
             String id = "Rooms have reached limit";   

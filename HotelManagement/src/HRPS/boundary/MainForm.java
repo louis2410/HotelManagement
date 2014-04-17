@@ -400,7 +400,7 @@ public class MainForm {
                     break;
             }
         } while (choice != 4);
-        throw new UnsupportedOperationException();
+        
     }
 
   public static void printCreateReservationMenu()  {
@@ -441,7 +441,7 @@ public class MainForm {
         System.out.println("3. Suite");
         System.out.println("4. VIP");
         int select = sc.nextInt();
-        RoomType RmType = RoomType.Single;
+        RoomType RmType = null;
         
         //Get Number of Rooms
         System.out.println("Enter Number of Rooms");
@@ -504,11 +504,8 @@ public class MainForm {
         int adults = sc.nextInt();
         System.out.println("Enter Number of Children");
         int children = sc.nextInt();
-        //Need a auto generation reservation method
-        System.out.println("Enter Reservation ID");
-        String resId = sc.next();
-                
-  
+        //auto generation reservation method
+        String resId = hotelMgr.generateResId();
         //Create Reservation 
       //  associatedGuest, resId, resBookDate, resCheckInDate ,
     //resCheckOutDate, resStatus, noOfAdults, noOfChildren, paymentStatus,roomType);
@@ -518,10 +515,10 @@ public class MainForm {
             //Add each rooms to reservation
              for(int i =0;i<NumRooms;i++){
              //add associated rooms
-   
-           // hotelMgr.getReservation(resId).AddAssociatedRoom(roomId);  
+                String rmId = hotelMgr.firstAvailRoom(RmType);
+                hotelMgr.getReservation(resId).AddAssociatedRoom(rmId);  
             //Set room status to reserved, 2 = reserved
-            //hotelMgr.updateRoomStatus(roomId,2);  
+            hotelMgr.updateRoomStatus(rmId,2);  
             }
         }
 

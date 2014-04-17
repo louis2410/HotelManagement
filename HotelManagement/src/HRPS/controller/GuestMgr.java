@@ -32,14 +32,14 @@ public class GuestMgr {
         setup();
     }
 
-    public boolean createGuest(String guestId, String FirstName, String lastName,
+    public String createGuest(String guestId, String FirstName, String lastName,
             String title, String address, String country, char gender, int contactNo, String email) {
         // TODO - implement GuestMgr.createGuest
         Guest guest = new Guest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
 
         arrayGuest.add(guest);
 
-        return true;
+        return guestId;
     }
 
     public void printAllGuests() {
