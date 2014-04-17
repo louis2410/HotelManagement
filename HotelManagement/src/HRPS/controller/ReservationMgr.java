@@ -51,32 +51,38 @@ public class ReservationMgr implements Manager {
              if((newcheckin.equals(arrayReservation.get(i).getResCheckInDate()))
                    && newcheckin.before(arrayReservation.get(i).getResCheckOutDate())){ 
                      hit = true;
+                     System.out.println("checkin falls on checkindate and before checkoutdate");
                }
             //if newcheckin falls after checkindate and beforecheckoutdate
               if((newcheckin.after(arrayReservation.get(i).getResCheckInDate()))
                     && newcheckin.before(arrayReservation.get(i).getResCheckOutDate())){ 
                     hit = true;
+                    System.out.println("Checkin falls after checkindate and beforecheckoutdate");
                 }
         
             //if newcheckin before checkindate and beforecheckoutdate
               if((newcheckin.before(arrayReservation.get(i).getResCheckInDate()))
                     && newcheckin.before(arrayReservation.get(i).getResCheckOutDate())){ 
                     hit = true;
+                    System.out.println("chekcin before checkindate and before checkoutdate");
                 }
         
                 //if newcheckin falls on checkOutdate
             if((newcheckin.equals(arrayReservation.get(i).getResCheckOutDate()))){
                 hit = true;
+                System.out.println("checkin falls on checkoutdate");
             }
                 
                  //if newcheckout before on checkindate
             if((newcheckout.before(arrayReservation.get(i).getResCheckInDate()))){
                 hit = false;
+                System.out.println("checkout before checkindate");
             }
               
                 //if newcheckout falls on checkindate
             if((newcheckout.equals(arrayReservation.get(i).getResCheckOutDate()))){
                 hit = true;
+                System.out.println("newcheckout falls on checkindate");
             }
           //clashcount increase    
             if(hit == true){

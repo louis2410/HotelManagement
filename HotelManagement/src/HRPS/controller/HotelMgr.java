@@ -113,6 +113,7 @@ public class HotelMgr {
         int NumAvailableRooms = roomMgr.AvailableNumOfRoomsBasedOnType(rmType);
         System.out.println(NumOfClashes);
         System.out.println(NumAvailableRooms);
+        //Logic error here , need to figure out
         if(NumAvailableRooms - NumOfClashes > 0){
             return NumAvailableRooms - NumOfClashes;
         }

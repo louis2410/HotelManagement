@@ -2,13 +2,13 @@
   <maxOccupancy>1</maxOccupancy>
   <roomId>0102</roomId>
   <floor>1</floor>
-  <roomStatus>Reserved</roomStatus>
+  <roomStatus>Vacant</roomStatus>
   <roomType>Single</roomType>
   <currentOccupancy>0</currentOccupancy>
   <bedType>Single</bedType>
   <ArrayRoomService/>
   <cal>
-    <time>1397660791294</time>
+    <time>1397709579210</time>
     <timezone>Asia/Singapore</timezone>
   </cal>
 </HRPS.entity.SingleRoom>

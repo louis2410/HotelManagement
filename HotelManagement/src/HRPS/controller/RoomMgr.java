@@ -43,10 +43,10 @@ public class RoomMgr implements Manager {
         //Setup
         setup();
         
-          System.out.println(NumOfSingleRoomNotVacant);
-            System.out.println(NumOfStandardRoomNotVacant);
-              System.out.println(NumOfSuiteRoomNotVacant);
-                System.out.println(NumOfVIPRoomNotVacant);
+        //  System.out.println(NumOfSingleRoomNotVacant);
+          //  System.out.println(NumOfStandardRoomNotVacant);
+            //  System.out.println(NumOfSuiteRoomNotVacant);
+              //  System.out.println(NumOfVIPRoomNotVacant);
                 
     }
     
