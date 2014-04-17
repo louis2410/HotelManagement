@@ -1,16 +1,17 @@
 package HRPS.entity;
 
 import java.util.*;
-
+import java.text.SimpleDateFormat;
 public class Reservation {
 
-    List<Room> associatedRooms;
-    Guest associatedGuest;
-    private int resId;
+    private ArrayList <String> associatedRooms;
+    private String associatedGuest;
+    private String resId;
+    private RoomType roomType;
     private java.util.Date resBookDate;
     private java.util.Date resCheckInDate;
     private java.util.Date resCheckOutDate;
-    private int noOfDays;
+    //private int noOfDays;
     private ReservationStatus resStatus;
     private int noOfAdults;
     private int noOfChildren;
@@ -18,26 +19,31 @@ public class Reservation {
     
     //default constructor
     public Reservation() {
-        associatedRooms = new ArrayList<Room>();
-        associatedGuest = new Guest();
+        associatedRooms = new ArrayList<String>();
     }
     
     //all mighty constructor
-    public Reservation(List<Room> associatedRooms, Guest associatedGuest, int resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, int noOfDays, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus) {
-        this.associatedRooms = associatedRooms;
+    public Reservation (String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus,RoomType rmtype) {
+        //this.associatedRooms = associatedRooms;
         this.associatedGuest = associatedGuest;
         this.resId = resId;
         this.resBookDate = resBookDate;
         this.resCheckInDate = resCheckInDate;
         this.resCheckOutDate = resCheckOutDate;
-        this.noOfDays = noOfDays;
         this.resStatus = resStatus;
         this.noOfAdults = noOfAdults;
         this.noOfChildren = noOfChildren;
         this.paymentStatus = paymentStatus;
+        this.roomType = rmtype;
+        this.associatedRooms = new ArrayList();
     }
 
-    public int getResId() {
+    public RoomType getRoomType(){
+        
+        return this.roomType;
+    }
+    
+    public String getResId() {
         return this.resId;
     }
 
@@ -45,7 +51,7 @@ public class Reservation {
      *
      * @param resId
      */
-    public void setResId(int resId) {
+    public void setResId(String resId) {
         this.resId = resId;
     }
 
@@ -85,17 +91,9 @@ public class Reservation {
         this.resCheckOutDate = resCheckOutDate;
     }
 
-    public int getNoOfDays() {
-        return this.noOfDays;
-    }
+    
 
-    /**
-     *
-     * @param noOfDays
-     */
-    public void setNoOfDays(int noOfDays) {
-        this.noOfDays = noOfDays;
-    }
+
 
     public ReservationStatus getResStatus() {
         return this.resStatus;
@@ -152,75 +150,26 @@ public class Reservation {
         return associatedRooms.size();
     }
     
-    public List<Room> getAllRooms(){
+
+
+
+
+    public ArrayList<String> getAssociatedRooms() {
         return associatedRooms;
     }
 
-    /**
-     *
-     * @param noOfRooms
-     */
-    // Remove method. Change to if there is no room
-//    public void addNoOfRooms(int noOfRooms, RoomType roomType) {
-//        // TODO - implement Reservation.setNoOfRooms
-//        for(int i=0; i<noOfRooms;i++){
-//            if(roomType == RoomType.Single){
-//                this.associatedRooms.add(new SingleRoom());
-//            }else if(roomType == RoomType.Standard){
-//                this.associatedRooms.add(new StandardRoom());
-//            }else if(roomType == RoomType.Suit){
-//                this.associatedRooms.add(new SuiteRoom());
-//            } else if(roomType == RoomType.VIP){
-//                this.associatedRooms.add(new VipRoom());
-//            }
-//        }
-//    }
-
-    /**
-     *
-     * @param roomId
-     */
-    public Room getSpecifyRoom(String roomId) {
-        // TODO - implement Reservation.getSpecifyRoom
-        Room tempRoom = null;
-        for(Iterator it = this.associatedRooms.iterator(); it.hasNext();){
-            tempRoom = (Room) it.next();
-            if(tempRoom.getRoomId() == roomId){
-                break;
-            }
-        }
-        return tempRoom;
+    public void AddAssociatedRoom(String associatedRoom) {
+        
+        
+        associatedRooms.add(associatedRoom);
+        
     }
 
-    public boolean setSpecifyRoom(Room room) {
-        // TODO - implement Reservation.setSpecifyRoom
-         try {
-          for(int i=0;i<this.associatedRooms.size();i++){
-            if(associatedRooms.get(i).getRoomId() == room.getRoomId()){
-                associatedRooms.set(i, room);
-                break;
-            }
-        }
-        } catch (Exception ex) {
-            System.out.println("Failed to set" + room.getRoomId() + " all from data directory");
-            return false;
-        }
-        return true;
-    }
-
-    public List<Room> getAssociatedRooms() {
-        return associatedRooms;
-    }
-
-    public void setAssociatedRooms(List<Room> associatedRooms) {
-        this.associatedRooms = associatedRooms;
-    }
-
-    public Guest getAssociatedGuest() {
+    public String getAssociatedGuest() {
         return associatedGuest;
     }
 
-    public void setAssociatedGuest(Guest associatedGuest) {
+    public void setAssociatedGuest(String associatedGuest) {
         this.associatedGuest = associatedGuest;
     }
     
@@ -228,11 +177,11 @@ public class Reservation {
         String display = "";
         display +="Reservation Details of " + resId + "\n";
         display +="-------------------------------------------------\n";
-        display +="Guest \t : " + this.associatedGuest.getTitle() + " " + this.associatedGuest.getFirstName();
+        //display +="Guest \t : " + this.associatedGuest.getTitle() + " " + this.associatedGuest;
         display +="Book date \t : " + this.resBookDate + "\n";
         display +="Check In \t : " + this.resCheckInDate + "\n" ;
         display +="Check out \t : " + this.resCheckOutDate + "\n" ;
-        display +="No of days \t : " + this.noOfDays + "\n";
+        //display +="No of days \t : " + this.noOfDays + "\n";
         display +="No of adults \t : " + this.noOfAdults + "\n";
         display +="No of children \t : " + this.noOfChildren + "\n";
         display +="No of Rooms \t : " + getNoOfRooms() + "\n";
