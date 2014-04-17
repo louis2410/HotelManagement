@@ -176,31 +176,31 @@ public class RoomMgr implements Manager {
             System.out.println("=== Single Rooms ===");
             System.out.println("Total Number of Single Rooms: "+MaxNumSingleRoom);
             System.out.println("Current Number of Single Rooms in use: " 
-                    + (MaxNumSingleRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.Single)));
+                    + (MaxNumSingleRoom - this.MaxNumOfRoomsBasedOnType(RoomType.Single)));
             System.out.println("Number of Single Rooms available: "+
-                    (this.AvailableNumOfRoomsBasedOnType(RoomType.Single)));
+                    (this.MaxNumOfRoomsBasedOnType(RoomType.Single)));
             
              //Standard Rooms
             System.out.println("=== Standard Rooms ===");
             System.out.println("Total Number of Standard Rooms: "+MaxNumStandardRoom);
             System.out.println("Current Number of Standard Rooms in use: " 
-                    + (MaxNumStandardRoom -this.AvailableNumOfRoomsBasedOnType(RoomType.Standard)));
+                    + (MaxNumStandardRoom -this.MaxNumOfRoomsBasedOnType(RoomType.Standard)));
                System.out.println("Number of Standard Rooms available: "+
-                    ( this.AvailableNumOfRoomsBasedOnType(RoomType.Standard)));
+                    ( this.MaxNumOfRoomsBasedOnType(RoomType.Standard)));
              //SUITE Rooms
             System.out.println("=== Suite Rooms ===");
             System.out.println("Total Number of Suite Rooms: "+MaxNumSuiteRoom);
             System.out.println("Current Number of Suite Rooms in use: " 
-                    + (MaxNumSuiteRoom -this.AvailableNumOfRoomsBasedOnType(RoomType.Suite)));
+                    + (MaxNumSuiteRoom -this.MaxNumOfRoomsBasedOnType(RoomType.Suite)));
                System.out.println("Number of Suite Rooms available: "+
-                    ( this.AvailableNumOfRoomsBasedOnType(RoomType.Suite)));
+                    ( this.MaxNumOfRoomsBasedOnType(RoomType.Suite)));
              //VIP Rooms
             System.out.println("=== VIP Rooms ===");
             System.out.println("Total Number of VIP Rooms: "+MaxNumVIPRoom);
             System.out.println("Current Number of VIP Rooms in use: " 
-                    + (MaxNumVIPRoom - this.AvailableNumOfRoomsBasedOnType(RoomType.VIP)));
+                    + (MaxNumVIPRoom - this.MaxNumOfRoomsBasedOnType(RoomType.VIP)));
                System.out.println("Number of VIP Rooms available: "+
-                    ( this.AvailableNumOfRoomsBasedOnType(RoomType.VIP)));
+                    ( this.MaxNumOfRoomsBasedOnType(RoomType.VIP)));
             
             
             
@@ -210,17 +210,17 @@ public class RoomMgr implements Manager {
         
         
         //Get CurrentNumberOfRoomsBasedOnType      
-        public int AvailableNumOfRoomsBasedOnType(RoomType roomtype){
+        public int MaxNumOfRoomsBasedOnType(RoomType roomtype){
    
             switch(roomtype){
                 
-                   case Single: return MaxNumSingleRoom - NumOfSingleRoomNotVacant;
+                   case Single: return MaxNumSingleRoom ;
                     
-                   case Standard: return MaxNumStandardRoom - NumOfStandardRoomNotVacant;
+                   case Standard: return MaxNumStandardRoom ;
                        
-                   case VIP: return MaxNumVIPRoom - NumOfSuiteRoomNotVacant;    
+                   case VIP: return MaxNumVIPRoom ;    
                        
-                   case Suite: return MaxNumSuiteRoom - NumOfVIPRoomNotVacant;    
+                   case Suite: return MaxNumSuiteRoom ;    
             }
              
             return 0;        

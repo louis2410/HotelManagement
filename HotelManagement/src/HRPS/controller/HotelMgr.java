@@ -30,10 +30,10 @@ public class HotelMgr {
     //Print NumOfAvailableRoomsForCreation
     public void printNumOfAvailableRoomsForCreation()
     {  
-        int single = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single);
-       int standard= roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Standard);
-       int vip = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.VIP);
-       int suite = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Suite);
+        int single = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.Single);
+       int standard= roomMgr.MaxNumOfRoomsBasedOnType(RoomType.Standard);
+       int vip = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.VIP);
+       int suite = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.Suite);
        System.out.println("Available Rooms for Creation");
        System.out.println("Single Rooms: "+single);
        System.out.println("Standard Rooms: "+standard);
@@ -110,10 +110,10 @@ public class HotelMgr {
     public int ReservationScheduleCheck(Date checkin, Date checkout,RoomType rmType){
 
         int NumOfClashes = resMgr.CheckReservationClash(checkin, checkout,rmType);
-        int NumAvailableRooms = roomMgr.AvailableNumOfRoomsBasedOnType(rmType);
+        int NumAvailableRooms = roomMgr.MaxNumOfRoomsBasedOnType(rmType);
         System.out.println(NumOfClashes);
         System.out.println(NumAvailableRooms);
-        //Logic error here , need to figure out
+        
         if(NumAvailableRooms - NumOfClashes > 0){
             return NumAvailableRooms - NumOfClashes;
         }

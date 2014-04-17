@@ -23,10 +23,10 @@ public class RoomMgrTest {
        RoomMgr roomMgr = new RoomMgr();
     
  
-       int i = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single);
+       int i = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.Single);
        System.out.println(i);
        roomMgr.updateRoomStatus("0101", RoomStatus.Occupied);
-       i = roomMgr.AvailableNumOfRoomsBasedOnType(RoomType.Single);
+       i = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.Single);
        System.out.println(i);
       
        roomMgr.printRoomOccupancyReport();

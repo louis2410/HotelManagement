@@ -32,8 +32,8 @@ public class ReservationMgrTest {
     String rmid;
     String guestId;
     
-    String checkin = "02/11/2014";
-    String checkout = "02/14/2014";
+    String checkin = "03/11/2014";
+    String checkout = "03/14/2014";
     int days = 2;
     int adult = 1;
     int children = 0;
