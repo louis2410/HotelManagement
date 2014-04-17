@@ -101,7 +101,7 @@ public class HotelMgr {
     public int ReservationScheduleCheck(Date checkin, Date checkout,RoomType rmType){
 
         int NumOfClashes = resMgr.CheckReservationClash(checkin, checkout,rmType);
-        int NumAvailableRooms = roomMgr.NumOfRoomsAvailableForCreation(rmType);
+        int NumAvailableRooms = roomMgr.AvailableNumOfRoomsBasedOnType(rmType);
         if(NumAvailableRooms - NumOfClashes > 0){
             return NumAvailableRooms - NumOfClashes;
         }

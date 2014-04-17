@@ -116,7 +116,7 @@ public class MainForm {
                 System.out.println("4. VIP Room");
                 CURRoomChoice = in.nextInt();
                 in.nextLine();
-                hotelMgr.createRoomBasedonType(CURRoomChoice);
+               // hotelMgr.createRoomBasedonType(CURRoomChoice);
                 break;
 
             //Update Room
@@ -371,14 +371,14 @@ public class MainForm {
         //Parameters
         int choice;
 
-        //Print Reservation Menu
+       
+
+        do { //Print Reservation Menu
         System.out.println("Please select one of the following Reservation Service");
         System.out.println("1 : Create a new Reservation");
         System.out.println("2 : Update a Reservation");
         System.out.println("3 : Cancel a Reservation");
         System.out.println("4 : Return to Main Menu");
-
-        do {
             System.out.print("Please select a choice : ");
             choice = sc.nextInt();
             switch (choice) {
@@ -519,12 +519,13 @@ public class MainForm {
              for(int i =0;i<NumRooms;i++){
              //add associated rooms
    
-            hotelMgr.getReservation(resId).AddAssociatedRoom(roomId);  
+           // hotelMgr.getReservation(resId).AddAssociatedRoom(roomId);  
             //Set room status to reserved, 2 = reserved
-            hotelMgr.updateRoomStatus(roomId,2);  
+            //hotelMgr.updateRoomStatus(roomId,2);  
             }
         }
 
+  }
     public static void printUpdateReservationMenu() {
         int resId = 0, choice = 0;
 
