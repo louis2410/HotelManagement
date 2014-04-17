@@ -14,8 +14,7 @@ public class RoomService {
             this.rmServicePrice = rmServicePrice;
             
         }    
-        
-        
+       
 	public java.util.Date getRmDateTime() {
 		// TODO - implement RoomService.getRmDateTime
 		throw new UnsupportedOperationException();

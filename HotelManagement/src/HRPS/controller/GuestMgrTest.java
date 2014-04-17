@@ -6,9 +6,6 @@
 
 package HRPS.controller;
 
-import HRPS.controller.GuestMgr;
-import java.util.ArrayList;
-
 /**
  *
  * @author Louis

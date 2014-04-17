@@ -7,8 +7,4 @@
   <currentOccupancy>0</currentOccupancy>
   <bedType>Double</bedType>
   <ArrayRoomService/>
-  <cal>
-    <time>1397709579228</time>
-    <timezone>Asia/Singapore</timezone>
-  </cal>
 </HRPS.entity.StandardRoom>

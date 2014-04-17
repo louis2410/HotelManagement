@@ -12,89 +12,78 @@ public class HotelMgr {
     //Managers for each sector
     GuestMgr guestMgr = new GuestMgr();
     ReservationMgr resMgr = new ReservationMgr();
-    RoomMgr roomMgr = new RoomMgr(); 
-    
-    //I dunoe whats this is for
-    private int maxNoOfFloor = 10;
-    private int maxNoOfRooms = 200;
-    private int singleBedAmt = 80;
-    private final int standandBedAmt = 60;
-    private final int vipBedAmt = 40;
-    private final int suitBedAmt = 20;
-    /**
-     * in 24Hrs format
-     */
+    RoomMgr roomMgr = new RoomMgr();
+
     private int checkInTime = 1300;
 
     //Room Manager Access Methods added by Louis
     //Print NumOfAvailableRoomsForCreation
-    public void printNumOfAvailableRoomsForCreation()
-    {  
+    public void printNumOfAvailableRoomsForCreation() {
         int single = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.Single);
-       int standard= roomMgr.MaxNumOfRoomsBasedOnType(RoomType.Standard);
-       int vip = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.VIP);
-       int suite = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.Suite);
-       System.out.println("Available Rooms for Creation");
-       System.out.println("Single Rooms: "+single);
-       System.out.println("Standard Rooms: "+standard);
-       System.out.println("VIP Rooms: "+vip);
-       System.out.println("Suite Rooms: "+suite);
+        int standard = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.Standard);
+        int vip = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.VIP);
+        int suite = roomMgr.MaxNumOfRoomsBasedOnType(RoomType.Suite);
+        System.out.println("Available Rooms for Creation");
+        System.out.println("Single Rooms: " + single);
+        System.out.println("Standard Rooms: " + standard);
+        System.out.println("VIP Rooms: " + vip);
+        System.out.println("Suite Rooms: " + suite);
+        
+    }
     
-    }  
-
-    public boolean updateRoomStatus(String rmId, int status){
-        switch(status){
-            //update to occupied
-            case 1: return roomMgr.updateRoomStatus(rmId, RoomStatus.Occupied);
-            //update to Reservered
-            case 2: return roomMgr.updateRoomStatus(rmId, RoomStatus.Reserved);
-            //update to Under Maintaince
-            case 3: return roomMgr.updateRoomStatus(rmId, RoomStatus.UnderMaintenance);
-            //update to Vacant
-            case 4: return  roomMgr.updateRoomStatus(rmId, RoomStatus.Vacant);
-        }
-        System.out.println("Room not updated");
-        return false;
+    public boolean updateRoomStatus(String rmId, RoomStatus status) {
+        boolean success = true;
+        try {
+            roomMgr.getRoom(rmId).setRoomStatus(status);
+        } catch (Exception ex) {
+            success = false;
+        }        
+        return success;
     }
-    public boolean addRoomService(String rmId, double amt){
-        return roomMgr.updateRoomService(rmId, amt);
+    
+    public boolean addRoomService(String rmId, double amt) {
+        boolean success = true;
+        try {
+            roomMgr.getRoom(rmId).addRmService(amt);
+        } catch (Exception ex) {
+            success = false;
+        }        
+        return success;
     }
-    public boolean removeRoom(String rmId){
+    
+    public boolean removeRoom(String rmId) {
         
         return roomMgr.removeRoom(rmId);
     }
     
-    public String firstAvailRoom(RoomType RoomType){
+    public String firstAvailRoom(RoomType RoomType) {
         
         return roomMgr.getFirstAvailableRoom(RoomType);
         
     }
     
-    public void printRoomOccupancyReport(){
+    public void printRoomOccupancyReport() {
         roomMgr.printRoomOccupancyReport();
     }
     //Guest Manager Access Methods Added by Louis
-    
+
     public String createGuest(String guestId, String FirstName, String lastName,
-            String title, String address, String country, char gender, int contactNo, String email){
- 
+            String title, String address, String country, char gender, int contactNo, String email) {
+        
         return guestMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
     }
     
-    public Guest getGuest(String guestId){
+    public Guest getGuest(String guestId) {
         return guestMgr.getGuest(guestId);
     }
     
-    public boolean removeGuest(String guestId){
-                
+    public boolean removeGuest(String guestId) {
+        
         return guestMgr.removeGuest(guestId);
     }
-    
-    
-    
-    
+
     //Impportant , execute before closing program
-    public void OutputToXML(){
+    public void OutputToXML() {
         
         guestMgr.DeleteFromFile();
         guestMgr.createToFile();
@@ -103,69 +92,66 @@ public class HotelMgr {
         resMgr.deleteFromFile();
         resMgr.createToFile();
     }
-    
-    
-    
-    //ReservationScheduleCheck
-    public int ReservationScheduleCheck(Date checkin, Date checkout,RoomType rmType){
 
-        int NumOfClashes = resMgr.CheckReservationClash(checkin, checkout,rmType);
+    //ReservationScheduleCheck
+    public int ReservationScheduleCheck(Date checkin, Date checkout, RoomType rmType) {
+        
+        int NumOfClashes = resMgr.CheckReservationClash(checkin, checkout, rmType);
         int NumAvailableRooms = roomMgr.MaxNumOfRoomsBasedOnType(rmType);
         System.out.println(NumOfClashes);
         System.out.println(NumAvailableRooms);
         
-        if(NumAvailableRooms - NumOfClashes > 0){
+        if (NumAvailableRooms - NumOfClashes > 0) {
             return NumAvailableRooms - NumOfClashes;
         }
         return 0;
     }
-    
+
     //Reservation ID generate
-    public String generateResId(){
+    public String generateResId() {
         
-        return "R"+(resMgr.NumOfReservations()+1);
+        return "R" + (resMgr.NumOfReservations() + 1);
     }
     
-   
     public String checkRoomAvailability(String roomId) {
         // TODO - implement HotelMgr.checkRoomAvailability
 
         return roomMgr.getRoom(roomId).getRoomStatus().toString();
     }
-
-
     
+    public boolean checkExistingRoom(String roomId) {
+        if (roomMgr.getRoom(roomId) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
+    public Room getRoom(String roomId) {
+        return roomMgr.getRoom(roomId);
+    }
     
+    public boolean createSingleRoom(String rmId, int floor) {
+        return roomMgr.createSingleRoom(rmId, floor);
+    }
     
+    public boolean createStandardRoom(String rmId, int floor) {
+        return roomMgr.createStandardRoom(rmId, floor);
+    }
     
+    public boolean createSuiteRoom(String rmId, int floor) {
+        return roomMgr.createSuiteRoom(rmId, floor);
+    }
     
-    
-    
-    
-    
-    
+    public boolean createVIPRoom(String rmId, int floor) {
+        return roomMgr.createVIPRoom(rmId, floor);
+    }
     
     public Room checkRoomDetails(int guestId) {
         // TODO - implement HotelMgr.checkRoomDetails
         throw new UnsupportedOperationException();
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /**
      *
      * @param guestName
@@ -237,21 +223,20 @@ public class HotelMgr {
         // TODO - implement HotelMgr.checkOutByGuest
         throw new UnsupportedOperationException();
     }
-
-   
-    public void createReservation(String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus, RoomType rmtype){
+    
+    public void createReservation(String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus, RoomType rmtype) {
         resMgr.createReservation(associatedGuest, resId, resBookDate, resCheckInDate, resCheckOutDate, resStatus, noOfAdults, noOfChildren, paymentStatus, rmtype);
         
-       
+        
     }
     
-    public Reservation getReservation(String resId){
-     return   resMgr.getReservation(resId);
+    public Reservation getReservation(String resId) {
+        return resMgr.getReservation(resId);
     }
     
-    
-    public boolean removeReservation(int resId){
-        return resMgr.removeReservation(resId);
+    public boolean removeReservation(String resId) {
+        //return resMgr.removeReservation(resId);
+        return true;
     }
 
     //Arthur : Bryan
@@ -263,20 +248,11 @@ public class HotelMgr {
         }
     }
     //Arthur : Bryan
+
     public String displayGuestDetails(String guestId) {
         return guestMgr.getGuest(guestId).toString();
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     //Arthur : Bryan
     public String getAllAvailableRooms(Date checkIn, Date checkOut) {
         String singleDisplay = "--- \t Single Rooms \t\t ---\n",
@@ -287,11 +263,11 @@ public class HotelMgr {
         //A RoomMgr methods to get all the rooms in hotel
         List<Room> allRoomList = null;
         //A List of all Reserved Rooms
-        List<Room> resRoomList = resMgr.getReservedRooms(checkIn, checkOut);
+        List<Room> resRoomList = null;
 
         //get the rest of ava rooms for display
         for (int i = 0; i < allRoomList.size(); i++) {
-            if (resRoomList.contains(allRoomList.get(i)) || allRoomList.get(i).getRoomStatus() == RoomStatus.UnderMaintance) {
+            if (resRoomList.contains(allRoomList.get(i)) || allRoomList.get(i).getRoomStatus() == RoomStatus.UnderMaintenance) {
                 allRoomList.remove(i);
             } else {
                 if (allRoomList.get(i).getRoomType() == RoomType.Single) {
@@ -304,9 +280,9 @@ public class HotelMgr {
                     vipDisplay += " " + allRoomList.get(i).getRoomId() + ",";
                 }
             }
-
+            
         }
-
+        
         return singleDisplay + standardDisplay + suitDisplay + vipDisplay;
     }
 
@@ -317,17 +293,17 @@ public class HotelMgr {
                 standardDisplay = "\n--- \t Standand Rooms \t : ",
                 suitDisplay = "\n--- \t Suit Rooms \t\t : ",
                 vipDisplay = "\n--- \t VIP Rooms \t\t : ";
-
+        
         int singleCount = 0, standardCount = 0, suitCount = 0, vipCount = 0;
 
         //A RoomMgr methods to get all the rooms in hotel
         List<Room> allRoomList = null;
         //A List of all Reserved Rooms
-        List<Room> resRoomList = resMgr.getReservedRooms(checkIn, checkOut);
+        List<Room> resRoomList = null;
 
         //get the rest of ava rooms for display
         for (int i = 0; i < allRoomList.size(); i++) {
-            if (resRoomList.contains(allRoomList.get(i)) || allRoomList.get(i).getRoomStatus() == RoomStatus.UnderMaintance) {
+            if (resRoomList.contains(allRoomList.get(i)) || allRoomList.get(i).getRoomStatus() == RoomStatus.UnderMaintenance) {
                 allRoomList.remove(i);
             } else {
                 if (allRoomList.get(i).getRoomType() == RoomType.Single) {
@@ -340,9 +316,9 @@ public class HotelMgr {
                     vipCount++;
                 }
             }
-
+            
         }
-
+        
         return singleDisplay + singleCount + standardDisplay + standardCount + suitDisplay + vipDisplay;
     }
     //Arthur : Bryan
@@ -353,7 +329,7 @@ public class HotelMgr {
         } else {
             return false;
         }
-
+        
     }
 
     //Arthur : Bryan
@@ -362,16 +338,13 @@ public class HotelMgr {
     }
 
     //Arthur : Bryan
-    public boolean checkAllowReservationStatus(int resId) {
-        if (resMgr.getReservation(resId).getResStatus() == RReservationTypeCheck_In
-                || resMgr.getReservation(resId).getResStatus() == ReReservationTypexpired) {
+    public boolean checkAllowReservationStatus(String resId) {
+        if (resMgr.getReservation(resId).getResStatus() == ReservationStatus.Check_In
+                || resMgr.getReservation(resId).getResStatus() == ReservationStatus.Expired) {
             return false;
         } else {
             return true;
         }
-
+        
     }
 }
-
-
-

@@ -4,7 +4,6 @@ import HRPS.controller.HotelMgr;
 import HRPS.entity.*;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
@@ -26,60 +25,48 @@ public class MainForm {
 
         UIControl();
     }
+    // Handles Printing of Menu
 
     public static void UIControl() {
         int choice;
-
         do {
             choice = printMainMenu();
             switch (choice) {
-
                 case 1:
                     printRoomMenu();
                     break;
-
                 case 2:
                     printGuestMenu();
                     break;
-
                 case 3:
                     printReservationMenu();
                     break;
-
                 case 4:
                     printReservationReceiptMenu();
                     break;
-
                 case 5://CheckAvailableityofroom
                     printCheckRoomAvailablity();
                     break;
-
                 case 6://Check-In 
                     break;
-
                 case 7://Checkout and print invoice
                     break;
-
                 case 8://Print RoomOccupancy Report
                     printRoomOccupancyReport();
                     break;
-
                 case 9://Exit XML functions   
                     hotelMgr.OutputToXML();
                     break;
-
                 default:
                     System.out.println("Please enter a value from 1 to 9.");
+                    break;
             }
         } while (choice != 9);
-
-
     }
 
     public static int printMainMenu() {
         int choice;
-        //Choice 
-        System.out.println("Please select one of the following choices: \n"
+        System.out.println("Please select one of the following services: \n"
                 + "1. Create/Update/Remove rooms details \n"
                 + "2. Create/Update/Remove guests detail\n"
                 + "3. Create/Update/Remove reservation\n"
@@ -90,73 +77,193 @@ public class MainForm {
                 + "8. Print Room Occupancyreport\n"
                 + "9. Quit the system\n");
         System.out.print("Please select a choice : ");
-
         choice = sc.nextInt();
         return choice;
     }
 
     public static void printRoomMenu() {
-        Scanner in = new Scanner(System.in);
+        int choice = 0;
+        do {
+            System.out.println("\t--This is the Room Management Menu--");
+            System.out.println("Please select one of the following services: \n"
+                    + "1. Create Room\n"
+                    + "2. Update Room\n"
+                    + "3. Remove Room\n"
+                    + "4. Back to menu\n");
+            System.out.print("Please select a choice : ");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    printCreateRoomMenu();
+                    break;
+                case 2:
+                    printUpdateRoomMenu();
+                    break;
+                case 3:
+                    printRemoveRoomMenu();
+                    break;
+                case 4:
+                    System.out.println("\t--This is the end of Room Management Menu--");
+                    System.out.println("Returning to Main Menu...");
+                    break;
+                default:
+                    System.out.println("Please enter a value from 1 to 4.");
+                    break;
+            }
+        } while (choice != 4);
+    }
+
+    public static void printCreateRoomMenu() {
+        int choice = 0;
         String roomId;
-        System.out.println("Please select one of the following choices: \n"
-                + "1. Create Room\n"
-                + "2. Update Room\n"
-                + "3. Remove Room\n"
-                + "4. Back to menu\n");
-        int CURRoomChoice = in.nextInt();
+        do {
+            System.out.println("\t--This is the Create Room Form--");
+            System.out.print("Please input a new room ID: ");
+            roomId = sc.next();
 
-        switch (CURRoomChoice) {
-            //Create Room
-            case 1:
-                hotelMgr.printNumOfAvailableRoomsForCreation();
-                System.out.println("Select Type of Room to be Created:");
-                System.out.println("1. Single Room");
-                System.out.println("2. Standard Room");
-                System.out.println("3. Suite Room");
-                System.out.println("4. VIP Room");
-                CURRoomChoice = in.nextInt();
-                in.nextLine();
-               // hotelMgr.createRoomBasedonType(CURRoomChoice);
-                break;
+            System.out.println("Checking if the room exist in the system");
+            if (hotelMgr.checkExistingRoom(roomId)) {
+                System.out.println("There is already such room exist in the system.");
+                System.out.println(hotelMgr.getRoom(roomId).toString());
+                System.out.println("Returning to Room Management Menu...");
+                return;
+            } else {
+                System.out.println("There is no such room  exist in the system. Please continue with creation");
+            }
 
-            //Update Room
-            case 2:
-                System.out.println("Enter Room ID");
-                roomId = in.next();
-                System.out.println("Select Type of Update");
-                System.out.println("1. Update Room Status");
-                System.out.println("2. Add RoomService");
-                int choice = in.nextInt();
-                switch (choice) {
-                    case 1:
+            System.out.println("Select Type of Room to create:");
+            System.out.println("1. Single Room");
+            System.out.println("2. Standard Room");
+            System.out.println("3. Suite Room");
+            System.out.println("4. VIP Room");
+            System.out.print("Please select a choice : ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    hotelMgr.createSingleRoom(roomId, Integer.parseInt(roomId.substring(0, 2)));
+                    System.out.println(hotelMgr.getRoom(roomId).toString());
+                    System.out.println("\t--This is the end of Create Room Form--");
+                    return;
+                case 2:
+                    hotelMgr.createStandardRoom(roomId, Integer.parseInt(roomId.substring(0, 2)));
+                    System.out.println(hotelMgr.getRoom(roomId).toString());
+                    System.out.println("\t--This is the end of Create Room Form--");
+                    return;
+                case 3:
+                    hotelMgr.createSuiteRoom(roomId, Integer.parseInt(roomId.substring(0, 2)));
+                    System.out.println(hotelMgr.getRoom(roomId).toString());
+                    System.out.println("\t--This is the end of Create Room Form--");
+                    return;
+                case 4:
+                    hotelMgr.createVIPRoom(roomId, Integer.parseInt(roomId.substring(0, 2)));
+                    System.out.println(hotelMgr.getRoom(roomId).toString());
+                    System.out.println("\t--This is the end of Create Room Form--");
+                    return;
+                default:
+                    System.out.println("Please enter a value from 1 to 4.");
+                    break;
+            }
+        } while (choice != 4);
+    }
+
+    public static void printUpdateRoomMenu() {
+        int choice = 0;
+        String roomId;
+        do {
+            System.out.println("\t--This is the Update Room Form--");
+            System.out.print("Please input a new room ID: ");
+            roomId = sc.next();
+
+            System.out.println("Checking if the room exist in the system");
+            if (hotelMgr.checkExistingRoom(roomId)) {
+                System.out.println("There is such room exist in the system.");
+                System.out.println(hotelMgr.getRoom(roomId).toString());
+            } else {
+                System.out.println("There is no such room  exist in the system.");
+                System.out.println("Returning to Room Management Menu...");
+                return;
+            }
+
+            System.out.println("Select Type of Update");
+            System.out.println("1. Update Room Status");
+            System.out.println("2. Add RoomService");
+            System.out.print("Please select a choice : ");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    do {
                         System.out.println("Select Status");
                         System.out.println("1. Occupied");
                         System.out.println("2. Reserved");
                         System.out.println("3. Under Maintance");
                         System.out.println("4. Vacant");
-                        choice = in.nextInt();
-                        hotelMgr.updateRoomStatus(roomId, choice);
-                        break;
+                        System.out.print("Please select a choice : ");
+                        choice = sc.nextInt();
+                        switch (choice) {
+                            case 1:
+                                hotelMgr.updateRoomStatus(roomId, RoomStatus.Occupied);
+                                System.out.println(hotelMgr.getRoom(roomId).toString());
+                                System.out.println("\t--This is the end of Update  Room Form--");
+                                return;
+                            case 2:
+                                hotelMgr.updateRoomStatus(roomId, RoomStatus.Reserved);
+                                System.out.println(hotelMgr.getRoom(roomId).toString());
+                                System.out.println("\t--This is the end of Update Room Form--");
+                                return;
+                            case 3:
+                                hotelMgr.updateRoomStatus(roomId, RoomStatus.UnderMaintenance);
+                                System.out.println(hotelMgr.getRoom(roomId).toString());
+                                System.out.println("\t--This is the end of Update Room Form--");
+                                return;
+                            case 4:
+                                hotelMgr.updateRoomStatus(roomId, RoomStatus.Vacant);
+                                System.out.println(hotelMgr.getRoom(roomId).toString());
+                                System.out.println("\t--This is the end of Update Room Form--");
+                                return;
+                            default:
+                                System.out.println("Please enter a value from 1 to 4.");
+                                break;
+                        }
+                    } while (choice != 4);
+                    return;
+                case 2:
+                    System.out.println("Please enter the cost of the room service");
+                    double amt = sc.nextDouble();
+                    hotelMgr.addRoomService(roomId, amt);
+                    return;
+                default:
+                    System.out.println("Please enter a value from 1 to 4.");
+                    break;
+            }
+        } while (choice != 4);
+    }
 
-                    case 2:
-                        System.out.println("Enter amount of Room Service");
-                        double amt = in.nextDouble();
-                        hotelMgr.addRoomService(roomId, amt);
-                        break;
-                }
+    public static void printRemoveRoomMenu() {
+        int choice = 0;
+        String roomId;
+        System.out.println("\t--This is the Remove Room Form--");
+        System.out.print("Please input the room ID: ");
+        roomId = sc.next();
 
-                break;
+        System.out.println("Checking if the room exist in the system");
+        if (hotelMgr.checkExistingRoom(roomId)) {
+            System.out.println("There is such room exist in the system.");
+            System.out.println(hotelMgr.getRoom(roomId).toString());
+        } else {
+            System.out.println("There is no such room  exist in the system.");
+            System.out.println("Returning to Room Management Menu...");
+            return;
+        }
 
-            //Remove Room
-            case 3:
-                System.out.println("Enter Room ID");
-                roomId = in.next();
-                hotelMgr.removeRoom(roomId);
-                break;
-
-            //Back to Menu
-            case 4:
-                break;
+        if (!hotelMgr.removeRoom(roomId)) {
+            System.out.println("Failed to remove Room " + roomId);
+            System.out.println("Please try again.");
+            System.out.print("Returning to Room Management Menu...");
+        } else {
+            System.out.println("Success in removing Room " + roomId);
+            System.out.println("|t--This is the end of Room Removeal Form--");
+            System.out.print("Returning to Room Management Menu...");
         }
 
     }
@@ -164,7 +271,7 @@ public class MainForm {
     public static void printGuestMenu() {
         int CURGuestchoice;
         do {
-            System.out.println("This is the Guest Management Menu");
+            System.out.println("\t--This is the Guest Management Menu--");
             System.out.println("Please select one of the following choices: \n"
                     + "1. Create Guest\n"
                     + "2. Update Guest\n"
@@ -175,30 +282,29 @@ public class MainForm {
             switch (CURGuestchoice) {
                 //Create Guest
                 case 1:
-                    printCreateGuest();
+                    printCreateGuestMenu();
                     break;
                 //Update Guest
                 case 2:
-                    printUpdateGuest();
+                    printUpdateGuestMenu();
                     break;
                 //Remove Guest
                 case 3:
-                    printRemoveGuest();
+                    printRemoveGuestMenu();
                     break;
                 case 4:
+                    System.out.println("\t--This is the end of Guest Management Menu--");
                     System.out.println("Returning to Main Menu...");
-                    printMainMenu();
                     break;
                 default:
                     System.out.println("Please enter a value from 1 to 4.");
                     break;
             }
         } while (CURGuestchoice != 4);
-        throw new UnsupportedOperationException();
     }
 
-    public static void printCreateGuest() {
-        System.out.println("This is the Guest Creation Form");
+    public static void printCreateGuestMenu() {
+        System.out.println("\t--This is the Guest Creation Form--");
 
         String guestId;
         System.out.print("Please input the guest ID: ");
@@ -208,6 +314,7 @@ public class MainForm {
         if (hotelMgr.checkExistingGuest(guestId)) {
             System.out.println("There is already such guest exist in the system.");
             System.out.println(hotelMgr.getGuest(guestId).toString());
+            System.out.println("Returning to Guest Management Menu...");
             return;
         } else {
             System.out.println("There is no such guest exist in the system. Please continue with registration");
@@ -231,7 +338,6 @@ public class MainForm {
         String email = sc.next();
         hotelMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
         System.out.print("Is there any associate guest? Yes = y No = n ");
-        //Bug here i cant figure out
         boolean assoguestchoice = false;
         String output = sc.next();
         if (output.equalsIgnoreCase("y")) {
@@ -248,12 +354,12 @@ public class MainForm {
             }
         }
 
-        System.out.println("This is the end of Guest Creation Form");
+        System.out.println("\t--This is the end of Guest Creation Form--");
         System.out.println("Returning to Guest Management Menu...");
     }
 
-    public static void printUpdateGuest() {
-        System.out.println("This is the Guest Update Form");
+    public static void printUpdateGuestMenu() {
+        System.out.println("\t--This is the Guest Update Form--");
 
         String guestId;
         System.out.print("Please input the guest ID: ");
@@ -263,6 +369,7 @@ public class MainForm {
         if (hotelMgr.checkExistingGuest(guestId)) {
             System.out.println("There is already such guest exist in the system.");
             System.out.println(hotelMgr.getGuest(guestId).toString());
+            System.out.println("Returning to Guest Management Menu...");
             return;
         } else {
             System.out.println("There is no such guest exist in the system. Please continue with update");
@@ -333,8 +440,8 @@ public class MainForm {
         } while (UpdateGuestchoice != 10);
     }
 
-    public static void printRemoveGuest() {
-        System.out.println("This is the Guest Removal Form");
+    public static void printRemoveGuestMenu() {
+        System.out.println("\t--This is the Guest Removal Form--");
 
         String guestId;
         System.out.print("Please input the guest ID: ");
@@ -344,6 +451,7 @@ public class MainForm {
         if (hotelMgr.checkExistingGuest(guestId)) {
             System.out.println("There is already such guest exist in the system.");
             System.out.println(hotelMgr.getGuest(guestId).toString());
+            System.out.println("Returning to Guest Management Menu...");
             return;
         } else {
             System.out.println("There is no such guest exist in the system. Please continue with removal.");
@@ -354,7 +462,7 @@ public class MainForm {
             System.out.println("Please try again.");
             System.out.print("Returning to Guest Management Menu...");
         } else {
-             System.out.println("Success in removing Guest " + guestId);
+            System.out.println("Success in removing Guest " + guestId);
             System.out.println("This is the end of Guest Removeal Form");
             System.out.print("Returning to Guest Management Menu...");
         }
@@ -371,14 +479,14 @@ public class MainForm {
         //Parameters
         int choice;
 
-       
+
 
         do { //Print Reservation Menu
-        System.out.println("Please select one of the following Reservation Service");
-        System.out.println("1 : Create a new Reservation");
-        System.out.println("2 : Update a Reservation");
-        System.out.println("3 : Cancel a Reservation");
-        System.out.println("4 : Return to Main Menu");
+            System.out.println("Please select one of the following Reservation Service");
+            System.out.println("1 : Create a new Reservation");
+            System.out.println("2 : Update a Reservation");
+            System.out.println("3 : Cancel a Reservation");
+            System.out.println("4 : Return to Main Menu");
             System.out.print("Please select a choice : ");
             choice = sc.nextInt();
             switch (choice) {
@@ -400,14 +508,14 @@ public class MainForm {
                     break;
             }
         } while (choice != 4);
-        
+
     }
 
-  public static void printCreateReservationMenu()  {
-      //Date Format
+    public static void printCreateReservationMenu() {
+        //Date Format
         DateFormat dF = DateFormat.getDateInstance(DateFormat.SHORT);
-        Calendar cal = Calendar.getInstance(); 
-    //Get Checkin and Checkout dates
+        Calendar cal = Calendar.getInstance();
+        //Get Checkin and Checkout dates
         System.out.println("Enter Check In date in the form of MM/DD/YYYY");
         Date checkInDate = null;
         try {
@@ -427,12 +535,12 @@ public class MainForm {
         int NumStandardRoom = hotelMgr.ReservationScheduleCheck(checkInDate, checkOutDate, RoomType.Standard);
         int NumSuiteRoom = hotelMgr.ReservationScheduleCheck(checkInDate, checkOutDate, RoomType.Suite);
         int NumVIPRoom = hotelMgr.ReservationScheduleCheck(checkInDate, checkOutDate, RoomType.VIP);
-        
-        System.out.println("Rooms Available for Time Period: "+ checkInDate.toString() + " to "+checkOutDate.toString());
-        System.out.println("Single Rooms : " +NumSingleRoom);
-        System.out.println("Standard Rooms: "+NumStandardRoom);
-        System.out.println("Suite Rooms: "+ NumSuiteRoom);
-        System.out.println("VIP Rooms: "+ NumVIPRoom);
+
+        System.out.println("Rooms Available for Time Period: " + checkInDate.toString() + " to " + checkOutDate.toString());
+        System.out.println("Single Rooms : " + NumSingleRoom);
+        System.out.println("Standard Rooms: " + NumStandardRoom);
+        System.out.println("Suite Rooms: " + NumSuiteRoom);
+        System.out.println("VIP Rooms: " + NumVIPRoom);
         System.out.println();
         //Get Room Type
         System.out.println("Please Select the type of room");
@@ -442,60 +550,64 @@ public class MainForm {
         System.out.println("4. VIP");
         int select = sc.nextInt();
         RoomType RmType = null;
-        
+
         //Get Number of Rooms
         System.out.println("Enter Number of Rooms");
         int NumRooms = sc.nextInt();
-        
-        
+
+
         //Check NumRooms requested with available rooms for booking
         boolean assignRooms = false;
         ReservationStatus resStatus = ReservationStatus.Inquiry;
-        switch(select){
-            case 1:  RmType= RoomType.Single; 
-                        //Number of rooms required more than rooms available
-                     if(NumRooms >= NumSingleRoom){
-                         System.out.println("Putting Reservation Status on Waitlist");
-                         resStatus = ReservationStatus.In_Waitlist;
-                     }
-                     else{
-                         resStatus = ReservationStatus.Confirmed;
-                         assignRooms = true;
-                     }break;
-                     
-            case 2:  RmType= RoomType.Standard; 
-                        //Number of rooms required more than rooms available
-                     if(NumRooms >= NumStandardRoom){
-                         System.out.println("Putting Reservation Status on Waitlist");
-                         resStatus = ReservationStatus.In_Waitlist;
-                     }
-                     else{
-                         resStatus = ReservationStatus.Confirmed;
-                         assignRooms = true;
-                     }break;
-             case 3:  RmType= RoomType.Suite; 
-                        //Number of rooms required more than rooms available
-                     if(NumRooms >= NumSuiteRoom){
-                         System.out.println("Putting Reservation Status on Waitlist");
-                         resStatus = ReservationStatus.In_Waitlist;
-                     }
-                     else{
-                         resStatus = ReservationStatus.Confirmed;
-                         assignRooms = true;
-                     }break;  
-                   
-              case 4:  RmType= RoomType.VIP; 
-                        //Number of rooms required more than rooms available
-                     if(NumRooms >= NumVIPRoom){
-                         System.out.println("Putting Reservation Status on Waitlist");
-                         resStatus = ReservationStatus.In_Waitlist;
-                     }
-                     else{
-                         resStatus = ReservationStatus.Confirmed;
-                         assignRooms = true;
-                     }break;   
-         }
-        
+        switch (select) {
+            case 1:
+                RmType = RoomType.Single;
+                //Number of rooms required more than rooms available
+                if (NumRooms >= NumSingleRoom) {
+                    System.out.println("Putting Reservation Status on Waitlist");
+                    resStatus = ReservationStatus.In_Waitlist;
+                } else {
+                    resStatus = ReservationStatus.Confirmed;
+                    assignRooms = true;
+                }
+                break;
+
+            case 2:
+                RmType = RoomType.Standard;
+                //Number of rooms required more than rooms available
+                if (NumRooms >= NumStandardRoom) {
+                    System.out.println("Putting Reservation Status on Waitlist");
+                    resStatus = ReservationStatus.In_Waitlist;
+                } else {
+                    resStatus = ReservationStatus.Confirmed;
+                    assignRooms = true;
+                }
+                break;
+            case 3:
+                RmType = RoomType.Suite;
+                //Number of rooms required more than rooms available
+                if (NumRooms >= NumSuiteRoom) {
+                    System.out.println("Putting Reservation Status on Waitlist");
+                    resStatus = ReservationStatus.In_Waitlist;
+                } else {
+                    resStatus = ReservationStatus.Confirmed;
+                    assignRooms = true;
+                }
+                break;
+
+            case 4:
+                RmType = RoomType.VIP;
+                //Number of rooms required more than rooms available
+                if (NumRooms >= NumVIPRoom) {
+                    System.out.println("Putting Reservation Status on Waitlist");
+                    resStatus = ReservationStatus.In_Waitlist;
+                } else {
+                    resStatus = ReservationStatus.Confirmed;
+                    assignRooms = true;
+                }
+                break;
+        }
+
         //Enter Guest
         //Need to make sure guest exists first
         System.out.println("Enter GuestId of guest making reservation");
@@ -507,38 +619,38 @@ public class MainForm {
         //auto generation reservation method
         String resId = hotelMgr.generateResId();
         //Create Reservation 
-      //  associatedGuest, resId, resBookDate, resCheckInDate ,
-    //resCheckOutDate, resStatus, noOfAdults, noOfChildren, paymentStatus,roomType);
-        hotelMgr.createReservation(guestId,resId,cal.getTime(),checkInDate, checkOutDate, resStatus, adults,children,false,RmType);
-       
-        if(assignRooms == true){
+        //  associatedGuest, resId, resBookDate, resCheckInDate ,
+        //resCheckOutDate, resStatus, noOfAdults, noOfChildren, paymentStatus,roomType);
+        hotelMgr.createReservation(guestId, resId, cal.getTime(), checkInDate, checkOutDate, resStatus, adults, children, false, RmType);
+
+        if (assignRooms == true) {
             //Add each rooms to reservation
-             for(int i =0;i<NumRooms;i++){
-             //add associated rooms
+            for (int i = 0; i < NumRooms; i++) {
+                //add associated rooms
                 String rmId = hotelMgr.firstAvailRoom(RmType);
-                hotelMgr.getReservation(resId).AddAssociatedRoom(rmId);  
-            //Set room status to reserved, 2 = reserved
-            hotelMgr.updateRoomStatus(rmId,2);  
+                hotelMgr.getReservation(resId).AddAssociatedRoom(rmId);
+                //Set room status to reserved, 2 = reserved
+                hotelMgr.updateRoomStatus(rmId, RoomStatus.Reserved);
             }
         }
 
-  }
+    }
+
     public static void printUpdateReservationMenu() {
-        int resId = 0, choice = 0;
+        String resId = "0";
+        int choice = 0;
 
         try {
             do {
                 System.out.print("Enter the reservation Id :");
-                resId = sc.nextInt();
+                resId = sc.next();
 
-                if (resId == -1) {
-                    return;
-                } else if (hotelMgr.checkExisitingReservation(resId)) {
+                if (hotelMgr.checkExisitingReservation(resId)) {
                     break;
                 } else {
                     System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
                 }
-            } while (resId != -1);
+            } while (!resId.isEmpty());
 
             //Check for reservation status
             if (!hotelMgr.checkAllowReservationStatus(resId)) {
@@ -601,21 +713,19 @@ public class MainForm {
     //Arthur : Bryan
 
     public static void printRemoveReservationMenu() {
-        int resId = 0, choice = 0;
+        String resId = " ";
+        int choice = 0;
 
         try {
             do {
                 System.out.print("Enter the reservation Id :");
-                resId = sc.nextInt();
-
-                if (resId == -1) {
-                    return;
-                } else if (hotelMgr.checkExisitingReservation(resId)) {
+                resId = sc.next();
+                if (hotelMgr.checkExisitingReservation(resId)) {
                     break;
                 } else {
                     System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
                 }
-            } while (resId != -1);
+            } while (!resId.isEmpty());
 
             //Check for reservation status
             if (!hotelMgr.checkAllowReservationStatus(resId)) {
@@ -661,22 +771,20 @@ public class MainForm {
     //Arthur : Bryan
 
     public static void printReservationReceiptMenu() {
-        int resId = 0;
+        String resId = "0";
         try {
             do {
                 System.out.print("Enter the reservation Id :");
-                resId = sc.nextInt();
+                resId = sc.next();
 
-                if (resId == -1) {
-                    return;
-                } else if (hotelMgr.checkExisitingReservation(resId)) {
+                if (hotelMgr.checkExisitingReservation(resId)) {
                     System.out.println("Printing Reservation Details");
                     System.out.println(hotelMgr.displayReservationDetails(resId));
                     break;
                 } else {
                     System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
                 }
-            } while (resId != -1);
+            } while (!resId.isEmpty());
 
 
         } catch (Exception ex) {

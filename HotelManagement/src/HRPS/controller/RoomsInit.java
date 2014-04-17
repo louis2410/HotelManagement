@@ -45,6 +45,7 @@ public class RoomsInit {
             }
 
         }
+        roomMgr.deleteFromFile();
         roomMgr.createToFile();
     }
 }
