@@ -38,6 +38,7 @@ public class HotelMgr {
        System.out.println("Suite Rooms: "+suite);
     
     }  
+    //not in use
     public boolean createRoomBasedonType(int choice){
         
         switch(choice){
@@ -87,20 +88,21 @@ public class HotelMgr {
     public boolean updateRoomStatus(String rmId, int status){
         switch(status){
             //update to occupied
-            case 1: return roomMgr.updateRoom(rmId, RoomStatus.Occupied);
+            case 1: return roomMgr.updateRoomStatus(rmId, RoomStatus.Occupied);
             //update to Reservered
-            case 2: return roomMgr.updateRoom(rmId, RoomStatus.Reserved);
+            case 2: return roomMgr.updateRoomStatus(rmId, RoomStatus.Reserved);
             //update to Under Maintaince
-            case 3: return roomMgr.updateRoom(rmId, RoomStatus.UnderMaintenance);
+            case 3: return roomMgr.updateRoomStatus(rmId, RoomStatus.UnderMaintenance);
             //update to Vacant
-            case 4: return  roomMgr.updateRoom(rmId, RoomStatus.Vacant);
+            case 4: return  roomMgr.updateRoomStatus(rmId, RoomStatus.Vacant);
         }
         System.out.println("Room not updated");
         return false;
     }
     public boolean addRoomService(String rmId, double amt){
-        return roomMgr.updateRoom(rmId, amt);
+        return roomMgr.updateRoomService(rmId, amt);
     }
+    //not in use
     public boolean removeRoom(String rmId){
         
         return roomMgr.removeRoom(rmId);
@@ -108,6 +110,16 @@ public class HotelMgr {
     public void printRoomOccupancyReport(){
         roomMgr.printRoomOccupancyReport();
     }
+    public void checkOutRoom(String rmId){
+        
+        Room rm = roomMgr.getRoom(rmId);
+        rm.setRoomStatus(RoomStatus.Vacant);
+        rm.setCurrentOccupancy(0);
+        rm.ClearRmService();
+        
+    }
+    
+    
     //Guest Manager Access Methods Added by Louis
     
     public boolean createGuest(String guestId, String FirstName, String lastName,

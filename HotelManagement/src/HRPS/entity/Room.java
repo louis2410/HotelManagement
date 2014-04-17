@@ -118,6 +118,10 @@ public abstract class Room {
             return true;
         }
         
+        public void ClearRmService(){
+            this.ArrayRoomService.clear();
+        }
+        
         
         //Author : Bryan
         public boolean equals(Room room){
