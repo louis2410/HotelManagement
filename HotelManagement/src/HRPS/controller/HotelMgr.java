@@ -31,7 +31,7 @@ public class HotelMgr {
     public boolean updateRoomStatus(String rmId, RoomStatus status) {
         boolean success = true;
         try {
-            roomMgr.getRoom(rmId).setRoomStatus(status);
+            roomMgr.updateRoomStatus(rmId, status);
         } catch (Exception ex) {
             success = false;
         }
@@ -41,7 +41,7 @@ public class HotelMgr {
     public boolean addRoomService(String rmId, double amt) {
         boolean success = true;
         try {
-            roomMgr.getRoom(rmId).addRmService(amt);
+            roomMgr.updateRoomService(rmId, amt);
         } catch (Exception ex) {
             success = false;
         }
@@ -361,7 +361,7 @@ public class HotelMgr {
         }
         
         double finalPrice = transMgr.applyTaxPromoRates(totalRoomPrice, totalRoomServicePrice);
-        //Display RoomPrice Breakdown
+        //Display RoomPrice Breakdown ??
         System.out.println("Total Room Price : " + totalRoomPrice);
         System.out.println("Total Room Service Price : " + totalRoomServicePrice);
         System.out.println("Total Final Price : " + finalPrice);
