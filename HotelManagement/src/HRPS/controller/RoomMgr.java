@@ -75,7 +75,7 @@ public class RoomMgr implements Manager {
 
         return true;
     }
-<<<<<<< HEAD
+
     //UpdateRoomStatus
 
     public boolean updateRoomStatus(String RoomId, RoomStatus rmstats) {
@@ -138,54 +138,12 @@ public class RoomMgr implements Manager {
         return false;
     }
     //NOT IN USE, u CANNOT DELETE A ROOM ANYMORE
-=======
+
    
-       //UpdateRoomStatus
-	public boolean updateRoomStatus(String RoomId,RoomStatus rmstats){
-            
-             for(int i = 0; i<arrayRoom.size();i++){
-              
-                if(arrayRoom.get(i).getRoomId().equals(RoomId)){
-                    //if updating to vacant means NotVacant --
-                    if(rmstats == RoomStatus.Vacant){
-                        switch(arrayRoom.get(i).getRoomType()){
-                            case Single:NumOfSingleRoomNotVacant--;break;
-                            case Standard:NumOfStandardRoomNotVacant--;break;
-                            case Suite:NumOfSuiteRoomNotVacant--;break;
-                            case VIP:NumOfVIPRoomNotVacant--;break;
-                        }   
-                    }else{
-                        //Updating to something else other than vacant, notvacant++ 
-                        switch(arrayRoom.get(i).getRoomType()){
-                            case Single:NumOfSingleRoomNotVacant++;break;
-                            case Standard:NumOfStandardRoomNotVacant++;break;
-                            case Suite:NumOfSuiteRoomNotVacant++;break;
-                            case VIP:NumOfVIPRoomNotVacant++;break;       
-                             }
-                    //setroom status
-                    arrayRoom.get(i).setRoomStatus(rmstats);
-                       return true; 
-                    }
-                 }
-             }
-            return false;
-        }
-        //Update/Add Rm Service
-        public boolean updateRoomService(String RoomId,double RmService){
-            
-             for(int i = 0; i<arrayRoom.size();i++){
-                //if match then delete
-                if(arrayRoom.get(i).getRoomId().equals(RoomId)){
-                    arrayRoom.get(i).AddRmService(RmService);
-                       return true; 
-                }
-             }
-            
-            return false;
-        }
+      
     
     
->>>>>>> 83eaf737720471d474bef4a2ce2b0c41d36a52b3
+
 
     public boolean removeRoom(String RoomId) {
         for (int i = 0; i < arrayRoom.size(); i++) {
