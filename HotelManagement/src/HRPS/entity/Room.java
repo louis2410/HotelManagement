@@ -1,6 +1,9 @@
 package HRPS.entity;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
+
+import src.hotelmanagement.RoomService;
 public abstract class Room {
 
 	private int maxOccupancy;
@@ -117,7 +120,13 @@ public abstract class Room {
             
             return true;
         }
-        
+        public double getroomService(){
+        	double roomservice = 0;
+        	for (Iterator it = ArrayRoomService.iterator(); it.hasNext();) {
+                roomservice += ((RoomService) it).getRmServicePrice();
+            }
+        	return roomservice;
+        }
         
         //Author : Bryan
         public boolean equals(Room room){

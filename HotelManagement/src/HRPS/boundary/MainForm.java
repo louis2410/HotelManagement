@@ -4,14 +4,22 @@ import HRPS.controller.GuestMgr;
 import HRPS.controller.HotelMgr;
 import HRPS.controller.RoomMgr;
 import HRPS.entity.*;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import src.hotelmanagement.Reservation;
+import src.hotelmanagement.ReservationStatus;
+import src.hotelmanagement.Room;
+import src.hotelmanagement.RoomStatus;
 
 public class MainForm {
 
@@ -59,7 +67,7 @@ public class MainForm {
             case 6://Check-In 
                     break;
                
-            case 7://Checkout and print invoice
+            case 7:CheckOutandprintBillInvoice();
                     break;
                 
             case 8://Print RoomOccupancy Report
@@ -639,8 +647,59 @@ public class MainForm {
       
        }
     
+    public static void CheckoutByReservation(){
+    	System.out.println("Please input the reservation ID");
+    	String reservationID = sc.next();
+    	Reservation checkoutrev = hotelMgr.getReservation(reservationID);
+    	checkoutrev.setResStatus(ReservationStatus.Expired);
+    	ArrayList<String> roomtocheckout = checkoutrev.getAssociatedRooms();
+    	for (Iterator it = roomtocheckout.iterator(); it.hasNext();) {
+            Room room = (Room) it.next();
+            room.setRoomStatus(RoomStatus.UnderMaintenance);
+        }
+    	System.out.println("Check out successfully!");
+    	displayroompricebreakdown(checkoutrev);
+    }
     
-    
+    public static void displayroompricebreakdown(Reservation checkoutrev){
+    	DateFormat dF = DateFormat.getDateInstance(DateFormat.SHORT);
+    	Date startdate = checkoutrev.getResCheckInDate();
+ 	    Date enddate = new Date();
+    	System.out.println("Number of rooms: "+checkoutrev.getNoOfRooms());
+    	System.out.println("RoomType: "+checkoutrev.getNoOfRooms());
+    	System.out.println("Date check in: "+dF.format(startdate));
+    	System.out.println("Date check out: "+dF.format(enddate));
+    	double roomprice;
+    	double serviceprice = 0;
+    	int numberofweekdays = 0;
+    	int numberofweekends = 0;
+    	int date = (enddate.getYear() - startdate.getYear())*365; 
+    	if(startdate.getDay() -5 >=0){
+    		numberofweekends += 8 - startdate.getDay();
+    	}else{
+    		numberofweekdays += 6 - startdate.getDay();
+    		numberofweekends += 2;
+    	}
+    	if(enddate.getDay() -5 >=0){
+    		numberofweekends += enddate.getDay() -5;
+    		numberofweekdays += 5;
+    	}else{
+    		numberofweekdays += enddate.getDay();
+    	}
+    	numberofweekdays += ((int)( (startdate.getTime() - enddate.getTime()) / (1000 * 60 * 60 * 24))-enddate.getDay()+8-startdate.getDay())*5/7;
+    	numberofweekends += ((int)( (startdate.getTime() - enddate.getTime()) / (1000 * 60 * 60 * 24))-enddate.getDay()+8-startdate.getDay())*2/7;
+    	System.out.println("Number of days for weekdays: "+numberofweekdays);
+    	System.out.println("Number of days for weekends: "+numberofweekends);
+    	double weekdayrate = hotelMgr.roomMgr.getRoom(checkoutrev.getAssociatedRooms().get(0)).getweekdayRoomRate();
+    	double weekendrate = hotelMgr.roomMgr.getRoom(checkoutrev.getAssociatedRooms().get(0)).getweekendRoomRate();
+    	roomprice = checkoutrev.getNoOfRooms()*(weekdayrate*numberofweekdays+weekendrate*numberofweekends);
+    	System.out.println("Price for rooms: "+roomprice);
+    	for (Iterator it = checkoutrev.getAssociatedRooms().iterator(); it.hasNext();) {
+            serviceprice += ((Room) it).getroomService();
+        }
+    	System.out.println("Price for services: "+serviceprice);
+    	System.out.println("Total price: "+(serviceprice+roomprice));
+    }
     
     }
 
