@@ -125,11 +125,8 @@ public class ReservationMgr implements Manager {
     
     
     public Reservation getReservation(String resId){
-        
-        for(int i =0;i<arrayReservation.size();i++){
-            
-            if(arrayReservation.get(i).getResId().equals(resId)){
-                
+        for(int i =0;i<arrayReservation.size();i++){ 
+            if(arrayReservation.get(i).getResId().equals(resId)){  
                 return arrayReservation.get(i);
             }
         }
@@ -161,8 +158,6 @@ public class ReservationMgr implements Manager {
             System.out.println("Failed to write to data directory");
             return false;
         }
-
-        
         return true;
     }
 
@@ -179,8 +174,6 @@ public class ReservationMgr implements Manager {
             System.out.println("Failed to delete all from data directory");
             return false;
         }
-
-        
         return true;
     }
 

@@ -1,19 +1,16 @@
 package HRPS.controller;
 
 import HRPS.entity.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class HotelMgr {
     //Managers for each sector
-    GuestMgr guestMgr = new GuestMgr();
-    ReservationMgr resMgr = new ReservationMgr();
-    RoomMgr roomMgr = new RoomMgr();
 
+    private GuestMgr guestMgr = new GuestMgr();
+    private ReservationMgr resMgr = new ReservationMgr();
+    private RoomMgr roomMgr = new RoomMgr();
+    private TransactionMgr transMgr = new TransactionMgr(); 
     private int checkInTime = 1300;
 
     //Room Manager Access Methods added by Louis
@@ -28,40 +25,40 @@ public class HotelMgr {
         System.out.println("Standard Rooms: " + standard);
         System.out.println("VIP Rooms: " + vip);
         System.out.println("Suite Rooms: " + suite);
-        
+
     }
-    
+
     public boolean updateRoomStatus(String rmId, RoomStatus status) {
         boolean success = true;
         try {
             roomMgr.getRoom(rmId).setRoomStatus(status);
         } catch (Exception ex) {
             success = false;
-        }        
+        }
         return success;
     }
-    
+
     public boolean addRoomService(String rmId, double amt) {
         boolean success = true;
         try {
             roomMgr.getRoom(rmId).addRmService(amt);
         } catch (Exception ex) {
             success = false;
-        }        
+        }
         return success;
     }
-    
+
     public boolean removeRoom(String rmId) {
-        
+
         return roomMgr.removeRoom(rmId);
     }
-    
+
     public String firstAvailRoom(RoomType RoomType) {
-        
+
         return roomMgr.getFirstAvailableRoom(RoomType);
-        
+
     }
-    
+
     public void printRoomOccupancyReport() {
         roomMgr.printRoomOccupancyReport();
     }
@@ -69,22 +66,22 @@ public class HotelMgr {
 
     public String createGuest(String guestId, String FirstName, String lastName,
             String title, String address, String country, char gender, int contactNo, String email) {
-        
+
         return guestMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
     }
-    
+
     public Guest getGuest(String guestId) {
         return guestMgr.getGuest(guestId);
     }
-    
+
     public boolean removeGuest(String guestId) {
-        
+
         return guestMgr.removeGuest(guestId);
     }
 
     //Impportant , execute before closing program
     public void OutputToXML() {
-        
+
         guestMgr.DeleteFromFile();
         guestMgr.createToFile();
         roomMgr.deleteFromFile();
@@ -95,12 +92,12 @@ public class HotelMgr {
 
     //ReservationScheduleCheck
     public int ReservationScheduleCheck(Date checkin, Date checkout, RoomType rmType) {
-        
+
         int NumOfClashes = resMgr.CheckReservationClash(checkin, checkout, rmType);
         int NumAvailableRooms = roomMgr.MaxNumOfRoomsBasedOnType(rmType);
         System.out.println(NumOfClashes);
         System.out.println(NumAvailableRooms);
-        
+
         if (NumAvailableRooms - NumOfClashes > 0) {
             return NumAvailableRooms - NumOfClashes;
         }
@@ -109,16 +106,13 @@ public class HotelMgr {
 
     //Reservation ID generate
     public String generateResId() {
-        
         return "R" + (resMgr.NumOfReservations() + 1);
     }
-    
-    public String checkRoomAvailability(String roomId) {
-        // TODO - implement HotelMgr.checkRoomAvailability
 
+    public String checkRoomAvailability(String roomId) {
         return roomMgr.getRoom(roomId).getRoomStatus().toString();
     }
-    
+
     public boolean checkExistingRoom(String roomId) {
         if (roomMgr.getRoom(roomId) != null) {
             return true;
@@ -126,27 +120,27 @@ public class HotelMgr {
             return false;
         }
     }
-    
+
     public Room getRoom(String roomId) {
         return roomMgr.getRoom(roomId);
     }
-    
+
     public boolean createSingleRoom(String rmId, int floor) {
         return roomMgr.createSingleRoom(rmId, floor);
     }
-    
+
     public boolean createStandardRoom(String rmId, int floor) {
         return roomMgr.createStandardRoom(rmId, floor);
     }
-    
+
     public boolean createSuiteRoom(String rmId, int floor) {
         return roomMgr.createSuiteRoom(rmId, floor);
     }
-    
+
     public boolean createVIPRoom(String rmId, int floor) {
         return roomMgr.createVIPRoom(rmId, floor);
     }
-    
+
     public Room checkRoomDetails(int guestId) {
         // TODO - implement HotelMgr.checkRoomDetails
         throw new UnsupportedOperationException();
@@ -176,15 +170,6 @@ public class HotelMgr {
      */
     public boolean checkInByGuest(String guest) {
         // TODO - implement HotelMgr.checkInByGuest
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     *
-     * @param resId
-     */
-    public boolean checkOutByReservation(int resId) {
-        // TODO - implement HotelMgr.checkOutByReservation
         throw new UnsupportedOperationException();
     }
 
@@ -223,17 +208,17 @@ public class HotelMgr {
         // TODO - implement HotelMgr.checkOutByGuest
         throw new UnsupportedOperationException();
     }
-    
+
     public void createReservation(String associatedGuest, String resId, Date resBookDate, Date resCheckInDate, Date resCheckOutDate, ReservationStatus resStatus, int noOfAdults, int noOfChildren, boolean paymentStatus, RoomType rmtype) {
         resMgr.createReservation(associatedGuest, resId, resBookDate, resCheckInDate, resCheckOutDate, resStatus, noOfAdults, noOfChildren, paymentStatus, rmtype);
-        
-        
+
+
     }
-    
+
     public Reservation getReservation(String resId) {
         return resMgr.getReservation(resId);
     }
-    
+
     public boolean removeReservation(String resId) {
         //return resMgr.removeReservation(resId);
         return true;
@@ -280,9 +265,9 @@ public class HotelMgr {
                     vipDisplay += " " + allRoomList.get(i).getRoomId() + ",";
                 }
             }
-            
+
         }
-        
+
         return singleDisplay + standardDisplay + suitDisplay + vipDisplay;
     }
 
@@ -293,7 +278,7 @@ public class HotelMgr {
                 standardDisplay = "\n--- \t Standand Rooms \t : ",
                 suitDisplay = "\n--- \t Suit Rooms \t\t : ",
                 vipDisplay = "\n--- \t VIP Rooms \t\t : ";
-        
+
         int singleCount = 0, standardCount = 0, suitCount = 0, vipCount = 0;
 
         //A RoomMgr methods to get all the rooms in hotel
@@ -316,9 +301,9 @@ public class HotelMgr {
                     vipCount++;
                 }
             }
-            
+
         }
-        
+
         return singleDisplay + singleCount + standardDisplay + standardCount + suitDisplay + vipDisplay;
     }
     //Arthur : Bryan
@@ -329,7 +314,7 @@ public class HotelMgr {
         } else {
             return false;
         }
-        
+
     }
 
     //Arthur : Bryan
@@ -345,6 +330,41 @@ public class HotelMgr {
         } else {
             return true;
         }
+
+    }
+
+    public void startCheckOut(String reservationId) {
+        Reservation reservation = resMgr.getReservation(reservationId);
+        
+        int weekDay = 0, weekEnd = 0;
+        Calendar start = Calendar.getInstance();
+        start.setTime(reservation.getResCheckInDate());
+        Calendar end = Calendar.getInstance();
+        start.setTime(reservation.getResCheckOutDate());
+        
+        while(!start.equals(end)){
+            int dayOfWeek = start.get(Calendar.DAY_OF_WEEK);
+            if(dayOfWeek <= 5)
+                weekDay++;
+            else
+                weekEnd++;
+            start.add(Calendar.DATE, 1);
+        }
+
+        double totalRoomPrice = 0, totalRoomServicePrice = 0;
+        for (int i = 0; i < reservation.getNoOfRooms(); i++) {
+              totalRoomPrice += weekDay * roomMgr.getRoom(reservation.getAssociatedRooms().get(i)).getweekdayRoomRate();
+              totalRoomPrice += weekEnd * roomMgr.getRoom(reservation.getAssociatedRooms().get(i)).getweekendRoomRate();
+              for(int j=0; j<roomMgr.getRoom(reservation.getAssociatedRooms().get(i)).getRmService().size();j++){
+                  totalRoomServicePrice += roomMgr.getRoom(reservation.getAssociatedRooms().get(i)).getRmService().get(j).getRmServicePrice();
+              }
+        }
+        
+        double finalPrice = transMgr.applyTaxPromoRates(totalRoomPrice, totalRoomServicePrice);
+        //Display RoomPrice Breakdown
+        System.out.println("Total Room Price : " + totalRoomPrice);
+        System.out.println("Total Room Service Price : " + totalRoomServicePrice);
+        System.out.println("Total Final Price : " + finalPrice);
         
     }
 }

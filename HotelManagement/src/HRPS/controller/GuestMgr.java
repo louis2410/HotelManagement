@@ -141,7 +141,8 @@ public class GuestMgr {
 
     public Guest getGuest(String guestId) {
         for (int i = 0; i < arrayGuest.size(); i++) {
-            if (arrayGuest.get(i).getGuestId() == guestId) {
+            System.out.println(arrayGuest.get(i).getGuestId());
+            if (arrayGuest.get(i).getGuestId().equals(guestId)) {
                 return arrayGuest.get(i);
             }
         }

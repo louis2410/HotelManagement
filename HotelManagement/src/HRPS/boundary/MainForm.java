@@ -50,6 +50,7 @@ public class MainForm {
                 case 6://Check-In 
                     break;
                 case 7://Checkout and print invoice
+                    printCheckOutMenu();
                     break;
                 case 8://Print RoomOccupancy Report
                     printRoomOccupancyReport();
@@ -118,7 +119,7 @@ public class MainForm {
         String roomId;
         do {
             System.out.println("\t--This is the Create Room Form--");
-            System.out.print("Please input a new room ID: ");
+            System.out.print("Please input a new room ID <FF><RR>: ");
             roomId = sc.next();
 
             System.out.println("Checking if the room exist in the system");
@@ -771,7 +772,6 @@ public class MainForm {
             do {
                 System.out.print("Enter the reservation Id :");
                 resId = sc.next();
-
                 if (hotelMgr.checkExisitingReservation(resId)) {
                     System.out.println("Printing Reservation Details");
                     System.out.println(hotelMgr.displayReservationDetails(resId));
@@ -780,18 +780,54 @@ public class MainForm {
                     System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
                 }
             } while (!resId.isEmpty());
-
-
         } catch (Exception ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public static void printCheckRoomAvailablity() {
-
         System.out.println("Enter Room Id");
         String rmId = sc.next();
         System.out.println("RoomId " + rmId + "is " + hotelMgr.checkRoomAvailability(rmId));
+    }
 
+    public static void printCheckOutMenu() {
+        System.out.println("\t--This is the CheckOut Form--");
+        String resId = "";
+
+        System.out.print("Enter the reservation Id :");
+        resId = sc.next();
+        if (hotelMgr.checkExisitingReservation(resId)) {
+            hotelMgr.startCheckOut(resId);
+            PaymentType paymentType = requestPaymentType();
+            //Unable to follow seq Diagram
+            hotelMgr.W
+            
+        } else {
+            System.out.println("There is not such reservation.");
+            return;
+        }
+
+    }
+
+    public static PaymentType requestPaymentType() {
+        int choice = 0;
+        do { //Print Reservation Menu
+            System.out.println("How you like to pay ? Please slect one of following payment methods.");
+            System.out.println("1 : Cash");
+            System.out.println("2 : Credit Cardt");
+            System.out.print("Please select a choice : ");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    return PaymentType.Cash;
+                case 2:
+                    return PaymentType.Credit;
+                default:
+                    System.out.println("Please enter a value from 1 to 2.");
+                    break;
+            }
+        } while (choice != 3);
+        return null;
     }
 }

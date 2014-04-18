@@ -83,6 +83,10 @@ public abstract class Room {
     public void setCurrentOccupancy(int currentOccupancy) {
         this.currentOccupancy = currentOccupancy;
     }
+    
+    public ArrayList<RoomService> getRmService() {
+        return this.ArrayRoomService;
+    }
 
     public boolean addRmService(double amt) {
         RoomService rmService = new RoomService(Calendar.getInstance().getTime(), amt);
