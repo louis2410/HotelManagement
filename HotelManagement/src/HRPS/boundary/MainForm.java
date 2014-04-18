@@ -269,7 +269,7 @@ public class MainForm {
     }
 
     public static void printGuestMenu() {
-        int CURGuestchoice;
+        int choice;
         do {
             System.out.println("\t--This is the Guest Management Menu--");
             System.out.println("Please select one of the following choices: \n"
@@ -277,18 +277,16 @@ public class MainForm {
                     + "2. Update Guest\n"
                     + "3. Remove Guest\n"
                     + "4. Back to menu\n");
-            CURGuestchoice = sc.nextInt();
+            System.out.print("Please select a choice : ");
+            choice = sc.nextInt();
 
-            switch (CURGuestchoice) {
-                //Create Guest
+            switch (choice) {
                 case 1:
                     printCreateGuestMenu();
                     break;
-                //Update Guest
                 case 2:
                     printUpdateGuestMenu();
                     break;
-                //Remove Guest
                 case 3:
                     printRemoveGuestMenu();
                     break;
@@ -300,7 +298,7 @@ public class MainForm {
                     System.out.println("Please enter a value from 1 to 4.");
                     break;
             }
-        } while (CURGuestchoice != 4);
+        } while (choice != 4);
     }
 
     public static void printCreateGuestMenu() {
@@ -346,11 +344,16 @@ public class MainForm {
         while (assoguestchoice) {
             System.out.println("Please input the associate guest Id");
             String AssoguestId = sc.next();
-            hotelMgr.getGuest(guestId).setAssoGuest(hotelMgr.getGuest(AssoguestId));
+            if (hotelMgr.checkExistingGuest(AssoguestId)) {
+                hotelMgr.getGuest(guestId).setAssoGuest(hotelMgr.getGuest(AssoguestId));
+            } else {
+                System.out.println("There is no such guest exist in the system.");
+            }
             System.out.print("Is there any more associate guest? Yes = y No = n ");
-            assoguestchoice = false;
             if (sc.next().equals("y")) {
                 assoguestchoice = true;
+            } else {
+                assoguestchoice = false;
             }
         }
 
@@ -367,15 +370,15 @@ public class MainForm {
 
         System.out.println("Checking if the guest exist in the system");
         if (hotelMgr.checkExistingGuest(guestId)) {
-            System.out.println("There is already such guest exist in the system.");
+            System.out.println("There is such guest exist in the system.");
             System.out.println(hotelMgr.getGuest(guestId).toString());
+        } else {
+            System.out.println("There is no such guest exist in the system.");
             System.out.println("Returning to Guest Management Menu...");
             return;
-        } else {
-            System.out.println("There is no such guest exist in the system. Please continue with update");
         }
 
-        int UpdateGuestchoice;
+        int choice;
         do {
             System.out.println("Please select one of the following choices: \n"
                     + "1. Update guest ID\n"
@@ -388,13 +391,13 @@ public class MainForm {
                     + "8. Update contact number\n"
                     + "9. Update email\n"
                     + "10. Back to last menu");
-            UpdateGuestchoice = sc.nextInt();
+            System.out.print("Please select a choice : ");
+            choice = sc.nextInt();
 
-            switch (UpdateGuestchoice) {
+            switch (choice) {
                 case 1:
                     System.out.print("Please input the guest ID: ");
-                    guestId = sc.next();
-                    hotelMgr.getGuest(guestId).setGuestId(guestId);
+                    hotelMgr.getGuest(guestId).setGuestId(sc.next());
                     break;
                 case 2:
                     System.out.print("Please input the First Name: ");
@@ -402,7 +405,6 @@ public class MainForm {
                     break;
                 case 3:
                     System.out.print("Please input the Last Name: ");
-
                     hotelMgr.getGuest(guestId).setLastName(sc.next());
                     break;
                 case 4:
@@ -430,14 +432,13 @@ public class MainForm {
                     hotelMgr.getGuest(guestId).setEmail(sc.next());
                     break;
                 case 10:
-                    System.out.println("This is the end of Guest Update Form");
+                    System.out.println("\t--This is the end of Guest Update Form--");
                     System.out.print("Returning to Guest Management Menu...");
                     return;
                 default:
                     break;
             }
-
-        } while (UpdateGuestchoice != 10);
+        } while (choice != 10);
     }
 
     public static void printRemoveGuestMenu() {
@@ -451,10 +452,10 @@ public class MainForm {
         if (hotelMgr.checkExistingGuest(guestId)) {
             System.out.println("There is already such guest exist in the system.");
             System.out.println(hotelMgr.getGuest(guestId).toString());
+        } else {
+            System.out.println("There is no such guest exist in the system.");
             System.out.println("Returning to Guest Management Menu...");
             return;
-        } else {
-            System.out.println("There is no such guest exist in the system. Please continue with removal.");
         }
 
         if (!hotelMgr.removeGuest(guestId)) {
@@ -463,7 +464,7 @@ public class MainForm {
             System.out.print("Returning to Guest Management Menu...");
         } else {
             System.out.println("Success in removing Guest " + guestId);
-            System.out.println("This is the end of Guest Removeal Form");
+            System.out.println("\t--This is the end of Guest Removeal Form--");
             System.out.print("Returning to Guest Management Menu...");
         }
     }
@@ -474,13 +475,8 @@ public class MainForm {
 
     //Arthur : Bryan
     public static void printReservationMenu() {
-        // TODO - implement MainForm.printReservationMenu
-
         //Parameters
         int choice;
-
-
-
         do { //Print Reservation Menu
             System.out.println("Please select one of the following Reservation Service");
             System.out.println("1 : Create a new Reservation");
@@ -508,7 +504,6 @@ public class MainForm {
                     break;
             }
         } while (choice != 4);
-
     }
 
     public static void printCreateReservationMenu() {
