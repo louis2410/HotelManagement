@@ -97,8 +97,7 @@ public class HotelMgr {
 
         int NumOfClashes = resMgr.CheckReservationClash(checkin, checkout, rmType);
         int NumAvailableRooms = roomMgr.MaxNumOfRoomsBasedOnType(rmType);
-        System.out.println(NumOfClashes);
-        System.out.println(NumAvailableRooms);
+        
 
         if (NumAvailableRooms - NumOfClashes > 0) {
             return NumAvailableRooms - NumOfClashes;
