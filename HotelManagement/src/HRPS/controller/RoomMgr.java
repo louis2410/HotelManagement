@@ -14,8 +14,8 @@ public class RoomMgr implements Manager {
 
     public static final int MaxNumSingleRoom = 80;
     public static final int MaxNumStandardRoom = 60;
-    public static final int MaxNumVIPRoom = 40;
-    public static final int MaxNumSuiteRoom = 20;
+    public static final int MaxNumVIPRoom = 20;
+    public static final int MaxNumSuiteRoom = 40;
     //Attributes
     private ArrayList<Room> arrayRoom;
     private PersistenceStrategy strategy;
