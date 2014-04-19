@@ -1,10 +1,10 @@
-<HRPS.entity.SuiteRoom>
-  <maxOccupancy>3</maxOccupancy>
-  <roomId>0920</roomId>
-  <floor>9</floor>
+<HRPS.entity.VipRoom>
+  <maxOccupancy>4</maxOccupancy>
+  <roomId>1001</roomId>
+  <floor>10</floor>
   <roomStatus>Vacant</roomStatus>
-  <roomType>Suite</roomType>
+  <roomType>VIP</roomType>
   <currentOccupancy>0</currentOccupancy>
-  <bedType>Double</bedType>
+  <bedType>Master</bedType>
   <ArrayRoomService/>
-</HRPS.entity.SuiteRoom>
+</HRPS.entity.VipRoom>
