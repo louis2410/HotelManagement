@@ -1,8 +1,8 @@
 <HRPS.entity.VipRoom>
   <maxOccupancy>4</maxOccupancy>
-  <roomId>1101</roomId>
-  <floor>11</floor>
-  <roomStatus>UnderMaintenance</roomStatus>
+  <roomId>1020</roomId>
+  <floor>10</floor>
+  <roomStatus>Vacant</roomStatus>
   <roomType>VIP</roomType>
   <currentOccupancy>0</currentOccupancy>
   <bedType>Master</bedType>

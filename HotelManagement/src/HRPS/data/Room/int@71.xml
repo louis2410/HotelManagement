@@ -1,6 +1,6 @@
 <HRPS.entity.SingleRoom>
   <maxOccupancy>1</maxOccupancy>
-  <roomId>0413</roomId>
+  <roomId>0412</roomId>
   <floor>4</floor>
   <roomStatus>Vacant</roomStatus>
   <roomType>Single</roomType>

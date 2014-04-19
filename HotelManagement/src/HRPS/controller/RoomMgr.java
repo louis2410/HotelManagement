@@ -173,35 +173,106 @@ public class RoomMgr implements Manager {
 
     public void printRoomOccupancyReport() {
 
+        //Rooms Counter
+        int SingleCountMaintenance =0;
+        int SingleCountReserved = 0;
+        int SingleCountOccupied = 0;
+        int SingleCountVacant=0;
+        
+         int StandardCountMaintenance =0;
+        int StandardCountReserved = 0;
+        int StandardCountOccupied = 0;
+        int StandardCountVacant=0;
+        
+         int SuiteCountMaintenance =0;
+        int SuiteCountReserved = 0;
+        int SuiteCountOccupied = 0;
+        int SuiteCountVacant=0;
+        
+         int VIPCountMaintenance =0;
+        int VIPCountReserved = 0;
+        int VIPCountOccupied = 0;
+        int VIPCountVacant=0;
+        
+        for(int i=0; i<arrayRoom.size();i++){
+            
+            switch(arrayRoom.get(i).getRoomType()){
+                
+                case Single: switch(arrayRoom.get(i).getRoomStatus())
+                                {   case Vacant: SingleCountVacant++;break;
+                                    case Occupied: SingleCountOccupied++;break; 
+                                    case Reserved: SingleCountReserved++;break;
+                                    case UnderMaintenance: SingleCountMaintenance++;break;
+                    
+                                }break;
+                                    
+                 case Standard: switch(arrayRoom.get(i).getRoomStatus())
+                                {   case Vacant: StandardCountVacant++;break;
+                                    case Occupied: StandardCountOccupied++;break; 
+                                    case Reserved: StandardCountReserved++;break;
+                                    case UnderMaintenance: StandardCountMaintenance++;break;
+                    
+                                }break;
+                     
+                  case Suite: switch(arrayRoom.get(i).getRoomStatus())
+                                {   case Vacant: SuiteCountVacant++;break;
+                                    case Occupied: SuiteCountOccupied++;break; 
+                                    case Reserved: SuiteCountReserved++;break;
+                                    case UnderMaintenance: SuiteCountMaintenance++;break;
+                    
+                                }break;
+                      
+                  case VIP: switch(arrayRoom.get(i).getRoomStatus())
+                                {   case Vacant: VIPCountVacant++;break;
+                                    case Occupied: VIPCountOccupied++;break; 
+                                    case Reserved: VIPCountReserved++;break;
+                                    case UnderMaintenance: VIPCountMaintenance++;break;
+                    
+                                }break;
+        
+            }
+   
+        }
+        
+        
+        System.out.println("=== ROOM OCCUPANCY REPORT FOR TODAY");
+        System.out.println();
+        
         //Single Rooms
         System.out.println("=== Single Rooms ===");
         System.out.println("Total Number of Single Rooms: " + MaxNumSingleRoom);
-        System.out.println("Current Number of Single Rooms in use: "
-                + (MaxNumSingleRoom - this.MaxNumOfRoomsBasedOnType(RoomType.Single)));
-        System.out.println("Number of Single Rooms available: "
-                + (this.MaxNumOfRoomsBasedOnType(RoomType.Single)));
+        System.out.println("Number of Single Rooms under maintenance: "+SingleCountMaintenance);
+        System.out.println("Number of Single Rooms Reserved: "+ SingleCountReserved);
+        System.out.println("Number of Single Rooms Occupied: "+ SingleCountOccupied);
+        System.out.println("Number of Single Rooms Vacant: "+ SingleCountVacant);
+        System.out.println();
 
         //Standard Rooms
         System.out.println("=== Standard Rooms ===");
         System.out.println("Total Number of Standard Rooms: " + MaxNumStandardRoom);
-        System.out.println("Current Number of Standard Rooms in use: "
-                + (MaxNumStandardRoom - this.MaxNumOfRoomsBasedOnType(RoomType.Standard)));
-        System.out.println("Number of Standard Rooms available: "
-                + (this.MaxNumOfRoomsBasedOnType(RoomType.Standard)));
+        System.out.println("Number of Standard Rooms under maintenance: "+StandardCountMaintenance);
+        System.out.println("Number of Standard Rooms Reserved: "+ StandardCountReserved);
+        System.out.println("Number of Standard Rooms Occupied: "+ StandardCountOccupied);
+        System.out.println("Number of Standard Rooms Vacant: "+ StandardCountVacant);
+        System.out.println();
+        
         //SUITE Rooms
         System.out.println("=== Suite Rooms ===");
         System.out.println("Total Number of Suite Rooms: " + MaxNumSuiteRoom);
-        System.out.println("Current Number of Suite Rooms in use: "
-                + (MaxNumSuiteRoom - this.MaxNumOfRoomsBasedOnType(RoomType.Suite)));
-        System.out.println("Number of Suite Rooms available: "
-                + (this.MaxNumOfRoomsBasedOnType(RoomType.Suite)));
+        System.out.println("Number of Suite Rooms under maintenance: "+SuiteCountMaintenance);
+        System.out.println("Number of Suite Rooms Reserved: "+ SuiteCountReserved);
+        System.out.println("Number of Suite Rooms Occupied: "+ SuiteCountOccupied);
+        System.out.println("Number of Suite Rooms Vacant: "+ SuiteCountVacant);
+        System.out.println();
         //VIP Rooms
         System.out.println("=== VIP Rooms ===");
         System.out.println("Total Number of VIP Rooms: " + MaxNumVIPRoom);
-        System.out.println("Current Number of VIP Rooms in use: "
-                + (MaxNumVIPRoom - this.MaxNumOfRoomsBasedOnType(RoomType.VIP)));
-        System.out.println("Number of VIP Rooms available: "
-                + (this.MaxNumOfRoomsBasedOnType(RoomType.VIP)));
+        System.out.println("Number of VIP Rooms under maintenance: "+VIPCountMaintenance);
+        System.out.println("Number of VIP Rooms Reserved: "+ VIPCountReserved);
+        System.out.println("Number of VIP Rooms Occupied: "+ VIPCountOccupied);
+        System.out.println("Number of VIP Rooms Vacant: "+ VIPCountVacant);
+        System.out.println();
+        
     }
 
     //Get CurrentNumberOfRoomsBasedOnType      
