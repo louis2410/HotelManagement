@@ -11,7 +11,7 @@ public class HotelMgr {
     private ReservationMgr resMgr = new ReservationMgr();
     private RoomMgr roomMgr = new RoomMgr();
     private TransactionMgr transMgr = new TransactionMgr();
-    private int checkInTime = 1300;
+    private int checkInTime = 13;
 
     //Room Manager Access Methods added by Louis
     //Print NumOfAvailableRoomsForCreation
@@ -162,14 +162,43 @@ public class HotelMgr {
      * @param resId
      */
     public void checkInProcudure(String resId) {
+        //Check For Reservation Expiration
+        Reservation res = resMgr.getReservation(resId);
+        ArrayList<Room> arrayRoom = roomMgr.getRooms(res.getAssociatedRooms());
+        Calendar now = Calendar.getInstance();
+        Date checkIn = now.getTime();
+        // Needs testing...
+        if (checkIn.equals(res.getResCheckInDate())) {
+            if (now.HOUR_OF_DAY > (checkInTime + 1)) {
+                //Reservation Expiration
+                System.out.println("This reservation has expired");
+                resMgr.getReservation(res.getResId()).setResStatus(ReservationStatus.Expired);
+                //Clear rooms
+                for (int i = 0; i < arrayRoom.size(); i++) {
+                    arrayRoom.get(i).setCurrentOccupancy(0);
+                    arrayRoom.get(i).getRmService().clear();
+                    //roomMgr.updatestatus for counting of available rooms
+                    roomMgr.updateRoomStatus(arrayRoom.get(i).getRoomId(), RoomStatus.Vacant);
+                }
+                return;
+            }
+        }
+
+        //Print Guest
+        System.out.println(guestMgr.getGuest(res.getAssociatedGuest().toString()));
+
+        //Update Reservation Status
+        resMgr.getReservation(res.getResId()).setResStatus(ReservationStatus.Check_In);
+        //Update Rooms Status
+        for (int i = 0; i < arrayRoom.size(); i++) {
+            //Set how many?
+            arrayRoom.get(i).setCurrentOccupancy(1);
+            //roomMgr.updatestatus for counting of available rooms
+            roomMgr.updateRoomStatus(arrayRoom.get(i).getRoomId(), RoomStatus.Occupied);
+        }
         
-        
-        
-        
-        
-        
-        
-        
+        System.out.println("Thank you for staying with us!");
+        System.out.println("Please enjoy your stay!");
     }
 
     /**
@@ -223,7 +252,6 @@ public class HotelMgr {
         return true;
     }
 
- 
     public boolean checkExistingGuest(String guestId) {
         if (guestMgr.getGuest(guestId) != null) {
             return true;
@@ -231,7 +259,6 @@ public class HotelMgr {
             return false;
         }
     }
-  
 
     public String displayGuestDetails(String guestId) {
         return guestMgr.getGuest(guestId).toString();
@@ -305,7 +332,6 @@ public class HotelMgr {
 
         return singleDisplay + singleCount + standardDisplay + standardCount + suitDisplay + vipDisplay;
     }
-   
 
     public boolean checkExisitingReservation(String resId) {
         if (resMgr.getReservation(resId) != null) {
@@ -316,7 +342,6 @@ public class HotelMgr {
 
     }
 
- 
     public String displayReservationDetails(String resId) {
         return resMgr.getReservation(resId).toString();
     }
@@ -333,7 +358,7 @@ public class HotelMgr {
 
     public void checkOutprocedure(String reservationId) {
         //Request Reservation
-        
+
         Reservation reservation = resMgr.getReservation(reservationId);
         //Request Room
         ArrayList<Room> arrayRoom = roomMgr.getRooms(reservation.getAssociatedRooms());
@@ -351,39 +376,39 @@ public class HotelMgr {
             int dayOfWeek = start.get(Calendar.DAY_OF_WEEK);
             if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY) {
                 weekDay++;
-            } else{
+            } else {
                 weekEnd++;
             }
             start.add(Calendar.DATE, 1);
         }
-        
+
         //Printout price breakdown
         System.out.println("WeekDay : " + weekDay + " WeekEnd : " + weekEnd);
         System.out.println("\t=== Room Price Break Down ===");
         double totalRoomPrice = 0, totalRoomServiceCharge = 0;
-        double sumTotalRoom = 0, sumTotalRoomServiceCharge =0;
+        double sumTotalRoom = 0, sumTotalRoomServiceCharge = 0;
         for (int i = 0; i < arrayRoom.size(); i++) {
             System.out.println(i + 1 + "\tRoom " + arrayRoom.get(i).getRoomId() + "; Type : " + arrayRoom.get(i).getRoomType());
-            System.out.println("WeekDay Rates: " + arrayRoom.get(i).getweekdayRoomRate()+"Per day for "+ weekDay+"days");
-            System.out.println("WeekEnd Rates: "+ arrayRoom.get(i).getweekendRoomRate()+ "Per day for "+ weekEnd+"days");
+            System.out.println("WeekDay Rates: " + arrayRoom.get(i).getweekdayRoomRate() + "Per day for " + weekDay + "days");
+            System.out.println("WeekEnd Rates: " + arrayRoom.get(i).getweekendRoomRate() + "Per day for " + weekEnd + "days");
             double weekDayPrice = (weekDay * arrayRoom.get(i).getweekdayRoomRate());
             double weekEndPrice = (weekEnd * arrayRoom.get(i).getweekendRoomRate());
             System.out.println("\t Total Room Price: " + (weekDayPrice + weekEndPrice));
             totalRoomPrice = weekDayPrice + weekEndPrice;
             sumTotalRoom += totalRoomPrice;
-            
+
             System.out.println("=== Room Service===");
-            for(int c = 0; c<arrayRoom.get(i).getRmService().size();c++){
-                System.out.println("Room Service "+c+ " = " +arrayRoom.get(i).getRmService().get(c).getRmServicePrice());
-                totalRoomServiceCharge += arrayRoom.get(i).getRmService().get(c).getRmServicePrice();         
+            for (int c = 0; c < arrayRoom.get(i).getRmService().size(); c++) {
+                System.out.println("Room Service " + c + " = " + arrayRoom.get(i).getRmService().get(c).getRmServicePrice());
+                totalRoomServiceCharge += arrayRoom.get(i).getRmService().get(c).getRmServicePrice();
             }
-            System.out.println("Total Room Service Charge = "+totalRoomServiceCharge);
+            System.out.println("Total Room Service Charge = " + totalRoomServiceCharge);
             sumTotalRoomServiceCharge += totalRoomServiceCharge;
-            
-            
+
+
         }
-        
-        System.out.println("Total Charge before tax & promo (Room + Room Service) = "+ sumTotalRoom + sumTotalRoomServiceCharge);
+
+        System.out.println("Total Charge before tax & promo (Room + Room Service) = " + sumTotalRoom + sumTotalRoomServiceCharge);
         double finalPrice = transMgr.applyTaxPromoRates(sumTotalRoom, sumTotalRoomServiceCharge);
         System.out.println("\t Final Price after tax & promo: " + finalPrice);
 
@@ -391,8 +416,8 @@ public class HotelMgr {
         Transaction trans = transMgr.createNewLog();
         trans.SetRooms(arrayRoom);
         trans.setFinalPrice(finalPrice);
-        
-   
+
+
         //get payment type
         int choice = 0;
         PaymentType paymentType = null;
@@ -415,8 +440,8 @@ public class HotelMgr {
                     break;
             }
         } while (choice != 2 && choice != 1);
-        
-        
+
+
         if (paymentType == PaymentType.Credit) {
             //A must for a guest to have billing info
             System.out.print("Paying by Credit Card...");
@@ -429,31 +454,32 @@ public class HotelMgr {
             System.out.print("Paying by Cash...");
             System.out.print("Please pay the amount : ");
             double inputPrice = 0;
-            do{
+            do {
                 inputPrice = sc.nextDouble();
-                if(inputPrice != finalPrice)
+                if (inputPrice != finalPrice) {
                     System.out.print("Please pay the correct amount");
-                else
+                } else {
                     System.out.print("Proceed to Billing...");
-            }while(inputPrice != finalPrice);
+                }
+            } while (inputPrice != finalPrice);
         }
         //Set Payment in transaction
         trans.setPayType(paymentType);
         //trans.setCreditcard(guest.getBillInfo().getCreditCardType());
-        
+
         //Clean up
         //Clear rooms
-        for(int i = 0; i<arrayRoom.size();i++){
+        for (int i = 0; i < arrayRoom.size(); i++) {
             arrayRoom.get(i).setCurrentOccupancy(0);
             arrayRoom.get(i).getRmService().clear();
             //roomMgr.updatestatus for counting of available rooms
             roomMgr.updateRoomStatus(arrayRoom.get(i).getRoomId(), RoomStatus.Vacant);
         }
-        
+
         //Clear up reservation
         reservation.setPaymentStatus(true);
         reservation.setResStatus(ReservationStatus.Completed);
-        
+
         //Print Success
         System.out.println("Checkout Success");
     }

@@ -367,25 +367,31 @@ public class MainForm {
         System.out.println("2. Visa");
         System.out.println("3. AmericanExpress");
         int card = sc.nextInt();
-        switch(card){
-            case 1:hotelMgr.getGuest(guestId).getBillInfo().setCreditCardType(CreditCardType.MasterCard);break;
-                
-            case 2:hotelMgr.getGuest(guestId).getBillInfo().setCreditCardType(CreditCardType.Visa);break;
-            case 3:hotelMgr.getGuest(guestId).getBillInfo().setCreditCardType(CreditCardType.AmericanExpress);break;
-                
+        switch (card) {
+            case 1:
+                hotelMgr.getGuest(guestId).getBillInfo().setCreditCardType(CreditCardType.MasterCard);
+                break;
+
+            case 2:
+                hotelMgr.getGuest(guestId).getBillInfo().setCreditCardType(CreditCardType.Visa);
+                break;
+            case 3:
+                hotelMgr.getGuest(guestId).getBillInfo().setCreditCardType(CreditCardType.AmericanExpress);
+                break;
+
         }
-        
+
         System.out.println("Enter Credit Card Number:");
         long creditcardnum = sc.nextLong();
         hotelMgr.getGuest(guestId).getBillInfo().setCreditCardNo(creditcardnum);
-        
-        
+
+
         System.out.println("Enter Credit Card Expiry Date in the form of MM/DD/YYYY");
-        
+
         DateFormat dF = DateFormat.getDateInstance(DateFormat.SHORT);
         Calendar cal = Calendar.getInstance();
         Date CreditCardExpireDate = null;
-         try {
+        try {
             CreditCardExpireDate = dF.parse(sc.next());
         } catch (ParseException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -503,29 +509,22 @@ public class MainForm {
             System.out.print("Returning to Guest Management Menu...");
         }
     }
-    
-    public static void printCheckInMenu(){
-        
-        System.out.println("Please Enter Reservation ID for Check In");
+
+    public static void printCheckInMenu() {
+        System.out.println("\t--This is the Check In Form--");
+        System.out.print("Please Enter Reservation ID for Check In : ");
         String resId = sc.next();
-        
-          if (hotelMgr.checkExisitingReservation(resId) == true) {
-           
-           hotelMgr.checkInProcudure(resId);
-            
-            
+
+        if (hotelMgr.checkExisitingReservation(resId) == true) {
+            hotelMgr.checkInProcudure(resId);
         } else {
             System.out.println("There is not such reservation.");
+            System.out.print("Returning to Main Menu...");
             return;
         }
         
-        
-        
+        System.out.println("\t--This is the end of Check In Form--");
     }
-    
-    
-    
-    
 
     public static void printRoomOccupancyReport() {
         hotelMgr.printRoomOccupancyReport();
@@ -686,8 +685,8 @@ public class MainForm {
             }
         }
 
-        
-        System.out.println("Reservation ID: "+resId+" has been created");
+
+        System.out.println("Reservation ID: " + resId + " has been created");
     }
 
     public static void printUpdateReservationMenu() {
@@ -704,8 +703,8 @@ public class MainForm {
                 } else {
                     System.out.println("There is not such reservation. Please enter a valid id or 0 to return to Reservation Menu");
                 }
-                
-                if(resId == String.valueOf(0)){
+
+                if (resId == String.valueOf(0)) {
                     break;
                 }
             } while (!resId.isEmpty());
@@ -722,7 +721,7 @@ public class MainForm {
 
             //Print Options to update
             System.out.println("What would u like to change ?");
-         
+
             System.out.println("1 : Guest in charge");
             System.out.println("2 : No of Adults");
             System.out.println("3 : No of Children");
@@ -732,18 +731,18 @@ public class MainForm {
                 System.out.print("Please select a choice : ");
                 choice = sc.nextInt();
                 switch (choice) {
-              
+
                     case 1:
                         System.out.println("Please enter the guest Id : ");
-                       
+
                         break;
                     case 2:
                         System.out.println("Please enter the no of adults : ");
-                       
+
                         break;
                     case 3:
                         System.out.println("Please enter the no of children : ");
-                        
+
                         break;
                     case 4:
                         System.out.println("Returning to Reservation Management Menu...");
@@ -815,7 +814,6 @@ public class MainForm {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
 
     public static void printReservationReceiptMenu() {
         String resId = "0";
@@ -848,12 +846,12 @@ public class MainForm {
 
         System.out.print("Enter the reservation Id :");
         resId = sc.next();
-        
+
         if (hotelMgr.checkExisitingReservation(resId) == true) {
-           
-           hotelMgr.checkOutprocedure(resId);
-            
-            
+
+            hotelMgr.checkOutprocedure(resId);
+
+
         } else {
             System.out.println("There is not such reservation.");
             return;
@@ -861,6 +859,7 @@ public class MainForm {
 
     }
     //Standby Code
+
     public static PaymentType requestPaymentType() {
         int choice = 0;
         do { //Print Reservation Menu
