@@ -13,13 +13,13 @@ public class TransactionMgr implements Manager {
 
     private double promoRate;
     private double gstRate;
-    private ArrayList<Transaction> arrayReservation;
+    private ArrayList<Transaction> arrayTransaction;
     private PersistenceStrategy strategy;
     private List datalist;
 
     //Constructor
     public TransactionMgr() {
-        arrayReservation = new ArrayList<Transaction>();
+        arrayTransaction = new ArrayList<Transaction>();
         // prepares the file strategy to Respecitve data directory 
         strategy = new FilePersistenceStrategy(new File(System.getProperty("user.dir") + "/src/HRPS/data/Transaction"));
         // creates the list and linkage to data directory
@@ -32,7 +32,7 @@ public class TransactionMgr implements Manager {
     }
 
     public TransactionMgr(int promo, int gst) {
-        arrayReservation = new ArrayList<Transaction>();
+        arrayTransaction = new ArrayList<Transaction>();
         // prepares the file strategy to Respecitve data directory 
         strategy = new FilePersistenceStrategy(new File(System.getProperty("user.dir") + "/src/HRPS/data/Transaction"));
         // creates the list and linkage to data directory
@@ -59,9 +59,14 @@ public class TransactionMgr implements Manager {
         this.gstRate = gstRate;
     }
 
-    public void createTransaction(Transaction transaction) {
-        // TODO - implement TransactionMgr.createTransaction
-        throw new UnsupportedOperationException();
+    public boolean createTransaction(Transaction transaction) {
+         try {
+            arrayTransaction.add(transaction);
+        } catch (Exception ex) {
+            System.out.println("Failed to create " + transaction.getTransactionId() + " to data directory");
+            return false;
+        }
+        return true;
     }
 
     public void getTransaction(int transactionId) {
@@ -79,11 +84,21 @@ public class TransactionMgr implements Manager {
         finalPrice += roomServicePrice + (roomServicePrice * this.gstRate);
         return finalPrice;
     }
+    
+    public String generateTransId() {
+        return "T" + (arrayTransaction.size() + 1);
+    }
+    
+    public Transaction createNewLog(){
+        Transaction trans = new Transaction(generateTransId());
+        this.createTransaction(trans);
+        return trans;
+    }
 
     @Override
     public boolean createToFile() {
         try {
-            for (Iterator it = arrayReservation.iterator(); it.hasNext();) {
+            for (Iterator it = arrayTransaction.iterator(); it.hasNext();) {
                 Transaction transaction = (Transaction) it.next();
                 datalist.add(transaction);
             }
@@ -100,7 +115,7 @@ public class TransactionMgr implements Manager {
             //for each reservation in reservation folder, creates an reservation object in reservationarray
         for (Iterator it = datalist.iterator(); it.hasNext();) {
             Transaction transaction = (Transaction) it.next();
-            arrayReservation.add(transaction);
+            arrayTransaction.add(transaction);
         }
         } catch (Exception ex) {
             System.out.println("Failed to retrive all from data directory");

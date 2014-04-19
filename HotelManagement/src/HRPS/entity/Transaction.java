@@ -11,6 +11,14 @@ public class Transaction {
     private CreditCardType creditcard;
     private Guest guest;
     private String resId;
+    private PaymentType payType;
+    
+    public Transaction(){
+    }
+    
+    public Transaction(String transId){
+        this.transactionId = transId;
+    }
 
     public String getResId() {
         return resId;
@@ -66,5 +74,13 @@ public class Transaction {
 
     public void setGstRate(int gstRate) {
         this.gstRate = gstRate;
+    }
+
+    public PaymentType getPayType() {
+        return payType;
+    }
+
+    public void setPayType(PaymentType payType) {
+        this.payType = payType;
     }
 }

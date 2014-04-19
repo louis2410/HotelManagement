@@ -798,7 +798,7 @@ public class MainForm {
         System.out.print("Enter the reservation Id :");
         resId = sc.next();
         if (hotelMgr.checkExisitingReservation(resId)) {
-            hotelMgr.startCheckOut(resId);
+            hotelMgr.checkOutprocedure(resId);
             PaymentType paymentType = requestPaymentType();
             //Unable to follow seq Diagram
             hotelMgr.W
@@ -809,7 +809,7 @@ public class MainForm {
         }
 
     }
-
+    //Standby Code
     public static PaymentType requestPaymentType() {
         int choice = 0;
         do { //Print Reservation Menu

@@ -77,7 +77,6 @@ public class RoomMgr implements Manager {
     }
 
     //UpdateRoomStatus
-
     public boolean updateRoomStatus(String RoomId, RoomStatus rmstats) {
 
         for (int i = 0; i < arrayRoom.size(); i++) {
@@ -139,12 +138,6 @@ public class RoomMgr implements Manager {
     }
     //NOT IN USE, u CANNOT DELETE A ROOM ANYMORE
 
-   
-      
-    
-    
-
-
     public boolean removeRoom(String RoomId) {
         for (int i = 0; i < arrayRoom.size(); i++) {
             //if match then delete
@@ -164,6 +157,18 @@ public class RoomMgr implements Manager {
             }
         }
         return null;
+    }
+
+    public ArrayList<Room> getRooms(ArrayList<String> roomIds) {
+        ArrayList<Room> rooms = new ArrayList();
+        for (int i = 0; i < arrayRoom.size(); i++) {
+            for (int j = 0; j < roomIds.size(); j++) {
+                if (arrayRoom.get(i).getRoomId().equals(roomIds.get(j))) {
+                    rooms.add(arrayRoom.get(i));
+                }
+            }
+        }
+        return rooms;
     }
 
     public void printRoomOccupancyReport() {
@@ -361,6 +366,5 @@ public class RoomMgr implements Manager {
     @Override
     public void setup() {
         this.retrieveFromFile();
-
     }
 }

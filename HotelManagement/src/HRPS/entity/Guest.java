@@ -15,6 +15,7 @@ public class Guest {
     private int contactNo;
     private String email;
     private ArrayList<Guest> AssoGuest;
+    private BillingInformation billInfo;
 
     public Guest() {
     }
@@ -168,5 +169,13 @@ public class Guest {
         display +="Contact No \t : " + this.contactNo + "\n";
         
         return display;
+    }
+
+    public BillingInformation getBillInfo() {
+        return billInfo;
+    }
+
+    public void setBillInfo(BillingInformation billInfo) {
+        this.billInfo = billInfo;
     }
 }

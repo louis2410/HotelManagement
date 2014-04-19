@@ -1,9 +1,7 @@
 package HRPS.controller;
 
-import HRPS.entity.Guest;
 import HRPS.entity.ReservationStatus;
 import HRPS.entity.Reservation;
-import HRPS.entity.Room;
 import HRPS.entity.RoomType;
 import com.thoughtworks.xstream.persistence.FilePersistenceStrategy;
 import com.thoughtworks.xstream.persistence.PersistenceStrategy;
@@ -13,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.text.SimpleDateFormat;
 
 public class ReservationMgr implements Manager {
 
