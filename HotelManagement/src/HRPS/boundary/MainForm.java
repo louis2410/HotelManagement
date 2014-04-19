@@ -503,12 +503,34 @@ public class MainForm {
             System.out.print("Returning to Guest Management Menu...");
         }
     }
+    
+    public static void printCheckInMenu(){
+        
+        System.out.println("Please Enter Reservation ID for Check In");
+        String resId = sc.next();
+        
+          if (hotelMgr.checkExisitingReservation(resId) == true) {
+           
+           hotelMgr.checkInProcudure(resId);
+            
+            
+        } else {
+            System.out.println("There is not such reservation.");
+            return;
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
 
     public static void printRoomOccupancyReport() {
         hotelMgr.printRoomOccupancyReport();
     }
 
-    //Arthur : Bryan
     public static void printReservationMenu() {
         //Parameters
         int choice;
@@ -700,40 +722,30 @@ public class MainForm {
 
             //Print Options to update
             System.out.println("What would u like to change ?");
-            System.out.println("1 : Check In date");
-            System.out.println("2 : No of Days");
-            System.out.println("3 : No of Rooms");
-            System.out.println("4 : Guest in charge");
-            System.out.println("5 : No of Adults");
-            System.out.println("6 : No of Children");
-            System.out.println("7 : Return to Reservation Management Menu");
+         
+            System.out.println("1 : Guest in charge");
+            System.out.println("2 : No of Adults");
+            System.out.println("3 : No of Children");
+            System.out.println("4 : Return to Reservation Management Menu");
 
             do {
                 System.out.print("Please select a choice : ");
                 choice = sc.nextInt();
                 switch (choice) {
+              
                     case 1:
-                        System.out.print("Please enter a new Check In date : ");
+                        System.out.println("Please enter the guest Id : ");
+                       
                         break;
                     case 2:
-                        System.out.print("Please enter the no of days : ");
+                        System.out.println("Please enter the no of adults : ");
+                       
                         break;
                     case 3:
-                        System.out.print("Please enter the no of rooms  : ");
+                        System.out.println("Please enter the no of children : ");
+                        
                         break;
                     case 4:
-                        System.out.println("Please enter the guest Id : ");
-                        printMainMenu();
-                        break;
-                    case 5:
-                        System.out.println("Please enter the no of adults : ");
-                        printMainMenu();
-                        break;
-                    case 6:
-                        System.out.println("Please enter the no of children : ");
-                        printMainMenu();
-                        break;
-                    case 7:
                         System.out.println("Returning to Reservation Management Menu...");
                         return;
                     default:
@@ -746,7 +758,6 @@ public class MainForm {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    //Arthur : Bryan
 
     public static void printRemoveReservationMenu() {
         String resId = " ";
@@ -804,7 +815,7 @@ public class MainForm {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    //Arthur : Bryan
+   
 
     public static void printReservationReceiptMenu() {
         String resId = "0";

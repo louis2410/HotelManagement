@@ -1,0 +1,10 @@
+<HRPS.entity.SingleRoom>
+  <maxOccupancy>1</maxOccupancy>
+  <roomId>0420</roomId>
+  <floor>4</floor>
+  <roomStatus>Vacant</roomStatus>
+  <roomType>Single</roomType>
+  <currentOccupancy>0</currentOccupancy>
+  <bedType>Single</bedType>
+  <ArrayRoomService/>
+</HRPS.entity.SingleRoom>

@@ -161,18 +161,15 @@ public class HotelMgr {
      *
      * @param resId
      */
-    public boolean checkInByReservation(int resId) {
-        // TODO - implement HotelMgr.checkInByReservation
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     *
-     * @param guest
-     */
-    public boolean checkInByGuest(String guest) {
-        // TODO - implement HotelMgr.checkInByGuest
-        throw new UnsupportedOperationException();
+    public void checkInProcudure(String resId) {
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
     /**
