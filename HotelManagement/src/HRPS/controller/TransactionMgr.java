@@ -117,13 +117,14 @@ public class TransactionMgr implements Manager {
         for (Iterator it = datalist.iterator(); it.hasNext();) {
             Transaction transaction = (Transaction) it.next();
             arrayTransaction.add(transaction);
-            System.out.println("XML to transaction complete");
+            
         }
+
         } catch (Exception ex) {
             System.out.println("Failed to retrive transaction from data directory");
             return false;
         }
-        System.out.println("XML To Reservation Complete");
+             System.out.println("Transaction XML to arrayTransaction complete");
         return true;
     }
 

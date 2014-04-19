@@ -141,14 +141,18 @@ public class GuestMgr {
 
     public Guest getGuest(String guestId) {
         for (int i = 0; i < arrayGuest.size(); i++) {
-            System.out.println(arrayGuest.get(i).getGuestId());
             if (arrayGuest.get(i).getGuestId().equals(guestId)) {
+                System.out.println("found");
                 return arrayGuest.get(i);
             }
         }
         return null;
     }
 
+    
+    
+    
+    
     public void setup() {
         this.retrieveFromFile();
         //this.DeleteFromFile();

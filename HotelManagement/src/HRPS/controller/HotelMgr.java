@@ -425,7 +425,7 @@ public class HotelMgr {
             System.out.print("Paying by Credit Card...");
             if (guest.getBillInfo().getCreditCardNo() != 0) {
                 //Display Request Credit Card No
-                System.out.println(guest.getBillInfo().toString());
+                System.out.println(guest.getBillInfo().getCreditCardNo());
             }
             System.out.print("Proceed to Billing...");
         } else if (paymentType == PaymentType.Cash) {

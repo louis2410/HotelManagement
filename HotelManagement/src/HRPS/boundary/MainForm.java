@@ -336,27 +336,61 @@ public class MainForm {
         System.out.print("Please input the email: ");
         String email = sc.next();
         hotelMgr.createGuest(guestId, FirstName, lastName, title, address, country, gender, contactNo, email);
-        System.out.print("Is there any associate guest? Yes = y No = n ");
-        boolean assoguestchoice = false;
-        String output = sc.next();
-        if (output.equalsIgnoreCase("y")) {
-            assoguestchoice = true;
+//        System.out.print("Is there any associate guest? Yes = y No = n ");
+//        boolean assoguestchoice = false;
+//        String output = sc.next();
+//        if (output.equalsIgnoreCase("y")) {
+//            assoguestchoice = true;
+//        }
+//        while (assoguestchoice) {
+//            System.out.println("Please input the associate guest Id");
+//            String AssoguestId = sc.next();
+//            if (hotelMgr.checkExistingGuest(AssoguestId)) {
+//                hotelMgr.getGuest(guestId).setAssoGuest(hotelMgr.getGuest(AssoguestId));
+//            } else {
+//                System.out.println("There is no such guest exist in the system.");
+//            }
+//            System.out.print("Is there any more associate guest? Yes = 1 No = 0 ");
+//            if (sc.next().equals("y")) {
+//                assoguestchoice = true;
+//            } else {
+//                assoguestchoice = false;
+//            }
+//        }
+//        
+        //Billing Info
+        System.out.println("Please Enter Billing Info");
+        System.out.println(address);
+        hotelMgr.getGuest(guestId).getBillInfo().setBillAddress(address);
+        System.out.println("Enter Credit Card Type:");
+        System.out.println("1. Mastercard");
+        System.out.println("2. Visa");
+        System.out.println("3. AmericanExpress");
+        int card = sc.nextInt();
+        switch(card){
+            case 1:hotelMgr.getGuest(guestId).getBillInfo().setCreditCardType(CreditCardType.MasterCard);break;
+                
+            case 2:hotelMgr.getGuest(guestId).getBillInfo().setCreditCardType(CreditCardType.Visa);break;
+            case 3:hotelMgr.getGuest(guestId).getBillInfo().setCreditCardType(CreditCardType.AmericanExpress);break;
+                
         }
-        while (assoguestchoice) {
-            System.out.println("Please input the associate guest Id");
-            String AssoguestId = sc.next();
-            if (hotelMgr.checkExistingGuest(AssoguestId)) {
-                hotelMgr.getGuest(guestId).setAssoGuest(hotelMgr.getGuest(AssoguestId));
-            } else {
-                System.out.println("There is no such guest exist in the system.");
-            }
-            System.out.print("Is there any more associate guest? Yes = y No = n ");
-            if (sc.next().equals("y")) {
-                assoguestchoice = true;
-            } else {
-                assoguestchoice = false;
-            }
+        
+        System.out.println("Enter Credit Card Number:");
+        long creditcardnum = sc.nextLong();
+        hotelMgr.getGuest(guestId).getBillInfo().setCreditCardNo(creditcardnum);
+        
+        
+        System.out.println("Enter Credit Card Expiry Date in the form of MM/DD/YYYY");
+        
+        DateFormat dF = DateFormat.getDateInstance(DateFormat.SHORT);
+        Calendar cal = Calendar.getInstance();
+        Date CreditCardExpireDate = null;
+         try {
+            CreditCardExpireDate = dF.parse(sc.next());
+        } catch (ParseException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        hotelMgr.getGuest(guestId).getBillInfo().setCreditCardExpiryDate(CreditCardExpireDate);
 
         System.out.println("\t--This is the end of Guest Creation Form--");
         System.out.println("Returning to Guest Management Menu...");

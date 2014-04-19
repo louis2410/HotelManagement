@@ -10,6 +10,11 @@ public class BillingInformation {
 	private CreditCardType creditCardType;
 	private Date creditCardExpiryDate;
 
+        
+        public BillingInformation(){
+            
+        }
+        
 	public String getBillAddress() {
 		return this.billAddress;
 	}

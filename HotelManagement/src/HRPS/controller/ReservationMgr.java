@@ -189,7 +189,7 @@ public class ReservationMgr implements Manager {
             System.out.println("Failed to retrive all from data directory");
             return false;
         }
-        System.out.println("XML To Reservation Complete");
+        System.out.println("Reservation XML To arrayReservation Complete");
         return true;
     }
 

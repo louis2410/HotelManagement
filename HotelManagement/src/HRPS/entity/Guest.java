@@ -32,6 +32,7 @@ public class Guest {
         this.lastName = lastName;
         this.title = title;
         this.AssoGuest = new ArrayList();
+        this.billInfo = new BillingInformation();
     }
 
     public String getGuestId() {
@@ -172,7 +173,7 @@ public class Guest {
     }
 
     public BillingInformation getBillInfo() {
-        return billInfo;
+        return this.billInfo;
     }
 
     public void setBillInfo(BillingInformation billInfo) {
