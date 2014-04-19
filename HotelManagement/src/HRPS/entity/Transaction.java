@@ -1,5 +1,6 @@
 package HRPS.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Transaction {
@@ -12,6 +13,8 @@ public class Transaction {
     private Guest guest;
     private String resId;
     private PaymentType payType;
+    private ArrayList<Room> arrayRoom;
+    private double finalprice;
     
     public Transaction(){
     }
@@ -20,9 +23,34 @@ public class Transaction {
         this.transactionId = transId;
     }
 
-    public String getResId() {
-        return resId;
+    
+    public void setFinalPrice(double finalprice)
+    {
+        this.finalprice = finalprice;
     }
+    
+    public double getFinalPrice(){
+        return this.finalprice;
+    }
+    
+    
+     public ArrayList<Room> getRooms(ArrayList<String> roomIds) {
+        ArrayList<Room> rooms = new ArrayList();
+        for (int i = 0; i < arrayRoom.size(); i++) {
+            for (int j = 0; j < roomIds.size(); j++) {
+                if (arrayRoom.get(i).getRoomId().equals(roomIds.get(j))) {
+                    rooms.add(arrayRoom.get(i));
+                }
+            }
+        }
+        return rooms;
+    }
+     
+      public void SetRooms(ArrayList<Room> roomIds) {
+            this.arrayRoom = roomIds;
+       
+        }
+     
 
     public void setResId(String resId) {
         this.resId = resId;

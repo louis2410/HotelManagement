@@ -136,8 +136,8 @@ public class RoomMgr implements Manager {
 
         return false;
     }
-    //NOT IN USE, u CANNOT DELETE A ROOM ANYMORE
-
+   
+  
     public boolean removeRoom(String RoomId) {
         for (int i = 0; i < arrayRoom.size(); i++) {
             //if match then delete

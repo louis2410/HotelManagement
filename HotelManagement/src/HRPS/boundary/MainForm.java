@@ -630,6 +630,8 @@ public class MainForm {
             }
         }
 
+        
+        System.out.println("Reservation ID: "+resId+" has been created");
     }
 
     public static void printUpdateReservationMenu() {
@@ -644,7 +646,11 @@ public class MainForm {
                 if (hotelMgr.checkExisitingReservation(resId)) {
                     break;
                 } else {
-                    System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
+                    System.out.println("There is not such reservation. Please enter a valid id or 0 to return to Reservation Menu");
+                }
+                
+                if(resId == String.valueOf(0)){
+                    break;
                 }
             } while (!resId.isEmpty());
 
@@ -797,11 +803,11 @@ public class MainForm {
 
         System.out.print("Enter the reservation Id :");
         resId = sc.next();
-        if (hotelMgr.checkExisitingReservation(resId)) {
-            hotelMgr.checkOutprocedure(resId);
-            PaymentType paymentType = requestPaymentType();
-            //Unable to follow seq Diagram
-            hotelMgr.W
+        
+        if (hotelMgr.checkExisitingReservation(resId) == true) {
+           
+           hotelMgr.checkOutprocedure(resId);
+            
             
         } else {
             System.out.println("There is not such reservation.");

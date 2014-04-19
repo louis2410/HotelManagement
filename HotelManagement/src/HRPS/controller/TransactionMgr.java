@@ -101,6 +101,7 @@ public class TransactionMgr implements Manager {
             for (Iterator it = arrayTransaction.iterator(); it.hasNext();) {
                 Transaction transaction = (Transaction) it.next();
                 datalist.add(transaction);
+                System.out.println("Transaction to XML");
             }
         } catch (Exception ex) {
             System.out.println("Failed to write to data directory");
@@ -116,9 +117,10 @@ public class TransactionMgr implements Manager {
         for (Iterator it = datalist.iterator(); it.hasNext();) {
             Transaction transaction = (Transaction) it.next();
             arrayTransaction.add(transaction);
+            System.out.println("XML to transaction complete");
         }
         } catch (Exception ex) {
-            System.out.println("Failed to retrive all from data directory");
+            System.out.println("Failed to retrive transaction from data directory");
             return false;
         }
         System.out.println("XML To Reservation Complete");
@@ -132,6 +134,7 @@ public class TransactionMgr implements Manager {
             for (Iterator it = datalist.iterator(); it.hasNext();) {
                  Transaction transaction = (Transaction) it.next();
                 it.remove();
+                System.out.println("Delete Transaction XML");
             }
         } catch (Exception ex) {
             System.out.println("Failed to delete all from data directory");

@@ -150,6 +150,7 @@ public class ReservationMgr implements Manager {
             for (Iterator it = arrayReservation.iterator(); it.hasNext();) {
                 Reservation reservation = (Reservation) it.next();
                 datalist.add(reservation);
+                System.out.println("Reservation to XML Complete");
             }
         } catch (Exception ex) {
             System.out.println("Failed to write to data directory");
@@ -166,6 +167,7 @@ public class ReservationMgr implements Manager {
             for (Iterator it = datalist.iterator(); it.hasNext();) {
                 Reservation reservation = (Reservation)it.next();
                 it.remove();
+                System.out.println("Delete Reservation XML complete");
             }
         } catch (Exception ex) {
             System.out.println("Failed to delete all from data directory");

@@ -93,6 +93,8 @@ public abstract class Room {
         this.ArrayRoomService.add(rmService);
         return true;
     }
+    
+   
 
     public void clearRmService() {
         this.ArrayRoomService.clear();

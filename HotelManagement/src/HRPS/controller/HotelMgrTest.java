@@ -6,7 +6,10 @@
 
 package HRPS.controller;
 
-import HRPS.entity.RoomType;
+import HRPS.entity.*;
+import java.util.*;
+import java.util.List;
+
 
 /**
  *
@@ -15,12 +18,31 @@ import HRPS.entity.RoomType;
 public class HotelMgrTest {
     
     public static void main(String[] args) {
+   int choice = 0;
+        PaymentType paymentType = null;
+        Scanner sc = new Scanner(System.in);System.out.println("How you like to pay ? Please slect one of following payment methods.");
+            System.out.println("1 : Cash");
+            System.out.println("2 : Credit Cardt");
+            System.out.print("Please select a choice : ");
+        do { //Print Reservation Menu
+            System.out.println("How you like to pay ? Please slect one of following payment methods.");
+            System.out.println("1 : Cash");
+            System.out.println("2 : Credit Card");
+            System.out.print("Please select a choice : ");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    paymentType = PaymentType.Cash;
+                    break;
+                case 2:
+                    paymentType = PaymentType.Credit;
+                    break;
+                default:
+                    System.out.println("Please enter a value from 1 to 2.");
+                    break;
+            }
+        } while ((choice != 2) && (choice !=1));
     
-        HotelMgr hotelMgr = new HotelMgr();
-        boolean success = hotelMgr.createRoomBasedonType(1);
-        hotelMgr.OutputToXML();
-        
-    }
     
-    
+}
 }

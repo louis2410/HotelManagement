@@ -88,6 +88,8 @@ public class HotelMgr {
         roomMgr.createToFile();
         resMgr.deleteFromFile();
         resMgr.createToFile();
+        transMgr.deleteFromFile();
+        transMgr.createToFile();
     }
 
     //ReservationScheduleCheck
@@ -224,7 +226,7 @@ public class HotelMgr {
         return true;
     }
 
-    //Arthur : Bryan
+ 
     public boolean checkExistingGuest(String guestId) {
         if (guestMgr.getGuest(guestId) != null) {
             return true;
@@ -232,7 +234,7 @@ public class HotelMgr {
             return false;
         }
     }
-    //Arthur : Bryan
+  
 
     public String displayGuestDetails(String guestId) {
         return guestMgr.getGuest(guestId).toString();
@@ -306,7 +308,7 @@ public class HotelMgr {
 
         return singleDisplay + singleCount + standardDisplay + standardCount + suitDisplay + vipDisplay;
     }
-    //Arthur : Bryan
+   
 
     public boolean checkExisitingReservation(String resId) {
         if (resMgr.getReservation(resId) != null) {
@@ -317,12 +319,11 @@ public class HotelMgr {
 
     }
 
-    //Arthur : Bryan
+ 
     public String displayReservationDetails(String resId) {
         return resMgr.getReservation(resId).toString();
     }
 
-    //Arthur : Bryan
     public boolean checkAllowReservationStatus(String resId) {
         if (resMgr.getReservation(resId).getResStatus() == ReservationStatus.Check_In
                 || resMgr.getReservation(resId).getResStatus() == ReservationStatus.Expired) {
@@ -335,6 +336,7 @@ public class HotelMgr {
 
     public void checkOutprocedure(String reservationId) {
         //Request Reservation
+        
         Reservation reservation = resMgr.getReservation(reservationId);
         //Request Room
         ArrayList<Room> arrayRoom = roomMgr.getRooms(reservation.getAssociatedRooms());
@@ -346,39 +348,62 @@ public class HotelMgr {
         Calendar start = Calendar.getInstance();
         start.setTime(reservation.getResCheckInDate());
         Calendar end = Calendar.getInstance();
-        start.setTime(reservation.getResCheckOutDate());
+        end.setTime(reservation.getResCheckOutDate());
 
         while (!start.equals(end)) {
             int dayOfWeek = start.get(Calendar.DAY_OF_WEEK);
-            if (dayOfWeek <= 5) {
+            if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY) {
                 weekDay++;
-            } else {
+            } else{
                 weekEnd++;
             }
             start.add(Calendar.DATE, 1);
         }
+        
+        //Printout price breakdown
         System.out.println("WeekDay : " + weekDay + " WeekEnd : " + weekEnd);
-        System.out.println("\t--Room Price Break Down--");
-        double totalRoomPrice = 0, totalRoomServicePrice = 0;
-        //DisplayRoomPriceBreakDown(); // I am supposed to call GUI's DisplayRoomPriceBreakDown()
+        System.out.println("\t=== Room Price Break Down ===");
+        double totalRoomPrice = 0, totalRoomServiceCharge = 0;
+        double sumTotalRoom = 0, sumTotalRoomServiceCharge =0;
         for (int i = 0; i < arrayRoom.size(); i++) {
             System.out.println(i + 1 + "\tRoom " + arrayRoom.get(i).getRoomId() + "; Type : " + arrayRoom.get(i).getRoomType());
+            System.out.println("WeekDay Rates: " + arrayRoom.get(i).getweekdayRoomRate()+"Per day for "+ weekDay+"days");
+            System.out.println("WeekEnd Rates: "+ arrayRoom.get(i).getweekendRoomRate()+ "Per day for "+ weekEnd+"days");
             double weekDayPrice = (weekDay * arrayRoom.get(i).getweekdayRoomRate());
             double weekEndPrice = (weekEnd * arrayRoom.get(i).getweekendRoomRate());
-            System.out.println("\t Price: " + (weekDayPrice + weekEndPrice));
+            System.out.println("\t Total Room Price: " + (weekDayPrice + weekEndPrice));
+            totalRoomPrice = weekDayPrice + weekEndPrice;
+            sumTotalRoom += totalRoomPrice;
+            
+            System.out.println("=== Room Service===");
+            for(int c = 0; c<arrayRoom.get(i).getRmService().size();c++){
+                System.out.println("Room Service "+c+ " = " +arrayRoom.get(i).getRmService().get(c).getRmServicePrice());
+                totalRoomServiceCharge += arrayRoom.get(i).getRmService().get(c).getRmServicePrice();         
+            }
+            System.out.println("Total Room Service Charge = "+totalRoomServiceCharge);
+            sumTotalRoomServiceCharge += totalRoomServiceCharge;
+            
+            
         }
-        double finalPrice = transMgr.applyTaxPromoRates(totalRoomPrice, totalRoomServicePrice);
-        System.out.println("\t Final Price: " + finalPrice);
+        
+        System.out.println("Total Charge before tax & promo (Room + Room Service) = "+ sumTotalRoom + sumTotalRoomServiceCharge);
+        double finalPrice = transMgr.applyTaxPromoRates(sumTotalRoom, sumTotalRoomServiceCharge);
+        System.out.println("\t Final Price after tax & promo: " + finalPrice);
 
+        //Create transaction and set attributes
         Transaction trans = transMgr.createNewLog();
-
+        trans.SetRooms(arrayRoom);
+        trans.setFinalPrice(finalPrice);
+        
+   
+        //get payment type
         int choice = 0;
         PaymentType paymentType = null;
         Scanner sc = new Scanner(System.in);
         do { //Print Reservation Menu
             System.out.println("How you like to pay ? Please slect one of following payment methods.");
             System.out.println("1 : Cash");
-            System.out.println("2 : Credit Cardt");
+            System.out.println("2 : Credit Card");
             System.out.print("Please select a choice : ");
             choice = sc.nextInt();
             switch (choice) {
@@ -392,8 +417,9 @@ public class HotelMgr {
                     System.out.println("Please enter a value from 1 to 2.");
                     break;
             }
-        } while (choice != 2 || choice != 1);
-
+        } while (choice != 2 && choice != 1);
+        
+        
         if (paymentType == PaymentType.Credit) {
             //A must for a guest to have billing info
             System.out.print("Paying by Credit Card...");
@@ -414,9 +440,24 @@ public class HotelMgr {
                     System.out.print("Proceed to Billing...");
             }while(inputPrice != finalPrice);
         }
+        //Set Payment in transaction
+        trans.setPayType(paymentType);
+        //trans.setCreditcard(guest.getBillInfo().getCreditCardType());
         
-        reservation.setResStatus(ReservationStatus.Confirmed);
-        //Hanged....
-
+        //Clean up
+        //Clear rooms
+        for(int i = 0; i<arrayRoom.size();i++){
+            arrayRoom.get(i).setCurrentOccupancy(0);
+            arrayRoom.get(i).getRmService().clear();
+            //roomMgr.updatestatus for counting of available rooms
+            roomMgr.updateRoomStatus(arrayRoom.get(i).getRoomId(), RoomStatus.Vacant);
+        }
+        
+        //Clear up reservation
+        reservation.setPaymentStatus(true);
+        reservation.setResStatus(ReservationStatus.Completed);
+        
+        //Print Success
+        System.out.println("Checkout Success");
     }
 }
