@@ -27,17 +27,18 @@ public class RoomsInit {
                 
                 rmId = String.format("%02d",f) + String.format("%02d",r);
                 System.out.println(rmId);
-                
+                //Level 1 to 4 Single Rooms
                 if(f <= 4){
                     roomMgr.createSingleRoom(rmId, f);
-                }
+                }//Level 4 to 7 Standard Rooms
                 if(f > 4 && f <= 7 ){
                     roomMgr.createStandardRoom(rmId, f);
                 }
-                    
+                // Level 7 to 9 Suites Rooms
                 if(f> 7 && f <= 9){
                     roomMgr.createSuiteRoom(rmId, f);
                 }
+                // Level 10 VIP Rooms
                 if(f>9){
                     roomMgr.createVIPRoom(rmId, f);
                 }

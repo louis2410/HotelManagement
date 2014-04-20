@@ -58,7 +58,7 @@ public class Guest {
      */
     public void setFirstName(String name) {
         // TODO - implement Guest.setFirstName
-        throw new UnsupportedOperationException();
+        this.FirstName = name;
     }
 
     public String getLastName() {

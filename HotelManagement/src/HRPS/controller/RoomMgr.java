@@ -311,59 +311,7 @@ public class RoomMgr implements Manager {
 
     }
 
-    //RoomID Generation not in use anymore
-//    public String generateRoomId(RoomType roomtype) {
-//        String id = "Rooms have reached limit";
-//        switch (roomtype) {
-//
-//            case Single:
-//                for (int i = 0; i < singleArray.length; i++) {
-//                    //first element which is empty
-//                    if (singleArray[i] == false) {
-//                        id = "Single" + Integer.toString(i);
-//                        singleArray[i] = true;
-//                        break;
-//                    }
-//                }
-//                return id;
-//
-//            case Standard:
-//                for (int i = 0; i < standardArray.length; i++) {
-//                    //first element which is empty
-//                    if (standardArray[i] == false) {
-//                        id = "Standard" + Integer.toString(i);
-//                        standardArray[i] = true;
-//                        break;
-//                    }
-//                }
-//                return id;
-//
-//            case VIP:
-//                for (int i = 0; i < VIPArray.length; i++) {
-//                    //first element which is empty
-//                    if (VIPArray[i] == false) {
-//                        id = "VIP" + Integer.toString(i);
-//                        VIPArray[i] = true;
-//                        break;
-//                    }
-//                }
-//                return id;
-//
-//            case Suite:
-//                for (int i = 0; i < suiteArray.length; i++) {
-//                    //first element which is empty
-//                    if (suiteArray[i] == false) {
-//                        id = "Suite" + Integer.toString(i);
-//                        suiteArray[i] = true;
-//                        break;
-//                    }
-//                }
-//                return id;
-//
-//
-//        }
-//        return id;
-//    }
+  
     //Create XML from room objects    
     @Override
     public boolean createToFile() {
