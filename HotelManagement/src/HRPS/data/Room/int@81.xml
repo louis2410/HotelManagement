@@ -2,7 +2,7 @@
   <maxOccupancy>2</maxOccupancy>
   <roomId>0502</roomId>
   <floor>5</floor>
-  <roomStatus>Vacant</roomStatus>
+  <roomStatus>Occupied</roomStatus>
   <roomType>Standard</roomType>
   <currentOccupancy>0</currentOccupancy>
   <bedType>Double</bedType>

@@ -1,0 +1,29 @@
+<HRPS.entity.Transaction>
+  <transactionId>T4</transactionId>
+  <promoRate>0</promoRate>
+  <gstRate>0</gstRate>
+  <payType>Credit</payType>
+  <arrayRoom>
+    <HRPS.entity.StandardRoom>
+      <maxOccupancy>2</maxOccupancy>
+      <roomId>0501</roomId>
+      <floor>5</floor>
+      <roomStatus>Occupied</roomStatus>
+      <roomType>Standard</roomType>
+      <currentOccupancy>0</currentOccupancy>
+      <bedType>Double</bedType>
+      <ArrayRoomService/>
+    </HRPS.entity.StandardRoom>
+    <HRPS.entity.StandardRoom>
+      <maxOccupancy>2</maxOccupancy>
+      <roomId>0502</roomId>
+      <floor>5</floor>
+      <roomStatus>Occupied</roomStatus>
+      <roomType>Standard</roomType>
+      <currentOccupancy>0</currentOccupancy>
+      <bedType>Double</bedType>
+      <ArrayRoomService/>
+    </HRPS.entity.StandardRoom>
+  </arrayRoom>
+  <finalprice>426.93</finalprice>
+</HRPS.entity.Transaction>

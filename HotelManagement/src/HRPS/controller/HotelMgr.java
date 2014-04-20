@@ -1,6 +1,7 @@
 package HRPS.controller;
 
 import HRPS.entity.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
@@ -166,11 +167,19 @@ public class HotelMgr {
         ArrayList<Room> arrayRoom = roomMgr.getRooms(res.getAssociatedRooms());
         Calendar now = Calendar.getInstance();
         Date checkIn = now.getTime();
-        // Needs testing...
-        if (checkIn.equals(res.getResCheckInDate())) {
-            if (now.HOUR_OF_DAY > (checkInTime + 1)) {
-                //Reservation Expiration
-                System.out.println("This reservation has expired");
+        SimpleDateFormat df = new SimpleDateFormat("MM/DD/YYYY");
+        
+        
+       
+        
+     
+        //Check In on correct date
+         if(df.format(checkIn).equals(df.format(res.getResCheckInDate()))){
+             
+             //Reservation Expired
+             //CheckInTime is 1pm, remember to add accordingly for testing
+             if(now.HOUR_OF_DAY>(checkInTime+9)){
+                 
                 resMgr.getReservation(res.getResId()).setResStatus(ReservationStatus.Expired);
                 //Clear rooms
                 for (int i = 0; i < arrayRoom.size(); i++) {
@@ -180,17 +189,18 @@ public class HotelMgr {
                     roomMgr.updateRoomStatus(arrayRoom.get(i).getRoomId(), RoomStatus.Vacant);
                 }
                 return;
-            }
-        }
-
-        //Print Guest
+                 
+                 
+             }
+             
+                 //Print Guest
         System.out.println(guestMgr.getGuest(res.getAssociatedGuest().toString()));
 
         //Update Reservation Status
         resMgr.getReservation(res.getResId()).setResStatus(ReservationStatus.Check_In);
         //Update Rooms Status
         for (int i = 0; i < arrayRoom.size(); i++) {
-            //Set how many?
+            //Set to 1
             arrayRoom.get(i).setCurrentOccupancy(1);
             //roomMgr.updatestatus for counting of available rooms
             roomMgr.updateRoomStatus(arrayRoom.get(i).getRoomId(), RoomStatus.Occupied);
@@ -198,7 +208,21 @@ public class HotelMgr {
         
         System.out.println("Thank you for staying with us!");
         System.out.println("Please enjoy your stay!");
-    }
+        return;
+         }
+         
+          if(checkIn.after(res.getResCheckInDate())){
+            
+            System.out.println("This reservation has expired");
+            return;
+        }
+         
+         //Check in too early
+         System.out.println("Please Check In on the actual day of stay");
+         System.out.println();
+         
+    }     
+    
 
     /**
      *

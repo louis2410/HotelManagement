@@ -48,6 +48,7 @@ public class MainForm {
                     printCheckRoomAvailablity();
                     break;
                 case 6://Check-In 
+                    printCheckInProcedure();
                     break;
                 case 7://Checkout and print invoice
                     printCheckOutMenu();
@@ -840,6 +841,23 @@ public class MainForm {
         System.out.println("RoomId " + rmId + "is " + hotelMgr.checkRoomAvailability(rmId));
     }
 
+    
+    public static void printCheckInProcedure(){
+        
+        System.out.println("Please Enter Reservation ID: ");
+        String resId = null;
+        resId = sc.next();
+        hotelMgr.checkInProcudure(resId);
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
     public static void printCheckOutMenu() {
         System.out.println("\t--This is the CheckOut Form--");
         String resId = "";
