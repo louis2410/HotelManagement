@@ -838,7 +838,8 @@ public class MainForm {
     public static void printCheckRoomAvailablity() {
         System.out.println("Enter Room Id");
         String rmId = sc.next();
-        System.out.println("RoomId " + rmId + "is " + hotelMgr.checkRoomAvailability(rmId));
+        System.out.println("RoomId " + rmId + " is " + hotelMgr.checkRoomAvailability(rmId));
+        System.out.println();
     }
 
     

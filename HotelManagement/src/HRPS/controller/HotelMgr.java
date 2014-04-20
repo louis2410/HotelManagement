@@ -199,12 +199,18 @@ public class HotelMgr {
         //Update Reservation Status
         resMgr.getReservation(res.getResId()).setResStatus(ReservationStatus.Check_In);
         //Update Rooms Status
+        System.out.println("Your rooms are ");
         for (int i = 0; i < arrayRoom.size(); i++) {
             //Set to 1
             arrayRoom.get(i).setCurrentOccupancy(1);
             //roomMgr.updatestatus for counting of available rooms
             roomMgr.updateRoomStatus(arrayRoom.get(i).getRoomId(), RoomStatus.Occupied);
+            System.out.println("Room : "+ arrayRoom.get(i).getRoomId());
         }
+        
+        
+        
+        
         
         System.out.println("Thank you for staying with us!");
         System.out.println("Please enjoy your stay!");
