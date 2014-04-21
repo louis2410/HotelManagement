@@ -828,6 +828,7 @@ public class MainForm {
                     break;
                 } else {
                     System.out.println("There is not such reservation. Please enter a valid id or -1 to return to Reservation Menu");
+                    break;
                 }
             } while (!resId.isEmpty());
         } catch (Exception ex) {
